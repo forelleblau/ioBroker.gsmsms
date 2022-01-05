@@ -1,0 +1,44 @@
+{
+	"cli": true,
+	"target": "directory",
+	"adapterName": "gsmsms",
+	"title": "GSM-SMS",
+	"description": "Send and recieve SMS with GSM-hardware",
+	"keywords": [
+		"SMS",
+		"GSM",
+		"Communication",
+		"Message"
+	],
+	"expert": "no",
+	"features": [
+		"adapter"
+	],
+	"adminFeatures": [],
+	"type": "messaging",
+	"startMode": "daemon",
+	"connectionType": "local",
+	"dataSource": "push",
+	"connectionIndicator": "no",
+	"language": "JavaScript",
+	"adminReact": "no",
+	"tools": [
+		"ESLint",
+		"type checking"
+	],
+	"releaseScript": "yes",
+	"devServer": "yes",
+	"devServerPort": 8081,
+	"indentation": "Tab",
+	"quotes": "single",
+	"es6class": "yes",
+	"authorName": "forelleblau",
+	"authorGithub": "forelleblau",
+	"authorEmail": "marceladam@gmx.ch",
+	"gitRemoteProtocol": "HTTPS",
+	"gitCommit": "no",
+	"defaultBranch": "main",
+	"license": "MIT License",
+	"dependabot": "no",
+	"creatorVersion": "2.0.1"
+}
