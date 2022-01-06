@@ -58,7 +58,7 @@ The adapter is only be used to send SMS. All incoming SMS are ignored.
 | Incoming call indication                      | boolean | false                     | Receive `'onNewIncomingCall'` event when receiving calls.                                                                                                                                                                        |
 | Incoming SMS indication                       | boolean | true                      | Enables the modem to notify that a new SMS message has been received.                                                                                                                                                            |
 | Custom Iinit command                          | string  |                           | If your device needs a custom initialization command it can be provided and will be used after PIN check. The command is expected to return `'OK'` (empty, means "no custom command for init"). pls refer your GSM-device specs. |
-| CNMI when modem open / CNMI when modem closed | string  | '2,1,0,2,0' / '2,1,0,2,0' | Defines if messages are saved on SIM or delivered instantly. Gives the opportunity to specify different CNMI-Settings. pls refer your GSM-device specs.                                                                          |
+| CNMI when modem open / CNMI when modem closed | string  | '2,1,0,2,0' / '2,0,2,2,1' | Defines if messages are saved on SIM or delivered instantly. Gives the opportunity to specify different CNMI-Settings. pls refer your GSM-device specs.                                                                          |
 
 ### SerialPort openOptions
 
@@ -89,6 +89,41 @@ An (incomplete) list of possible error codes and their meanings can be found e.g
 ## Serialport-gsm
 
 This adapter is based on the [SerialPort-GSM plugin](https://github.com/zabsalahid/serialport-gsm) for communicating with GSM modems, primarily for SMS.
+
+## Changelog
+
+<!--
+	Placeholder for the next version (at the beginning of the line):
+	### **WORK IN PROGRESS**
+-->
+
+### **WORK IN PROGRESS**
+
+-   (forelleblau) initial release
+
+## License
+
+MIT License
+
+Copyright (c) 2022 forelleblau <mailto:marceladam@gmx.ch>
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 ## Developer manual
 
@@ -162,38 +197,3 @@ dev-server watch
 The ioBroker.admin interface will then be available at <http://localhost:8081/>
 
 Please refer to the [`dev-server` documentation](https://github.com/ioBroker/dev-server#command-line) for more details.
-
-## Changelog
-
-<!--
-	Placeholder for the next version (at the beginning of the line):
-	### **WORK IN PROGRESS**
--->
-
-### **WORK IN PROGRESS**
-
--   (forelleblau) initial release
-
-## License
-
-MIT License
-
-Copyright (c) 2022 forelleblau <mailto:marceladam@gmx.ch>
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
