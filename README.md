@@ -49,7 +49,7 @@ Outgoing SMS are sent instantly. Incoming SMS are retrieved periodically accordi
 
 The adapter is only be used to send SMS. All incoming SMS are ignored.
 
-### GSM options
+### GSM settings
 
 | Name                                          | Type    | Default                   | Description                                                                                                                                                                                                                      |
 | --------------------------------------------- | ------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -60,13 +60,13 @@ The adapter is only be used to send SMS. All incoming SMS are ignored.
 | Custom Iinit command                          | string  |                           | If your device needs a custom initialization command it can be provided and will be used after PIN check. The command is expected to return `'OK'` (empty, means "no custom command for init"). pls refer your GSM-device specs. |
 | CNMI when modem open / CNMI when modem closed | string  | '2,1,0,2,0' / '2,0,2,2,1' | Defines if messages are saved on SIM or delivered instantly. Gives the opportunity to specify different CNMI-Settings. pls refer your GSM-device specs.                                                                          |
 
-### SerialPort openOptions
+### SerialPort settings
 
 Please refer to your GMS-device specs
 
 | Name     | Type    | Default | Description                                             |
 | -------- | ------- | ------- | ------------------------------------------------------- |
-| baudRate | number  | 19200   | The port's baudRate.                                    |
+| baudRate | number  | 19200   | The port's Baud rate.                                   |
 | dataBits | number  | 8       | Must be one of: 8, 7, 6, or 5.                          |
 | stopBits | number  | 1       | Must be one of: 1 or 2.                                 |
 | parity   | string  | "none"  | Must be one of: 'none', 'even', 'mark', 'odd', 'space'. |
@@ -75,15 +75,21 @@ Please refer to your GMS-device specs
 | xoff     | boolean | false   | flow control setting                                    |
 | xany     | boolean | false   | flow control settings                                   |
 
-### To be specified as adapter - objects (admin.x)
+### Other settings and recommendations
+
+#### To be specified as adapter - objects (`admin.x`)
 
 -   your name
 -   your phone Number
 -   SMS operating Mode (PDU or Text, PDU is default and recommended)
 
-### SMS - errors
+#### Inbox/Outbox - History
 
-When errors are returned and the error originated from the device, then in the error message, an error code should be listed, e.g. "+CMS ERROR: 500". The error message is displayed in the log on 'warn' - level and stored in the connection.error object.
+By activating the History-adapter for the `inbox.messageRaw` - object and the `sendSMS.messageRaw` - object you get a complete In- and Outbox of your SMS traffic.
+
+#### SMS - errors
+
+When errors are returned and the error originated from the device, then in the error message, an error code should be listed, e.g. "+CMS ERROR: 500". The error message is displayed in the log on 'warn' - level and stored in the `connection.error object`.
 An (incomplete) list of possible error codes and their meanings can be found e.g. at <https://www.activexperts.com/sms-component/gsm-error-codes/>.
 
 ## Serialport-gsm
