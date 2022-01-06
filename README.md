@@ -21,15 +21,27 @@ Send and recieve SMS with GSM-hardware
 Any GSM-Hardware (shield, surfstick i.e) connected to a serial port of your ioBroker - device.
 GSM-modules/sticks need a lot of power. Please ensure a sufficient power supply.
 
-Some devices have to be set to the right mode for serial communication (see 'modeswitch').
+Some devices have to be set to the right mode for serial communication (see 'usb_modeswitch').
 
 ## Settings
 
-1.  Path to Serial Port - required.
-2.  Name & own number
-3.  Options
+### Port & connection setting
 
-#### GSM options
+#### Path to Serial Port - required.
+
+i.e. /dev/ttyUSB0 or /dev/serial/by-id/xxxxxxxxxxx (by-id is more stabel, ttyUSBx can change with a reboot)
+
+#### Your SIM PIN (only if PIN is activated)
+
+#### Connection mode
+
+##### Always open:
+
+Opens a modem connection as soon as the adapter is startet. Incoming SMS are delivered instantly. SMS arrived while the adapter is down will be delivered by the next adapter - startup (according to capacity of your SIM).
+
+#####
+
+### GSM options
 
 | Name                   | Type    | Default             | Description                                                                                                                                                                                     |
 | ---------------------- | ------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
