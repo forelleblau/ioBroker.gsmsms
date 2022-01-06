@@ -19,7 +19,8 @@
     "url": "https://github.com/forelleblau/ioBroker.gsmsms"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.5.1"
+    "@iobroker/adapter-core": "^2.5.1",
+    "serialport-gsm": "^3.4.1"
   },
   "devDependencies": {
     "@alcalzone/release-script": "^2.2.1",

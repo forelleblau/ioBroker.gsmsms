@@ -22,20 +22,18 @@
 		function load(settings, onChange) {
 			// example: select elements with id=key and class=value and insert value
 			if (!settings) return;
-			$('.value').each(function () {
+			$('.value').each(function() {
 				var $key = $(this);
 				var id = $key.attr('id');
 				if ($key.attr('type') === 'checkbox') {
 					// do not call onChange direct, because onChange could expect some arguments
 					$key.prop('checked', settings[id])
-						.on('change', () => onChange())
-						;
+						.on('change', () => onChange());
 				} else {
 					// do not call onChange direct, because onChange could expect some arguments
 					$key.val(settings[id])
 						.on('change', () => onChange())
-						.on('keyup', () => onChange())
-						;
+						.on('keyup', () => onChange());
 				}
 			});
 			onChange(false);
@@ -47,7 +45,7 @@
 		function save(callback) {
 			// example: select elements with class=value and build settings object
 			var obj = {};
-			$('.value').each(function () {
+			$('.value').each(function() {
 				var $this = $(this);
 				if ($this.attr('type') === 'checkbox') {
 					obj[$this.attr('id')] = $this.prop('checked');
@@ -66,30 +64,164 @@
 <body>
 
 	<div class="m adapter-container">
+		<div class="main-page row">
+			<div class="col s12">
+				<ul class="tabs">
+					<li class="tab col s4"><a href="#tab-main" class="translate active">basic</a></li>
+					<li class="tab col s4"><a href="#tab-gsm" class="translate">gsm</a></li>
+					<li class="tab col s4"><a href="#tab-serialport" class="translate">serialport</a></li>
+				</ul>
+			</div>
 
-		<div class="row">
-			<div class="col s12 m4 l2">
-				<img src="gsmsms.png" class="logo">
+			<div id="tab-main" class="col s12 page">
+
+				<div class="row">
+					<div class="col s12 m4 l2">
+						<img src="gsmsms.png" class="logo">
+					</div>
+				</div>
+
+				<!-- Put your content here -->
+				<h6 class="translate sub-title">portConnection</h6>
+				<!-- For example columns with settings: -->
+				<div class="row">
+					<div class="col s6 input-field">
+						<input type="text" class="value" id="port" />
+						<label for="port" class="translate">port</label>
+					</div>
+				</div>
+				<div class="row">
+
+					<div class="col s6 input-field">
+						<input type="text" class="value" id="pin" />
+						<label for="pin" class="translate">pin</label>
+					</div>
+				</div>
+				<div class="row">
+					<div class="input-field col s12 m6 l2">
+						<select class="value" id="connectionMode">
+							<option value="alwaysopen" class="translate">alwaysopen</option>
+							<option value="polling" class="translate">polling</option>
+							<option value="sendonly" class="translate">sendonly</option>
+						</select>
+						<label for="parity" class="translate">connectionMode</label>
+					</div>
+					<div class="col s6 input-field">
+						<input type="text" class="value" id="pollinginterval" />
+						<label for="pollinginterval" class="translate">pollinginterval</label>
+					</div>
+				</div>
+
+
+			</div>
+
+			<div id="tab-gsm" class="col s12 page">
+
+				<div class="row">
+					<div class="col s12 m4 l2">
+						<img src="gsmsms.png" class="logo">
+					</div>
+				</div>
+
+				<!-- Put your content here -->
+				<h6 class="translate sub-title">gsmsettings</h6>
+				<!-- For example columns with settings: -->
+				<div class="row">
+					<div class="col s6 input-field">
+						<input type="checkbox" class="value" id="autoDeleteOnReceive" />
+						<label for="autoDeleteOnReceive" class="translate">autoDeleteOnReceive</label>
+					</div>
+					<div class="col s6 input-field">
+						<input type="checkbox" class="value" id="enableConcatenation" />
+						<label for="enableConcatenation" class="translate">enableConcatenation</label>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col s6 input-field">
+						<input type="checkbox" class="value" id="incomingCallIndication" />
+						<label for="incomingCallIndication" class="translate">incomingCallIndication</label>
+					</div>
+					<div class="col s6 input-field">
+						<input type="checkbox" class="value" id="incomingSMSIndication" />
+						<label for="incomingSMSIndication" class="translate">incomingSMSIndication</label>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col s6 input-field">
+						<input type="text" class="value" id="customInitCommand" />
+						<label for="customInitCommand" class="translate">customInitCommand</label>
+					</div>
+
+					<div class="col s6 input-field">
+						<input type="text" class="value" id="cnmiModemOpen" />
+						<label for="cnmiModemOpen" class="translate">cnmiModemOpen</label>
+					</div>
+					<div class="col s6 input-field">
+						<input type="text" class="value" id="cnmiModemClosed" />
+						<label for="cnmiModemClosed" class="translate">cnmiModemClosed</label>
+					</div>
+				</div>
+			</div>
+
+			<div id="tab-serialport" class="col s12 page">
+
+				<div class="row">
+					<div class="col s12 m4 l2">
+						<img src="gsmsms.png" class="logo">
+					</div>
+				</div>
+
+				<!-- Put your content here -->
+				<!-- For example columns with settings: -->
+				<h6 class="translate sub-title">serialportsettings</h6>
+				<div class="row">
+					<div class="col s6 input-field">
+						<input type="number" class="value" id="baudRate" />
+						<label for="baudRate" class="translate">baudRate</label>
+					</div>
+					<div class="col s6 input-field">
+						<input type="number" class="value" id="dataBits" />
+						<label for="dataBits" class="translate">dataBits</label>
+					</div>
+					<div class="col s6 input-field">
+						<input type="number" class="value" id="stopBits" />
+						<label for="stopBits" class="translate">stopBits</label>
+					</div>
+					<div class="input-field col s12 m6 l2">
+						<select class="value" id="parity">
+							<option value="none" class="translate">none</option>
+							<option value="odd" class="translate">odd</option>
+							<option value="even" class="translate">even</option>
+							<option value="mark" class="mark">mark</option>
+							<option value="space" class="space">space</option>
+						</select>
+						<label for="parity" class="translate">parity</label>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col s6 input-field">
+						<input type="checkbox" class="value" id="rtscts" />
+						<label for="rtscts" class="translate">rtscts</label>
+					</div>
+					<div class="col s6 input-field">
+						<input type="checkbox" class="value" id="xon" />
+						<label for="xon" class="translate">xon</label>
+					</div>
+					<div class="col s6 input-field">
+						<input type="checkbox" class="value" id="xoff" />
+						<label for="xoff" class="translate">xoff</label>
+					</div>
+					<div class="col s6 input-field">
+						<input type="checkbox" class="value" id="xany" />
+						<label for="xany" class="translate">xany</label>
+					</div>
+				</div>
 			</div>
 		</div>
-
-		<!-- Put your content here -->
-
-		<!-- For example columns with settings: -->
-		<div class="row">
-			<div class="col s6 input-field">
-				<input type="checkbox" class="value" id="option1" />
-				<label for="option1" class="translate">option1</label>
-			</div>
-
-			<div class="col s6 input-field">
-				<input type="text" class="value" id="option2" />
-				<label for="option2" class="translate">option2</label>
-			</div>
-		</div>
-
 	</div>
-
 </body>
 
 </html>
