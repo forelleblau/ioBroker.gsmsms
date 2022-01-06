@@ -31,15 +31,23 @@ Some devices have to be set to the right mode for serial communication (see 'usb
 
 i.e. /dev/ttyUSB0 or /dev/serial/by-id/xxxxxxxxxxx (by-id is more stabel, ttyUSBx can change with a reboot)
 
-#### Your SIM PIN (only if PIN is activated)
+#### Your SIM PIN
+
+Required only if PIN is activated on your SIM.
 
 #### Connection mode
 
-##### Always open:
+##### Always open
 
-Opens a modem connection as soon as the adapter is startet. Incoming SMS are delivered instantly. SMS arrived while the adapter is down will be delivered by the next adapter - startup (according to capacity of your SIM).
+Opens a modem connection as soon as the adapter is started. Incoming and outgoing SMS are delivered instantly. SMS arrived while the adapter is down will be delivered by the next adapter - startup (according to capacity of your SIM).
 
-#####
+##### Retrieval interval
+
+Outgoing SMS are sent instantly. Incoming SMS are retrieved periodically according to the specified interval. A modem connection is opened only for sending and retrieving SMS.
+
+##### Send only
+
+The adapter is only be used to send SMS. All incoming SMS are ignored.
 
 ### GSM options
 
@@ -57,7 +65,7 @@ Opens a modem connection as soon as the adapter is startet. Incoming SMS are del
 //Logger!!!! als Variabel fest setzen auf 'console'
 //Prüfen ob als 'option'nötig: | highWaterMark | number  | 16384   | The size of the read and write buffers defaults to 16k. |
 
-#### SerialPort openOptions
+### SerialPort openOptions
 
 | Name     | Type    | Default | Description                                             |
 | -------- | ------- | ------- | ------------------------------------------------------- |
@@ -71,6 +79,21 @@ Opens a modem connection as soon as the adapter is startet. Incoming SMS are del
 | xany     | boolean | false   | flow control settings                                   |
 
                                           |
+
+### To be specified as adapter - subscribeObjects
+
+-   your name
+-   your phone Number
+-   SMS operating Mode (PDU or Text, PDU is default and recommended)
+
+### SMS - errors
+
+When errors are returned and the error originated from the device, then in the error message, an error code should be listed, e.g. "+CMS ERROR: 500". The error message is displayed in the log on 'warn' - level and stored in the connection.error object.
+An (incomplete) list of possible error codes and their meanings can be found e.g. at <https://www.activexperts.com/sms-component/gsm-error-codes/>
+
+## Serialport-gsm
+
+This adapter is based on the [SerialPort-GSM plugin](https://github.com/zabsalahid/serialport-gsm) for communicating with GSM modems, primarily for SMS.
 
 ## Developer manual
 
