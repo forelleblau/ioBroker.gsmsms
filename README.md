@@ -51,15 +51,14 @@ The adapter is only be used to send SMS. All incoming SMS are ignored.
 
 ### GSM options
 
-| Name                     | Type    | Default | Description                                                                                                                                                                                                                      |
-| ------------------------ | ------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Auto delete on receive   | boolean | true    | Messages are deleted from SIM-card after receiving.                                                                                                                                                                              |
-| Enable concatenation     | boolean | true    | Receive concatenated messages as one.                                                                                                                                                                                            |
-| Incoming call indication | boolean | false   | Receive `'onNewIncomingCall'` event when receiving calls.                                                                                                                                                                        |
-| Incoming SMS indication  | boolean | true    | Enables the modem to notify that a new SMS message has been received.                                                                                                                                                            |
-| Custom Iinit command     | string  |         | If your device needs a custom initialization command it can be provided and will be used after PIN check. The command is expected to return `'OK'` (empty, means "no custom command for init"). pls refer your GSM-device specs. |
-
-| CNMI when modem open / CNMI when modem closed  | string  | '2,1,0,2,0' / '2,1,0,2,0' | Defines if messages are saved on SIM or delivered instantly. Gives the opportunity to specify different CNMI-Settings. pls refer your GSM-device specs.                                                                                                                                       |
+| Name                                          | Type    | Default                   | Description                                                                                                                                                                                                                      |
+| --------------------------------------------- | ------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Auto delete on receive                        | boolean | true                      | Messages are deleted from SIM-card after receiving.                                                                                                                                                                              |
+| Enable concatenation                          | boolean | true                      | Receive concatenated messages as one.                                                                                                                                                                                            |
+| Incoming call indication                      | boolean | false                     | Receive `'onNewIncomingCall'` event when receiving calls.                                                                                                                                                                        |
+| Incoming SMS indication                       | boolean | true                      | Enables the modem to notify that a new SMS message has been received.                                                                                                                                                            |
+| Custom Iinit command                          | string  |                           | If your device needs a custom initialization command it can be provided and will be used after PIN check. The command is expected to return `'OK'` (empty, means "no custom command for init"). pls refer your GSM-device specs. |
+| CNMI when modem open / CNMI when modem closed | string  | '2,1,0,2,0' / '2,1,0,2,0' | Defines if messages are saved on SIM or delivered instantly. Gives the opportunity to specify different CNMI-Settings. pls refer your GSM-device specs.                                                                          |
 
 ### SerialPort openOptions
 
@@ -75,8 +74,6 @@ Please refer to your GMS-device specs
 | xon      | boolean | false   | flow control setting                                    |
 | xoff     | boolean | false   | flow control setting                                    |
 | xany     | boolean | false   | flow control settings                                   |
-
-                                          |
 
 ### To be specified as adapter - objects (admin.x)
 
