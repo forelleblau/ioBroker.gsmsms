@@ -33,7 +33,7 @@ i.e. /dev/ttyUSB0 or /dev/serial/by-id/xxxxxxxxxxx (by-id is more stabel, ttyUSB
 
 #### Your SIM PIN
 
-Required only if PIN is activated on your SIM.
+If your SIM card is protected by a PIN provide the PIN and it will be used to unlock the SIM card during initialization (empty, means "no PIN existing on the SIM card").
 
 #### Connection mode
 
@@ -51,21 +51,19 @@ The adapter is only be used to send SMS. All incoming SMS are ignored.
 
 ### GSM options
 
-| Name                   | Type    | Default             | Description                                                                                                                                                                                     |
-| ---------------------- | ------- | ------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| mode                   | String  | PDU                 | PDU or Text                                                                                                                                                                                     |
-| autoDeleteOnReceive    | boolean | false               | Delete from `'sim'` after receiving.                                                                                                                                                            |
-| enableConcatenation    | boolean | true                | Receive concatenated messages as one.                                                                                                                                                           |
-| incomingCallIndication | boolean | false               | Receive `'onNewIncomingCall'` event when receiving calls.                                                                                                                                       |
-| incomingSMSIndication  | boolean | true                | Enables the modem to notify that a new SMS message has been received.                                                                                                                           |
-| pin                    | string  |                     | If your SIM card is protected by a PIN provide the PIN as String and it will be used to unlock the SIM card during initialization (empty, means "no PIN existing on the SIM card").             |
-| customInitCommand      | string  |                     | If your device needs a custom initialization command it can be provided and will be used after PIN check. The command is expected to return `'OK'` (empty, means "no custom command for init"). |
-| cnmiCommand            | string  | 'AT+CNMI=2,1,0,2,1' | Defines if messages are saved on SIM or delivered directly                                                                                                                                      |
+| Name                     | Type    | Default | Description                                                                                                                                                                                                                      |
+| ------------------------ | ------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Auto delete on receive   | boolean | true    | Messages are deleted from SIM-card after receiving.                                                                                                                                                                              |
+| Enable concatenation     | boolean | true    | Receive concatenated messages as one.                                                                                                                                                                                            |
+| Incoming call indication | boolean | false   | Receive `'onNewIncomingCall'` event when receiving calls.                                                                                                                                                                        |
+| Incoming SMS indication  | boolean | true    | Enables the modem to notify that a new SMS message has been received.                                                                                                                                                            |
+| Custom Iinit command     | string  |         | If your device needs a custom initialization command it can be provided and will be used after PIN check. The command is expected to return `'OK'` (empty, means "no custom command for init"). pls refer your GSM-device specs. |
 
-//Logger!!!! als Variabel fest setzen auf 'console'
-//Prüfen ob als 'option'nötig: | highWaterMark | number  | 16384   | The size of the read and write buffers defaults to 16k. |
+| CNMI when modem open / CNMI when modem closed  | string  | '2,1,0,2,0' / '2,1,0,2,0' | Defines if messages are saved on SIM or delivered instantly. Gives the opportunity to specify different CNMI-Settings. pls refer your GSM-device specs.                                                                                                                                       |
 
 ### SerialPort openOptions
+
+Please refer to your GMS-device specs
 
 | Name     | Type    | Default | Description                                             |
 | -------- | ------- | ------- | ------------------------------------------------------- |
@@ -80,7 +78,7 @@ The adapter is only be used to send SMS. All incoming SMS are ignored.
 
                                           |
 
-### To be specified as adapter - subscribeObjects
+### To be specified as adapter - objects (admin.x)
 
 -   your name
 -   your phone Number
@@ -89,7 +87,7 @@ The adapter is only be used to send SMS. All incoming SMS are ignored.
 ### SMS - errors
 
 When errors are returned and the error originated from the device, then in the error message, an error code should be listed, e.g. "+CMS ERROR: 500". The error message is displayed in the log on 'warn' - level and stored in the connection.error object.
-An (incomplete) list of possible error codes and their meanings can be found e.g. at <https://www.activexperts.com/sms-component/gsm-error-codes/>
+An (incomplete) list of possible error codes and their meanings can be found e.g. at <https://www.activexperts.com/sms-component/gsm-error-codes/>.
 
 ## Serialport-gsm
 
