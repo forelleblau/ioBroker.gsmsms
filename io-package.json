@@ -66,7 +66,7 @@
     "materialize": true,
     "dependencies": [{
       "js-controller": ">=2.0.0",
-      "serialport-gsm": "3.4.1"
+      "serialport-gsm": "^3.4.1"
     }]
   },
   "native": {
@@ -107,6 +107,9 @@
       "common": {
         "name": "Own Name",
         "type": "string",
+        "options": {
+          "maxLength": 17,
+        },
         "role": "text",
         "read": true,
         "write": true,
@@ -135,7 +138,7 @@
       "_id": "admin.opMode",
       "type": "state",
       "common": {
-        "name": "Operating modules",
+        "name": "Operating mode",
         "type": "number",
         "role": "state",
         "read": true,
@@ -378,12 +381,12 @@
       "_id": "sendSMS.messageRaw",
       "type": "state",
       "common": {
-        "name": "complete message sent",
+        "name": "complete message to send",
         "type": "string",
         "role": "text",
         "read": true,
         "write": true,
-        "desc": "complete message sent, with recipient, message text and alert state"
+        "desc": "complete message to send, with recipient, message text and alert state as json-formatted string"
       },
       "native": {
 
@@ -399,6 +402,21 @@
         "read": true,
         "write": true,
         "desc": "SMS is sent to recipent specified"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "sendSMS.messageRawSent",
+      "type": "state",
+      "common": {
+        "name": "complete message sent",
+        "type": "string",
+        "role": "text",
+        "read": true,
+        "write": false,
+        "desc": "complete message sent, with recipient, message text and alert state (Outbox)"
       },
       "native": {
 

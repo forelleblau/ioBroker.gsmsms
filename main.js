@@ -88,14 +88,14 @@ class Gsmsms extends utils.Adapter {
 
     // The adapters config (in the instance object everything under the attribute "native") is accessible via
     // this.config:
-    this.log.debug('port' + this.config.port;);
-    this.log.debug('connectionMode: ' + this.config.connectionMode;);
-    this.log.debug('pollinginterval: ' + this.config.pollinginterval;);
+    this.log.debug('port' + this.config.port);
+    this.log.debug('connectionMode: ' + this.config.connectionMode);
+    this.log.debug('pollinginterval: ' + this.config.pollinginterval);
 
-    this.log.debug('autoDeleteOnReceive: ' + this.config.autoDeleteOnReceive;);
-    this.log.debug('enableConcatenation: ' + this.config.enableConcatenation;);
-    this.log.debug('incomingCallIndication: ' + this.config.incomingCallIndication;);
-    this.log.debug('incomingSMSIndication: ' + this.config.incomingSMSIndication;);
+    this.log.debug('autoDeleteOnReceive: ' + this.config.autoDeleteOnReceive);
+    this.log.debug('enableConcatenation: ' + this.config.enableConcatenation);
+    this.log.debug('incomingCallIndication: ' + this.config.incomingCallIndication);
+    this.log.debug('incomingSMSIndication: ' + this.config.incomingSMSIndicatio;);
     this.log.debug('pin: ' + this.config.pin);
     this.log.debug('customInitCommand: ' + this.config.customInitCommand);
     this.log.debug('cnmiModemOpen: ' + this.config.cnmiModemOpen);
