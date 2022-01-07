@@ -151,6 +151,36 @@
 
       }
     },
+    {
+      "_id": "admin.atCommandSlR",
+      "type": "state",
+      "common": {
+        "name": "AT+command single line response",
+        "type": "string",
+        "role": "state",
+        "read": true,
+        "write": true,
+        "desc": "AT+ command to be executed with single line response expected"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "admin.atCommandMlR",
+      "type": "state",
+      "common": {
+        "name": "AT+command multi line response",
+        "type": "string",
+        "role": "state",
+        "read": true,
+        "write": true,
+        "desc": "AT+ command to be executed with multi line response expected"
+      },
+      "native": {
+
+      }
+    },
 
     {
       "_id": "connection",
@@ -271,6 +301,21 @@
 
       }
     },
+    {
+      "_id": "connection.error",
+      "type": "state",
+      "common": {
+        "name": "SMS device error",
+        "type": "string",
+        "role": "text",
+        "read": true,
+        "write": false,
+        "desc": "Error returned from the modem device"
+      },
+      "native": {
+
+      }
+    },
 
 
     {
@@ -324,6 +369,36 @@
         "write": true,
         "desc": "Enable to send as class 0 / flash message or disable to send as nomral SMS",
         "def": false
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "sendSMS.messageRaw",
+      "type": "state",
+      "common": {
+        "name": "complete message sent",
+        "type": "string",
+        "role": "text",
+        "read": true,
+        "write": true,
+        "desc": "complete message sent, with recipient, message text and alert state"
+      },
+      "native": {
+
+      }
+    },
+    {
+      "_id": "sendSMS.send",
+      "type": "state",
+      "common": {
+        "name": "Send SMS",
+        "type": "Boolean",
+        "role": "button",
+        "read": true,
+        "write": true,
+        "desc": "SMS is sent to recipent specified"
       },
       "native": {
 

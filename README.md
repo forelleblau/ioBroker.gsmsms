@@ -29,7 +29,7 @@ Some devices have to be set to the right mode for serial communication (see 'usb
 
 #### Path to Serial Port - required.
 
-i.e. /dev/ttyUSB0 or /dev/serial/by-id/xxxxxxxxxxx (by-id is more stabel, ttyUSBx can change with a reboot)
+i.e. `/dev/ttyUSB0` or `/dev/serial/by-id/xxxxxxxxxxx` (by-id is more stabel, ttyUSBx can change with a reboot)
 
 #### Your SIM PIN
 
@@ -47,7 +47,7 @@ Outgoing SMS are sent instantly. Incoming SMS are retrieved periodically accordi
 
 ##### Send only
 
-The adapter is only be used to send SMS. All incoming SMS are ignored.
+The adapter is only used to send SMS. All incoming SMS are ignored (possibly saved to SIM but not retrieved to the adapter).
 
 ### GSM settings
 
@@ -83,14 +83,34 @@ Please refer to your GMS-device specs
 -   your phone Number
 -   SMS operating Mode (PDU or Text, PDU is default and recommended)
 
+All inputs have to be made with ack=false!
+
 #### Inbox/Outbox - History
 
 By activating the History-adapter for the `inbox.messageRaw` - object and the `sendSMS.messageRaw` - object you get a complete In- and Outbox of your SMS traffic.
 
 #### SMS - errors
 
-When errors are returned and the error originated from the device, then in the error message, an error code should be listed, e.g. "+CMS ERROR: 500". The error message is displayed in the log on 'warn' - level and stored in the `connection.error object`.
+When errors are returned and the error originated from the device, then in the error message, an error code should be listed, e.g. "+CMS ERROR: 500". The error message is displayed in the log on 'warn' - level and stored in the `connection.error` object.
 An (incomplete) list of possible error codes and their meanings can be found e.g. at <https://www.activexperts.com/sms-component/gsm-error-codes/>.
+
+## Functionalities
+
+### Receive SMS
+
+Incoming SMS are written to the `inbox.*` - objects. `inbox.messageRaw` can be used as trigger for further operations (i.e. forward incoming sms by e-mail adapter).
+
+### Send SMS
+
+To send a sms fill in `sendSMS.recipient, sendSMS.message` and optionally `sendSMS.alert` and push the `sendSMS.send` - button. Or set the `sendSMS.messageRaw` - Object with a string in the following form and ack=false: `{"recipient": "Number", "message":"Yourtext", "alert":"false"}`.
+
+### Execute AT+ commands
+
+! Ple be sure to know what you do when setting AT+ commands, it's your SIM-card / device.
+
+AT+commands are sent be setting either `admin.atCommandSLR` or `admin.atCommandMlR` in the format `AT+XXXXy`.
+`admin.atCommandSLR` is used for commands with single line responses expected.
+`admin.atCommandMlR` has to be used for commands with multiline responses expected.
 
 ## Serialport-gsm
 
