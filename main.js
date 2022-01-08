@@ -248,7 +248,7 @@ class Gsmsms extends utils.Adapter {
 
           } else {
             this.log.info(`Modem initialized: ${JSON.stringify(msg)}`);
-            await this.setStateAsync('connection.modemOpen', true, true);
+            this.setState('connection.modemOpen', true, true);
 
             this.log.debug(`Configuring Modem for mode: ${opMode}`);
 
@@ -258,8 +258,8 @@ class Gsmsms extends utils.Adapter {
                 this.log.warn(`Error setting GSM-Modem mode - ${err}`);
               } else {
                 this.log.debug(`Set operation mode: ${JSON.stringify(msg)}`);
-                await this.setStateAsync('connection.opMode', opMode, true);
-                await this.setStateAsync('admin.opMode', opMode, true);
+                this.setState('connection.opMode', opMode, true);
+                this.setState('admin.opMode', opMode, true);
 
                 // get the Network signal strength & quality
                 gsmModem.getNetworkSignal((result, err) => {
@@ -267,8 +267,8 @@ class Gsmsms extends utils.Adapter {
                     this.log.warn(`Error retrieving GSM signal strength - ${err}`);
                   } else {
                     this.log.debug(`GSM signal strength: ${JSON.stringify(result)}`);
-                    await this.setStateAsync('connection.signalQuality', parseInt(result.data.signalQuality), true);
-                    await this.setStateAsync('connection.signalStrength', parseInt(result.data.signalStrength), true);
+                    this.setState('connection.signalQuality', parseInt(result.data.signalQuality), true);
+                    this.setState('connection.signalStrength', parseInt(result.data.signalStrength), true);
                   }
                 });
 
@@ -278,7 +278,7 @@ class Gsmsms extends utils.Adapter {
                     this.log.warn(`Error retrieving GSM modem serial - ${err}`);
                   } else {
                     this.log.debug(`GSM modem Serial: ${JSON.stringify(result)}`);
-                    await this.setStateAsync('connection.modemSerial', parseInt(result.data.modemSerial), true);
+                    this.setState('connection.modemSerial', parseInt(result.data.modemSerial), true);
 
                   }
                 });
@@ -289,8 +289,8 @@ class Gsmsms extends utils.Adapter {
                     this.log.warn(`Error retrieving own Number - ${err}`);
                   } else {
                     this.log.debug(`Own number: ${JSON.stringify(result)}`);
-                    await this.setStateAsync('connection.ownNumber', result.data.number, true);
-                    await this.setStateAsync('connection.ownName', result.data.name, true);
+                    this.setState('connection.ownNumber', result.data.number, true);
+                    this.setState('connection.ownName', result.data.name, true);
                   }
                 });
               }
@@ -312,10 +312,10 @@ class Gsmsms extends utils.Adapter {
                     var messageNr = 0;
                     if (result["data"].length != 0) {
                       storedMessageParser = setInterval(function() {
-                        await setStateAsyc('inbox.messageSender', result["data"][messageNr]["sender"], true);
-                        await setStateAsyc('inbox.messageText', result["data"][messageNr]["message"], true);
-                        await setStateAsyc('inbox.messageDate', result["data"][messageNr]["dateTimeSent"].toString(), true);
-                        await setStateAsyc('inbox.messageRaw', JSON.stringify(result["data"][messageNr]), true);
+                        setState('inbox.messageSender', result["data"][messageNr]["sender"], true);
+                        setState('inbox.messageText', result["data"][messageNr]["message"], true);
+                        setState('inbox.messageDate', result["data"][messageNr]["dateTimeSent"].toString(), true);
+                        setState('inbox.messageRaw', JSON.stringify(result["data"][messageNr]), true);
                         this.log.info("saved message Nr " + (messageNr + 1) + ": " + JSON.stringify(result["data"][messageNr]));
                         messageNr++;
 
@@ -361,16 +361,16 @@ class Gsmsms extends utils.Adapter {
         gsmModem.on('onNewMessage', data => {
           //whole message data
           this.log.info(`Event New Message: ` + JSON.stringify(data));
-          await setStateAsyc('inbox.messageSender', data.senders, true);
-          await setStateAsyc('inbox.messageText', data.message, true);
-          await setStateAsyc('inbox.messageDate', (data.dateTimeSent).toString(), true);
-          await setStateAsyc('inbox.messageRaw', JSON.stringify(data), true);
+          setState('inbox.messageSender', data.senders, true);
+          setState('inbox.messageText', data.message, true);
+          setState('inbox.messageDate', (data.dateTimeSent).toString(), true);
+          setState('inbox.messageRaw', JSON.stringify(data), true);
         });
 
         gsmModem.on('onSendingMessage', data => {
           //whole message data
           this.log.info(`Event Sending Message: ` + JSON.stringify(data));
-          await setStateAsyc('sendSMS.messageRawSent', JSON.stringify(data), true);
+          setState('sendSMS.messageRawSent', JSON.stringify(data), true);
         });
 
         ///incomingCall auf false als standard!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -509,7 +509,7 @@ class Gsmsms extends utils.Adapter {
 
             } else {
               this.log.info(`Modem initialized: ${JSON.stringify(msg)}`);
-              await this.setStateAsync('connection.modemOpen', true, true);
+              this.setState('connection.modemOpen', true, true);
 
               gsmModem.getOwnNumber(ownNumber, (result, err) => {
                 if (err) {
@@ -561,7 +561,7 @@ class Gsmsms extends utils.Adapter {
 
             } else {
               this.log.info(`Modem initialized: ${JSON.stringify(msg)}`);
-              await this.setStateAsync('connection.modemOpen', true, true);
+              this.setState('connection.modemOpen', true, true);
 
               this.log.debug(`Configuring Modem for mode: ${opMode}`);
 
@@ -571,8 +571,8 @@ class Gsmsms extends utils.Adapter {
                   this.log.warn(`Error setting GSM-Modem mode - ${err}`);
                 } else {
                   this.log.debug(`Set operation mode: ${JSON.stringify(msg)}`);
-                  await this.setStateAsync('connection.opMode', opMode, true);
-                  await this.setStateAsync('admin.opMode', opMode, true);
+                  this.setState('connection.opMode', opMode, true);
+                  this.setState('admin.opMode', opMode, true);
 
                   // get the Network signal strength & quality
                   gsmModem.getNetworkSignal((result, err) => {
@@ -580,8 +580,8 @@ class Gsmsms extends utils.Adapter {
                       this.log.warn(`Error retrieving GSM signal strength - ${err}`);
                     } else {
                       this.log.debug(`GSM signal strength: ${JSON.stringify(result)}`);
-                      await this.setStateAsync('connection.signalQuality', parseInt(result.data.signalQuality), true);
-                      await this.setStateAsync('connection.signalStrength', parseInt(result.data.signalStrength), true);
+                      this.setState('connection.signalQuality', parseInt(result.data.signalQuality), true);
+                      this.setState('connection.signalStrength', parseInt(result.data.signalStrength), true);
                     }
                   });
                 }
@@ -615,57 +615,57 @@ class Gsmsms extends utils.Adapter {
       this.log.warn("Error sending message" + e)
     }
   } //end sending()
+  /*
+    async execAT(atCmd) {
 
-  async execAT(atCmd) {
 
-
-    // execute a custom command - one line response normally is handled automatically
-    gsmModem.executeCommand('AT+CNMI?', (result, err) => {
-      if (err) {
-        console.log(`Error - ${err}`);
-      } else {
-        console.log(`Result ${JSON.stringify(result)}`);
-      }
-    });
-
-    // execute a complex custom command - multi line responses needs own parsing logic
-    const commandParser = gsmModem.executeCommand('AT+CNMI=1,1,0,1,0', (result, err) => {
-      if (err) {
-        console.log(`Error - ${err}`);
-      } else {
-        console.log(`Result ${JSON.stringify(result)}`);
-      }
-    });
-    const portList = {};
-    commandParser.logic = (dataLine) => {
-      if (dataLine.startsWith('^SETPORT:')) {
-        const arr = dataLine.split(':');
-        portList[arr[1]] = arr[2].trim();
-      } else if (dataLine.includes('OK')) {
-        return {
-          resultData: {
-            status: 'success',
-            request: 'executeCommand',
-            data: {
-              'result': portList
-            }
-          },
-          returnResult: true
+      // execute a custom command - one line response normally is handled automatically
+      gsmModem.executeCommand('AT+CNMI?', (result, err) => {
+        if (err) {
+          console.log(`Error - ${err}`);
+        } else {
+          console.log(`Result ${JSON.stringify(result)}`);
         }
-      } else if (dataLine.includes('ERROR') || dataLine.includes('COMMAND NOT SUPPORT')) {
-        return {
-          resultData: {
-            status: 'ERROR',
-            request: 'executeCommand',
-            data: `Execute Command returned Error: ${dataLine}`
-          },
-          returnResult: true
+      });
+
+      // execute a complex custom command - multi line responses needs own parsing logic
+      const commandParser = gsmModem.executeCommand('AT+CNMI=1,1,0,1,0', (result, err) => {
+        if (err) {
+          console.log(`Error - ${err}`);
+        } else {
+          console.log(`Result ${JSON.stringify(result)}`);
         }
-      }
-    };
-  } // end execAT
+      });
+      const portList = {};
+      commandParser.logic = (dataLine) => {
+        if (dataLine.startsWith('^SETPORT:')) {
+          const arr = dataLine.split(':');
+          portList[arr[1]] = arr[2].trim();
+        } else if (dataLine.includes('OK')) {
+          return {
+            resultData: {
+              status: 'success',
+              request: 'executeCommand',
+              data: {
+                'result': portList
+              }
+            },
+            returnResult: true
+          }
+        } else if (dataLine.includes('ERROR') || dataLine.includes('COMMAND NOT SUPPORT')) {
+          return {
+            resultData: {
+              status: 'ERROR',
+              request: 'executeCommand',
+              data: `Execute Command returned Error: ${dataLine}`
+            },
+            returnResult: true
+          }
+        }
+      };
+    } // end execAT
 
-
+  */
 
 
   modemClose() {
