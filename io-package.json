@@ -65,8 +65,7 @@
     "dataSource": "push",
     "materialize": true,
     "dependencies": [{
-      "js-controller": ">=2.0.0",
-      "serialport-gsm": ">=3.4.1"
+      "js-controller": ">=2.0.0"
     }]
   },
   "native": {

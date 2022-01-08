@@ -162,7 +162,7 @@ class Gsmsms extends utils.Adapter {
     // Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
     // this.subscribeStates('*');
 
-    var gsmModem = serialportgsm.Modem();
+    let gsmModem = serialportgsm.Modem();
 
     let options = {
       baudRate: baudRate,
@@ -345,7 +345,7 @@ class Gsmsms extends utils.Adapter {
 
             });
 
-            if (connectionMode == polling || sendonly) {
+            if (connectionMode == "polling" || "sendonly") {
               this.log.debug("Connection mode is on retrieve or send only. Close connection");
               this.modemClose();
             }
@@ -598,7 +598,7 @@ class Gsmsms extends utils.Adapter {
             //whole message data
             this.log.info(`Event Sending Message: ` + JSON.stringify(data));
             setState('sendSMS.messageRawSent', JSON.stringify(data), true);
-            if (connectionMode == polling || sendonly) {
+            if (connectionMode == 'polling' || 'sendonly') {
               this.log.debug("Connection mode is on retrieve or send only. Close connection");
               this.modemClose();
             }
@@ -715,7 +715,7 @@ class Gsmsms extends utils.Adapter {
       this.setState('info.connection', false, true);
       this.log.info('stopping GSM-SMS - adapter');
 
-      if (connectionMode == alwaysOpen) {
+      if (connectionMode == "alwaysopen") {
 
         this.log.debug("Setze CNMI auf Speichern");
 
