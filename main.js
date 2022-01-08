@@ -10,7 +10,7 @@ const utils = require('@iobroker/adapter-core');
 const serialportgsm = require('serialport-gsm');
 // Load your modules here, e.g.:
 // const fs = require("fs");
-
+const gsmModem = serialportgsm.Modem();
 //L
 //
 
@@ -22,10 +22,10 @@ var autoDeleteOnReceive;
 var enableConcatenation;
 var incomingCallIndication;
 var incomingSMSIndication;
-var pin;
-var customInitCommand;
-var cnmiModemOpen;
-var cnmiModemClosed;
+var pin = '';
+var customInitCommand = '';
+var cnmiModemOpen = '';
+var cnmiModemClosed = '';
 
 var baudRate;
 var dataBits;
@@ -35,6 +35,8 @@ var rtscts;
 var xon;
 var xoff;
 var xany;
+
+var options;
 
 var ownNumber;
 var ownName;
@@ -120,8 +122,8 @@ class Gsmsms extends utils.Adapter {
     incomingSMSIndication = this.config.incomingSMSIndication;
     pin = this.config.pin;
     customInitCommand = this.config.customInitCommand;
-    cnmiModemOpen = this.config.cnmiModemOpen;
-    cnmiModemClosed = this.config.cnmiModemClosed;
+    cnmiModemOpen = 'AT+CNMI=' + this.config.cnmiModemOpen;
+    cnmiModemClosed = 'AT+CNMI=' + this.config.cnmiModemClosed;
 
     baudRate = this.config.baudRate;
     dataBits = this.config.dataBits;
@@ -162,7 +164,7 @@ class Gsmsms extends utils.Adapter {
     // Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
     // this.subscribeStates('*');
 
-    let gsmModem = serialportgsm.Modem();
+
 
     let options = {
       baudRate: baudRate,
@@ -189,10 +191,10 @@ class Gsmsms extends utils.Adapter {
       ownNumber = await this.getStateAsync('admin.ownNumber');
       opMode = await this.getStateAsync('admin.opMode');
 
-      await this.setStateAsyc('connection.ownName', ownName); //später zu 'onObjectChange'
+      await this.setStateAsync('connection.ownName', ownName, true); //später zu 'onObjectChange'
 
     } catch (e) {
-      this.log.warn("Error getting ownName/ownNumber/opMode")
+      this.log.warn("Error getting ownName/ownNumber/opMode" + e);
     }
 
 
@@ -715,7 +717,7 @@ class Gsmsms extends utils.Adapter {
       this.setState('info.connection', false, true);
       this.log.info('stopping GSM-SMS - adapter');
 
-      if (connectionMode == "alwaysopen") {
+      if (connectionMode == 'alwaysopen) {
 
         this.log.debug("Setze CNMI auf Speichern");
 
@@ -773,7 +775,7 @@ class Gsmsms extends utils.Adapter {
       this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
       if (!id || state.ack) return;
 
-      instance = id.substring(0, this.namespace.length);
+      var instance = id.substring(0, this.namespace.length);
       adapter.log.debug("Instanz: " + instance);
       id = id.substring(this.namespace.length + 1); // remove instance name and id
       state = state.val;

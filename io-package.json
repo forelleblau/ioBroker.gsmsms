@@ -90,409 +90,426 @@
     "pollinginterval": 10
   },
   "objects": [],
-  "instanceObjects": [{
-      "_id": "admin",
-      "type": "channel",
-      "common": {
-        "name": "Settings & AT+Command"
-      },
-      "native": {
+  "instanceObjects": [
 
-      }
-    },
     {
-      "_id": "admin.ownName",
+      "_id": "info.connection",
       "type": "state",
       "common": {
-        "name": "Own Name",
-        "type": "string",
-        "options": {
-          "maxLength": 17
-        },
-        "role": "text",
-        "read": true,
-        "write": true,
-        "desc": "Name to SIM-card number (sender)"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "admin.ownNumber",
-      "type": "state",
-      "common": {
-        "name": "Own Number",
-        "type": "string",
-        "role": "text.phone",
-        "read": true,
-        "write": true,
-        "desc": "SIM-card phone number (sender)"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "admin.opMode",
-      "type": "state",
-      "common": {
-        "name": "Operating mode",
-        "type": "number",
-        "role": "state",
-        "read": true,
-        "write": true,
-        "states": {
-          "0": "PDU",
-          "1": "TEXT"
-        },
-        "def": 0,
-        "desc": "SMS operating Mode"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "admin.atCommandSlR",
-      "type": "state",
-      "common": {
-        "name": "AT+command single line response",
-        "type": "string",
-        "role": "state",
-        "read": true,
-        "write": true,
-        "desc": "AT+ command to be executed with single line response expected"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "admin.atCommandMlR",
-      "type": "state",
-      "common": {
-        "name": "AT+command multi line response",
-        "type": "string",
-        "role": "state",
-        "read": true,
-        "write": true,
-        "desc": "AT+ command to be executed with multi line response expected"
-      },
-      "native": {
-
-      }
-    },
-
-    {
-      "_id": "connection",
-      "type": "channel",
-      "common": {
-        "name": "Connection Info"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "connection.ownName",
-      "type": "state",
-      "common": {
-        "name": "Own Name",
-        "type": "string",
-        "role": "text",
-        "read": true,
-        "write": false,
-        "desc": "Name to SIM-card number (sender)"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "connection.ownNumber",
-      "type": "state",
-      "common": {
-        "name": "Own Number",
-        "type": "string",
-        "role": "text.phone",
-        "read": true,
-        "write": false,
-        "desc": "SIM-card phone number (sender)"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "connection.opMode",
-      "type": "state",
-      "common": {
-        "name": "Operating modules",
-        "type": "number",
-        "role": "state",
-        "read": true,
-        "write": false,
-        "states": {
-          "0": "PDU",
-          "1": "TEXT"
-        },
-        "desc": "SMS operating Mode"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "connection.modemOpen",
-      "type": "state",
-      "common": {
-        "name": "Modem open (connected)",
+        "name": "Modem connected",
         "type": "boolean",
         "role": "info.status",
         "read": true,
         "write": false,
-        "desc": "Indicates open modem connection"
+        "desc": "Indicates Connection to modem"
       },
       "native": {
 
       }
-    },
-    {
-      "_id": "connection.modemSerial",
-      "type": "state",
-      "common": {
-        "name": "Modem serial number",
-        "type": "number",
-        "role": "info.address",
-        "read": true,
-        "write": false,
-        "desc": "Modem serial number"
+
+      {
+        "_id": "admin",
+        "type": "channel",
+        "common": {
+          "name": "Settings & AT+Command"
+        },
+        "native": {
+
+        }
       },
-      "native": {
+      {
+        "_id": "admin.ownName",
+        "type": "state",
+        "common": {
+          "name": "Own Name",
+          "type": "string",
+          "options": {
+            "maxLength": 17
+          },
+          "role": "text",
+          "read": true,
+          "write": true,
+          "desc": "Name to SIM-card number (sender)"
+        },
+        "native": {
 
-      }
-    },
-    {
-      "_id": "connection.signalQuality",
-      "type": "state",
-      "common": {
-        "name": "signal quality",
-        "type": "number",
-        "role": "value",
-        "read": true,
-        "write": false,
-        "desc": "Network signal quality"
+        }
       },
-      "native": {
+      {
+        "_id": "admin.ownNumber",
+        "type": "state",
+        "common": {
+          "name": "Own Number",
+          "type": "string",
+          "role": "text.phone",
+          "read": true,
+          "write": true,
+          "desc": "SIM-card phone number (sender)"
+        },
+        "native": {
 
-      }
-    },
-    {
-      "_id": "connection.signalStrength",
-      "type": "state",
-      "common": {
-        "name": "signal strength",
-        "type": "number",
-        "role": "value",
-        "read": true,
-        "write": false,
-        "desc": "Network signal strength"
+        }
       },
-      "native": {
+      {
+        "_id": "admin.opMode",
+        "type": "state",
+        "common": {
+          "name": "Operating mode",
+          "type": "number",
+          "role": "state",
+          "read": true,
+          "write": true,
+          "states": {
+            "0": "PDU",
+            "1": "TEXT"
+          },
+          "def": 0,
+          "desc": "SMS operating Mode"
+        },
+        "native": {
 
-      }
-    },
-    {
-      "_id": "connection.error",
-      "type": "state",
-      "common": {
-        "name": "SMS device error",
-        "type": "string",
-        "role": "text",
-        "read": true,
-        "write": false,
-        "desc": "Error returned from the modem device"
+        }
       },
-      "native": {
+      {
+        "_id": "admin.atCommandSlR",
+        "type": "state",
+        "common": {
+          "name": "AT+command single line response",
+          "type": "string",
+          "role": "state",
+          "read": true,
+          "write": true,
+          "desc": "AT+ command to be executed with single line response expected"
+        },
+        "native": {
 
-      }
-    },
-
-
-    {
-      "_id": "sendSMS",
-      "type": "channel",
-      "common": {
-        "name": "Send SMS"
+        }
       },
-      "native": {
+      {
+        "_id": "admin.atCommandMlR",
+        "type": "state",
+        "common": {
+          "name": "AT+command multi line response",
+          "type": "string",
+          "role": "state",
+          "read": true,
+          "write": true,
+          "desc": "AT+ command to be executed with multi line response expected"
+        },
+        "native": {
 
-      }
-    },
-    {
-      "_id": "sendSMS.recipient",
-      "type": "state",
-      "common": {
-        "name": "recipient number",
-        "type": "string",
-        "role": "text.phone",
-        "read": true,
-        "write": true,
-        "desc": "recipients number (+41xxx or 41xxx)"
+        }
       },
-      "native": {
 
-      }
-    },
-    {
-      "_id": "sendSMS.message",
-      "type": "state",
-      "common": {
-        "name": "message text",
-        "type": "string",
-        "role": "text",
-        "read": true,
-        "write": true,
-        "desc": "message text"
+      {
+        "_id": "connection",
+        "type": "channel",
+        "common": {
+          "name": "Connection Info"
+        },
+        "native": {
+
+        }
       },
-      "native": {
+      {
+        "_id": "connection.ownName",
+        "type": "state",
+        "common": {
+          "name": "Own Name",
+          "type": "string",
+          "role": "text",
+          "read": true,
+          "write": false,
+          "desc": "Name to SIM-card number (sender)"
+        },
+        "native": {
 
-      }
-    },
-    {
-      "_id": "sendSMS.alert",
-      "type": "state",
-      "common": {
-        "name": "message class",
-        "type": "boolean",
-        "role": "state",
-        "read": true,
-        "write": true,
-        "desc": "Enable to send as class 0 / flash message or disable to send as nomral SMS",
-        "def": false
+        }
       },
-      "native": {
+      {
+        "_id": "connection.ownNumber",
+        "type": "state",
+        "common": {
+          "name": "Own Number",
+          "type": "string",
+          "role": "text.phone",
+          "read": true,
+          "write": false,
+          "desc": "SIM-card phone number (sender)"
+        },
+        "native": {
 
-      }
-    },
-    {
-      "_id": "sendSMS.messageRaw",
-      "type": "state",
-      "common": {
-        "name": "complete message to send",
-        "type": "string",
-        "role": "text",
-        "read": true,
-        "write": true,
-        "desc": "complete message to send, with recipient, message text and alert state as json-formatted string"
+        }
       },
-      "native": {
+      {
+        "_id": "connection.opMode",
+        "type": "state",
+        "common": {
+          "name": "Operating modules",
+          "type": "number",
+          "role": "state",
+          "read": true,
+          "write": false,
+          "states": {
+            "0": "PDU",
+            "1": "TEXT"
+          },
+          "desc": "SMS operating Mode"
+        },
+        "native": {
 
-      }
-    },
-    {
-      "_id": "sendSMS.send",
-      "type": "state",
-      "common": {
-        "name": "Send SMS",
-        "type": "boolean",
-        "role": "button",
-        "read": true,
-        "write": true,
-        "desc": "SMS is sent to recipent specified"
+        }
       },
-      "native": {
+      {
+        "_id": "connection.modemOpen",
+        "type": "state",
+        "common": {
+          "name": "Modem open (connected)",
+          "type": "boolean",
+          "role": "info.status",
+          "read": true,
+          "write": false,
+          "desc": "Indicates open modem connection"
+        },
+        "native": {
 
-      }
-    },
-    {
-      "_id": "sendSMS.messageRawSent",
-      "type": "state",
-      "common": {
-        "name": "complete message sent",
-        "type": "string",
-        "role": "text",
-        "read": true,
-        "write": false,
-        "desc": "complete message sent, with recipient, message text and alert state (Outbox)"
+        }
       },
-      "native": {
+      {
+        "_id": "connection.modemSerial",
+        "type": "state",
+        "common": {
+          "name": "Modem serial number",
+          "type": "number",
+          "role": "info.address",
+          "read": true,
+          "write": false,
+          "desc": "Modem serial number"
+        },
+        "native": {
 
-      }
-    },
-
-    {
-      "_id": "inbox",
-      "type": "channel",
-      "common": {
-        "name": "Recieved SMS"
+        }
       },
-      "native": {
+      {
+        "_id": "connection.signalQuality",
+        "type": "state",
+        "common": {
+          "name": "signal quality",
+          "type": "number",
+          "role": "value",
+          "read": true,
+          "write": false,
+          "desc": "Network signal quality"
+        },
+        "native": {
 
-      }
-    },
-    {
-      "_id": "inbox.messageText",
-      "type": "state",
-      "common": {
-        "name": "message text",
-        "type": "string",
-        "role": "text",
-        "read": true,
-        "write": false,
-        "desc": "message text"
+        }
       },
-      "native": {
+      {
+        "_id": "connection.signalStrength",
+        "type": "state",
+        "common": {
+          "name": "signal strength",
+          "type": "number",
+          "role": "value",
+          "read": true,
+          "write": false,
+          "desc": "Network signal strength"
+        },
+        "native": {
 
-      }
-    },
-    {
-      "_id": "inbox.messageSender",
-      "type": "state",
-      "common": {
-        "name": "sender number",
-        "type": "string",
-        "role": "text.phone",
-        "read": true,
-        "write": false,
-        "desc": "senders phone number"
+        }
       },
-      "native": {
+      {
+        "_id": "connection.error",
+        "type": "state",
+        "common": {
+          "name": "SMS device error",
+          "type": "string",
+          "role": "text",
+          "read": true,
+          "write": false,
+          "desc": "Error returned from the modem device"
+        },
+        "native": {
 
-      }
-    },
-    {
-      "_id": "inbox.messageDate",
-      "type": "state",
-      "common": {
-        "name": "message dateTime",
-        "type": "string",
-        "role": "date",
-        "read": true,
-        "write": false,
-        "desc": "Date / tima message was sent"
+        }
       },
-      "native": {
 
-      }
-    },
-    {
-      "_id": "inbox.messageRaw",
-      "type": "state",
-      "common": {
-        "name": "compelete message info",
-        "type": "string",
-        "role": "json",
-        "read": true,
-        "write": false,
-        "desc": "compelete message info - stringified json"
+
+      {
+        "_id": "sendSMS",
+        "type": "channel",
+        "common": {
+          "name": "Send SMS"
+        },
+        "native": {
+
+        }
       },
-      "native": {
+      {
+        "_id": "sendSMS.recipient",
+        "type": "state",
+        "common": {
+          "name": "recipient number",
+          "type": "string",
+          "role": "text.phone",
+          "read": true,
+          "write": true,
+          "desc": "recipients number (+41xxx or 41xxx)"
+        },
+        "native": {
 
+        }
+      },
+      {
+        "_id": "sendSMS.message",
+        "type": "state",
+        "common": {
+          "name": "message text",
+          "type": "string",
+          "role": "text",
+          "read": true,
+          "write": true,
+          "desc": "message text"
+        },
+        "native": {
+
+        }
+      },
+      {
+        "_id": "sendSMS.alert",
+        "type": "state",
+        "common": {
+          "name": "message class",
+          "type": "boolean",
+          "role": "state",
+          "read": true,
+          "write": true,
+          "desc": "Enable to send as class 0 / flash message or disable to send as nomral SMS",
+          "def": false
+        },
+        "native": {
+
+        }
+      },
+      {
+        "_id": "sendSMS.messageRaw",
+        "type": "state",
+        "common": {
+          "name": "complete message to send",
+          "type": "string",
+          "role": "text",
+          "read": true,
+          "write": true,
+          "desc": "complete message to send, with recipient, message text and alert state as json-formatted string"
+        },
+        "native": {
+
+        }
+      },
+      {
+        "_id": "sendSMS.send",
+        "type": "state",
+        "common": {
+          "name": "Send SMS",
+          "type": "boolean",
+          "role": "button",
+          "read": true,
+          "write": true,
+          "desc": "SMS is sent to recipent specified"
+        },
+        "native": {
+
+        }
+      },
+      {
+        "_id": "sendSMS.messageRawSent",
+        "type": "state",
+        "common": {
+          "name": "complete message sent",
+          "type": "string",
+          "role": "text",
+          "read": true,
+          "write": false,
+          "desc": "complete message sent, with recipient, message text and alert state (Outbox)"
+        },
+        "native": {
+
+        }
+      },
+
+      {
+        "_id": "inbox",
+        "type": "channel",
+        "common": {
+          "name": "Recieved SMS"
+        },
+        "native": {
+
+        }
+      },
+      {
+        "_id": "inbox.messageText",
+        "type": "state",
+        "common": {
+          "name": "message text",
+          "type": "string",
+          "role": "text",
+          "read": true,
+          "write": false,
+          "desc": "message text"
+        },
+        "native": {
+
+        }
+      },
+      {
+        "_id": "inbox.messageSender",
+        "type": "state",
+        "common": {
+          "name": "sender number",
+          "type": "string",
+          "role": "text.phone",
+          "read": true,
+          "write": false,
+          "desc": "senders phone number"
+        },
+        "native": {
+
+        }
+      },
+      {
+        "_id": "inbox.messageDate",
+        "type": "state",
+        "common": {
+          "name": "message dateTime",
+          "type": "string",
+          "role": "date",
+          "read": true,
+          "write": false,
+          "desc": "Date / tima message was sent"
+        },
+        "native": {
+
+        }
+      },
+      {
+        "_id": "inbox.messageRaw",
+        "type": "state",
+        "common": {
+          "name": "compelete message info",
+          "type": "string",
+          "role": "json",
+          "read": true,
+          "write": false,
+          "desc": "compelete message info - stringified json"
+        },
+        "native": {
+
+        }
       }
-    }
 
 
-  ]
-}
+    ]
+  }
