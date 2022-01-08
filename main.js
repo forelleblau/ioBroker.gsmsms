@@ -597,7 +597,7 @@ class Gsmsms extends utils.Adapter {
           gsmModem.on('onSendingMessage', data => {
             //whole message data
             this.log.info(`Event Sending Message: ` + JSON.stringify(data));
-            await setStateAsyc('sendSMS.messageRawSent', JSON.stringify(data), true);
+            setState('sendSMS.messageRawSent', JSON.stringify(data), true);
             if (connectionMode == polling || sendonly) {
               this.log.debug("Connection mode is on retrieve or send only. Close connection");
               this.modemClose();
