@@ -107,7 +107,7 @@ class Gsmsms extends utils.Adapter {
     this.log.debug('parity: ' + this.config.parity);
     this.log.debug('rtscts: ' + this.config.rtscts);
     this.log.debug('xon: ' + this.config.xon);
-    this.log.debug('xoff: ' + this.config.xoff;);
+    this.log.debug('xoff: ' + this.config.xoff);
     this.log.debug('xany: ' + this.config.xany);
 
     port = this.config.port;
@@ -663,7 +663,7 @@ class Gsmsms extends utils.Adapter {
         }
       }
     };
-  }// end execAT
+  } // end execAT
 
 
 
