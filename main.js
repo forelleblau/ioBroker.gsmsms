@@ -777,7 +777,7 @@ class Gsmsms extends utils.Adapter {
       adapter.log.debug("Instanz: " + instance);
       id = id.substring(this.namespace.length + 1); // remove instance name and id
       state = state.val;
-      this.log.debug("id=" + id);,
+      this.log.debug("id=" + id);
 
       controlSIM(id, state)
 
