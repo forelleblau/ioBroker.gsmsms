@@ -202,7 +202,7 @@ class Gsmsms extends utils.Adapter {
     /*
     	setState examples
     	you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
-    */
+
     // the variable testVariable is set to true as command (ack=false)
     await this.setStateAsync('testVariable', true);
 
@@ -229,7 +229,7 @@ class Gsmsms extends utils.Adapter {
 					*/
   } //end onReady
 
-  async modemInitalize() {
+  async modemInitialize() {
 
     try {
 

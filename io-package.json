@@ -397,7 +397,7 @@
       "type": "state",
       "common": {
         "name": "Send SMS",
-        "type": "Boolean",
+        "type": "boolean",
         "role": "button",
         "read": true,
         "write": true,
