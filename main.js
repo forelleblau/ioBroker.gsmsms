@@ -883,7 +883,7 @@ class Gsmsms extends utils.Adapter {
       this.log.warn('Error stopping (onUnload) GSM-SMS - adapter: ' + e);
       callback();
     }
-  }
+  } // end onUnload
 
   // If you need to react to object changes, uncomment the following block and the corresponding line in the constructor.
   // You also need to subscribe to the objects with `this.subscribeObjects`, similar to `this.subscribeStates`.
@@ -912,7 +912,7 @@ class Gsmsms extends utils.Adapter {
       // The state was changed
       this.log.debug(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
       if (!id || state.ack) return;
-
+      this.log.info(`state ${id} changed: ${state.val}`);
       var instance = id.substring(0, this.namespace.length);
       this.log.debug("Instanz: " + instance);
       id = id.substring(this.namespace.length + 1); // remove instance name and id
