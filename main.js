@@ -568,7 +568,6 @@ class Gsmsms extends utils.Adapter {
           this.log.info(`Modem initialized: ${JSON.stringify(msg)}`);
           this.setState('info.connection', true, true);
 
-
           gsmModem.setOwnNumber(state, (result, err) => {
             if (err) {
               this.log.warn(`Error setting own Number - ${err}`);
