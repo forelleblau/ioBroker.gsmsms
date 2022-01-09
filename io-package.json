@@ -70,7 +70,7 @@
   },
   "native": {
     "port": "",
-    "autoDeleteOnReceive": false,
+    "autoDeleteOnReceive": true,
     "enableConcatenation": true,
     "incomingCallIndication": false,
     "incomingSMSIndication": true,
@@ -86,24 +86,11 @@
     "xon": false,
     "xoff": false,
     "xany": false,
-    "connectionMode": "",
+    "connectionMode": "alwaysopen",
     "pollinginterval": 10
   },
   "objects": [],
   "instanceObjects": [{
-      "_id": "info.connection",
-      "type": "state",
-      "common": {
-        "name": "Modem connected",
-        "type": "boolean",
-        "role": "info.status",
-        "read": true,
-        "write": false,
-        "desc": "Indicates Connection to modem"
-      },
-      "native": {}
-    },
-    {
       "_id": "admin",
       "type": "channel",
       "common": {
@@ -151,23 +138,19 @@
       "type": "state",
       "common": {
         "name": "Operating mode",
-        "type": "number",
+        "type": "string",
         "role": "state",
         "read": true,
         "write": true,
-        "states": {
-          "0": "PDU",
-          "1": "TEXT"
-        },
-        "def": 0,
-        "desc": "SMS operating Mode"
+        "def": "PDU",
+        "desc": "SMS operating Mode set only 'PDU'(default) or 'SMS'"
       },
       "native": {
 
       }
     },
     {
-      "_id": "admin.atCommandSlR",
+      "_id": "admin.atCommandSLR",
       "type": "state",
       "common": {
         "name": "AT+command single line response",
@@ -182,7 +165,7 @@
       }
     },
     {
-      "_id": "admin.atCommandMlR",
+      "_id": "admin.atCommandMLR",
       "type": "state",
       "common": {
         "name": "AT+command multi line response",
@@ -198,7 +181,7 @@
     },
 
     {
-      "_id": "connection",
+      "_id": "info",
       "type": "channel",
       "common": {
         "name": "Connection Info"
@@ -208,7 +191,20 @@
       }
     },
     {
-      "_id": "connection.ownName",
+      "_id": "info.connection",
+      "type": "state",
+      "common": {
+        "name": "Modem connected",
+        "type": "boolean",
+        "role": "info.status",
+        "read": true,
+        "write": false,
+        "desc": "Indicates Connection to modem"
+      },
+      "native": {}
+    },
+    {
+      "_id": "info.ownName",
       "type": "state",
       "common": {
         "name": "Own Name",
@@ -223,7 +219,7 @@
       }
     },
     {
-      "_id": "connection.ownNumber",
+      "_id": "info.ownNumber",
       "type": "state",
       "common": {
         "name": "Own Number",
@@ -238,41 +234,22 @@
       }
     },
     {
-      "_id": "connection.opMode",
+      "_id": "info.opMode",
       "type": "state",
       "common": {
         "name": "Operating modules",
-        "type": "number",
+        "type": "string",
         "role": "state",
         "read": true,
         "write": false,
-        "states": {
-          "0": "PDU",
-          "1": "TEXT"
-        },
-        "desc": "SMS operating Mode"
+        "desc": "SMS operating Mode, can be 'PDU' (default) or 'SMS'"
       },
       "native": {
 
       }
     },
     {
-      "_id": "connection.modemOpen",
-      "type": "state",
-      "common": {
-        "name": "Modem open (connected)",
-        "type": "boolean",
-        "role": "info.status",
-        "read": true,
-        "write": false,
-        "desc": "Indicates open modem connection"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "connection.modemSerial",
+      "_id": "info.modemSerial",
       "type": "state",
       "common": {
         "name": "Modem serial number",
@@ -287,7 +264,7 @@
       }
     },
     {
-      "_id": "connection.signalQuality",
+      "_id": "info.signalQuality",
       "type": "state",
       "common": {
         "name": "signal quality",
@@ -302,7 +279,7 @@
       }
     },
     {
-      "_id": "connection.signalStrength",
+      "_id": "info.signalStrength",
       "type": "state",
       "common": {
         "name": "signal strength",
@@ -317,7 +294,7 @@
       }
     },
     {
-      "_id": "connection.error",
+      "_id": "info.error",
       "type": "state",
       "common": {
         "name": "SMS device error",

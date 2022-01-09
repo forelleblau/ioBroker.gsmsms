@@ -29,7 +29,7 @@ Some devices have to be set to the right mode for serial communication (see 'usb
 
 #### Path to Serial Port - required.
 
-i.e. `/dev/ttyUSB0` or `/dev/serial/by-id/xxxxxxxxxxx` (by-id is more stabel, ttyUSBx can change with a reboot)
+e.g. `/dev/ttyUSB0` or `/dev/serial/by-id/xxxxxxxxxxx` (by-id is more stabel, ttyUSBx can change with a reboot)
 
 #### Your SIM PIN
 
@@ -79,9 +79,9 @@ Please refer to your GMS-device specs
 
 #### To be specified as adapter - objects (`admin.x`)
 
--   your name
--   your phone Number
--   SMS operating Mode (PDU or Text, PDU is default and recommended)
+-   your name (default is `ownNumber`).
+-   your phone Number.
+-   SMS operating Mode (`PDU` or `SMS`, `PDU` is default and recommended).
 
 All inputs have to be made with ack=false!
 
@@ -91,14 +91,14 @@ By activating the History-adapter for the `inbox.messageRaw` - object and the `s
 
 #### SMS - errors
 
-When errors are returned and the error originated from the device, then in the error message, an error code should be listed, e.g. "+CMS ERROR: 500". The error message is displayed in the log on 'warn' - level and stored in the `connection.error` object.
+When errors are returned and the error originated from the device (so the exchange with the device was technically successful), then in the error message, an error code should be listed, e.g. "+CMS ERROR: 500". The error message is displayed in the log on 'warn' - level and stored in the `info.error` object.
 An (incomplete) list of possible error codes and their meanings can be found e.g. at <https://www.activexperts.com/sms-component/gsm-error-codes/>.
 
 ## Functionalities
 
 ### Receive SMS
 
-Incoming SMS are written to the `inbox.*` - objects. `inbox.messageRaw` can be used as trigger for further operations (i.e. forward incoming sms by e-mail adapter).
+Incoming SMS are written to the `inbox.*` - objects. `inbox.messageRaw` can be used as trigger for further operations (e.g. forward incoming sms by e-mail adapter).
 
 ### Send SMS
 

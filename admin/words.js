@@ -63,28 +63,28 @@ systemDictionary = {
     "zh-cn": "端口和连接设置"
   },
   "port": {
-    "en": "serial port",
-    "de": "serielle Schnittstelle",
-    "ru": "Серийный порт",
-    "pt": "porta serial",
-    "nl": "seriële poort",
-    "fr": "port série",
-    "it": "porta seriale",
-    "es": "Puerto serial",
-    "pl": "Port szeregowy",
-    "zh-cn": "串行端口"
+    "en": "serial port (e.g. /dev/ttyUSB1)",
+    "de": "serielle Schnittstelle (z.B. /dev/ttyUSB1)",
+    "ru": "последовательный порт (например, /dev/ttyUSB1)",
+    "pt": "porta serial (por exemplo, /dev /ttyUSB1)",
+    "nl": "seriële poort (bijv. /dev/ttyUSB1)",
+    "fr": "port série (par exemple /dev/ttyUSB1)",
+    "it": "porta seriale (es. /dev/ttyUSB1)",
+    "es": "puerto serie (por ejemplo, /dev/ttyUSB1)",
+    "pl": "port szeregowy (np. /dev/ttyUSB1)",
+    "zh-cn": "串口（例如 /dev/ttyUSB1）"
   },
   "pin": {
-    "en": "PIN",
-    "de": "PIN",
-    "ru": "PIN",
-    "pt": "PIN",
-    "nl": "PIN",
-    "fr": "PIN",
-    "it": "PIN",
-    "es": "PIN",
-    "pl": "PIN",
-    "zh-cn": "PIN"
+    "en": "PIN (if activated on SIM)",
+    "de": "PIN (sofern auf SIM aktiviert)",
+    "ru": "PIN-код (если активирован на SIM-карте)",
+    "pt": "PIN (se ativado no SIM)",
+    "nl": "PIN (indien geactiveerd op SIM)",
+    "fr": "PIN (si activé sur SIM)",
+    "it": "PIN (se attivato su SIM)",
+    "es": "PIN (si está activado en SIM)",
+    "pl": "PIN (jeśli aktywowany na karcie SIM)",
+    "zh-cn": "PIN（如果在 SIM 卡上激活）"
   },
   "connectionMode": {
     "en": "Connection mode",
@@ -135,7 +135,7 @@ systemDictionary = {
     "zh-cn": "只发送"
   },
   "pollinginterval": {
-		"en": "Retrieval interval (min)",
+    "en": "Retrieval interval (min)",
     "de": "Abrufintervall (min)",
     "ru": "Интервал поиска (мин)",
     "pt": "Intervalo de recuperação (min)",
