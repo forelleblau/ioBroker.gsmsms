@@ -96,7 +96,7 @@ class Gsmsms extends utils.Adapter {
       // this.config:
       this.log.debug('port' + this.config.port);
       this.log.debug('connectionMode: ' + this.config.connectionMode);
-      this.log.debug('pollinginterval: ' + this.config.pollinginterval " min");
+      this.log.debug('pollinginterval: ' + this.config.pollinginterval + " min");
 
       this.log.debug('autoDeleteOnReceive: ' + this.config.autoDeleteOnReceive);
       this.log.debug('enableConcatenation: ' + this.config.enableConcatenation);
@@ -259,13 +259,28 @@ class Gsmsms extends utils.Adapter {
   async modemInitialize(job) {
 
     try {
-
-      //Fehler: Wenn funktion erfolgreich aber rückmeldung ein 'ERROR' in 'result', dann auffangen und auf connection.error setzen.
+      this.log.debug("opening now");
+      //Fehler: Wenn funktion erfolgreich aber rÃ¼ckmeldung ein 'ERROR' in 'result', dann auffangen und auf connection.error setzen.
       // this.setStateAsync('connection.error', err, true);
-      gsmModem.open(port, options);
-
+      gsmModem.open(port, options, (err, msg) => {
+        try {
+          if (err) {
+            this.log.warn(`Error opening - ${JSON.stringify(err)} - pls check your settings (port, serial connection) and restart the instnace`);
+            return;
+          } else {
+            this.log.debug(`Modem msg: ${JSON.stringify(msg)}`);
+            if (msg.status == 'success') {
+              this.log.info('Modem opened successfully, Port: ' + JSON.stringify(msg.data.modem) + ' Status: ' + JSON.stringify(msg.data.status));
+            } else {
+              this.log.warn(`Problems opening, please check: ${JSON.stringify(err)} `);
+            }
+          }
+        } catch (e) {
+          this.log.warn("Error1 opening modem " + e);
+        }
+      });
     } catch (e) {
-      this.log.warn("Error opening modem " + e);
+      this.log.warn("Error2 opening modem " + e);
     }
 
     try {
