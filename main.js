@@ -85,6 +85,14 @@ class Gsmsms extends utils.Adapter {
     this.on('unload', this.onUnload.bind(this));
   }
 
+
+
+
+
+
+
+
+
   /**
    * Is called when databases are connected and adapter received configuration.
    */
@@ -209,9 +217,7 @@ class Gsmsms extends utils.Adapter {
 
     try {
 
-      job = 'startup';
-
-      this.modemInitialize(job);
+      this.modemInitialize(this.startup.bind(this));
 
       if (connectionMode == 'polling') {
         polling = setInterval(() => { // poll states every [10] minute
@@ -256,6 +262,7 @@ class Gsmsms extends utils.Adapter {
 
   } //end onReady
 
+
   async modemInitialize(job) {
 
     try {
@@ -297,13 +304,16 @@ class Gsmsms extends utils.Adapter {
           } else {
             this.log.info(`Modem initialized: ${JSON.stringify(msg)}`);
 
-            switch (job) {
-              case 'startup':
-                this.startup()
-                break;
-              default:
-                this.log.debug("no job found");
-            }
+            job();
+            /*
+                        switch (job) {
+                          case 'startup':
+                            this.startup()
+                            break;
+                          default:
+                            this.log.debug("no job found");
+                        }
+                        */
           }
         });
 
@@ -335,7 +345,7 @@ class Gsmsms extends utils.Adapter {
                     console.log(`Event Incoming Call: ` + JSON.stringify(data));
                   });
 
-        					*/
+                  */
 
         //löschen bei Empfang auf standard  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -360,88 +370,6 @@ class Gsmsms extends utils.Adapter {
     }
   } //end modemInitialize()
 
-
-  async controlSIM(id, state) {
-    try {
-      var conn = (await this.getStateAsync('info.connection')).val;
-      switch (id) {
-
-        case 'admin.ownName':
-          await this.setStateAsync('info.ownName', state, true);
-          ownNumber = (await this.getStateAsync('info.ownNumber')).val;
-          this.phonebook(id, state);
-          break;
-
-        case 'admin.ownNumber':
-          this.log.debug("set new own Number to: " + state)
-          if (conn = true) {
-            this.log.debug("Connection open, set new number");
-            gsmModem.setOwnNumber(state, (result, err) => {
-              if (err) {
-                this.log.warn(`Error setting own Number - ${err}`);
-              } else {
-                this.log.debug(`Own number set: ${JSON.stringify(result)}`);
-              }
-            });
-
-          } else {
-            this.log.debug("Connection close, establish connection for state change");
-            job = 'number'
-            this.modemInitialize(id, state);
-
-          }
-          break;
-
-        case 'admin.opMode':
-          opMode = state;
-          if (state != 'PDU' || 'SMS') {
-            this.log.warn("Operating mode has to be set to 'PDU' (default) or 'SMS', you entered " + state);
-            return
-          } else {
-            if (conn == true) {
-              reinitialize = true;
-              this.log.debug("restart connection");
-              gsmModem.close();
-              await this.setStateAsync('info.connection', false, true);
-            } else {
-              this.log.info("Operating mode will be set to " + opMode + " next time when a connection is established");
-            }
-          }
-          break;
-
-        case 'admin.atCommandSLR':
-
-          break;
-
-        case 'admin.atCommandMLR':
-
-          break;
-
-        case 'sendSMS.messageRaw':
-          messageRawJson = JSON.parse(state);
-          sending(messageRawJson, conn);
-          break;
-
-        case 'sendSMS.send':
-          messageRawJson.recipient = (await this.getStateAsync('sendSMS.recipient')).val;
-          messageRawJson.message = (await this.getStateAsync('sendSMS.message')).val;
-          messageRawJson.alert = (await this.getStateAsync('sendSMS.alert')).val;
-          this.sending(messageRawJson, conn);
-
-
-
-          break;
-
-        default:
-          this.log.debug("Error, objectChange not recognized, to action triggered");
-      }
-
-
-    } catch (e) {
-      this.log.warn("controlSIM - error: " + e)
-    }
-
-  } //end controlSIM
 
 
   async startup() {
@@ -565,6 +493,91 @@ class Gsmsms extends utils.Adapter {
       this.log.warn("Error startup " + e);
     }
   } //end startup()
+
+
+  async controlSIM(id, state) {
+    try {
+      var conn = (await this.getStateAsync('info.connection')).val;
+      switch (id) {
+
+        case 'admin.ownName':
+          await this.setStateAsync('info.ownName', state, true);
+          ownNumber = (await this.getStateAsync('info.ownNumber')).val;
+          this.phonebook(id, state);
+          break;
+
+        case 'admin.ownNumber':
+          this.log.debug("set new own Number to: " + state)
+          if (conn = true) {
+            this.log.debug("Connection open, set new number");
+            gsmModem.setOwnNumber(state, (result, err) => {
+              if (err) {
+                this.log.warn(`Error setting own Number - ${err}`);
+              } else {
+                this.log.debug(`Own number set: ${JSON.stringify(result)}`);
+              }
+            });
+
+          } else {
+            this.log.debug("Connection close, establish connection for state change");
+            job = 'number'
+            this.modemInitialize(id, state);
+
+          }
+          break;
+
+        case 'admin.opMode':
+          opMode = state;
+          if (state != 'PDU' || 'SMS') {
+            this.log.warn("Operating mode has to be set to 'PDU' (default) or 'SMS', you entered " + state);
+            return
+          } else {
+            if (conn == true) {
+              reinitialize = true;
+              this.log.debug("restart connection");
+              gsmModem.close();
+              await this.setStateAsync('info.connection', false, true);
+            } else {
+              this.log.info("Operating mode will be set to " + opMode + " next time when a connection is established");
+            }
+          }
+          break;
+
+        case 'admin.atCommandSLR':
+
+          break;
+
+        case 'admin.atCommandMLR':
+
+          break;
+
+        case 'sendSMS.messageRaw':
+          messageRawJson = JSON.parse(state);
+          sending(messageRawJson, conn);
+          break;
+
+        case 'sendSMS.send':
+          messageRawJson.recipient = (await this.getStateAsync('sendSMS.recipient')).val;
+          messageRawJson.message = (await this.getStateAsync('sendSMS.message')).val;
+          messageRawJson.alert = (await this.getStateAsync('sendSMS.alert')).val;
+          this.sending(messageRawJson, conn);
+
+
+
+          break;
+
+        default:
+          this.log.debug("Error, objectChange not recognized, to action triggered");
+      }
+
+
+    } catch (e) {
+      this.log.warn("controlSIM - error: " + e)
+    }
+
+  } //end controlSIM
+
+
 
 
 
