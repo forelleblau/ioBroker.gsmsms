@@ -35,6 +35,7 @@ e.g. `/dev/ttyUSB0` or `/dev/serial/by-id/xxxxxxxxxxx` (by-id is more stabel, tt
 
 If your SIM card is protected by a PIN provide the PIN and it will be used to unlock the SIM card during initialization (empty, means "no PIN existing on the SIM card").
 
+<!--
 #### Connection mode
 
 ##### Always open
@@ -48,6 +49,7 @@ Outgoing SMS are sent instantly. Incoming SMS are retrieved periodically accordi
 ##### Send only
 
 The adapter is only used to send SMS. All incoming SMS are ignored (possibly saved to SIM but not retrieved to the adapter).
+-->
 
 ### GSM settings
 

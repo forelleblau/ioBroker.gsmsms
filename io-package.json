@@ -199,6 +199,7 @@
         "role": "info.status",
         "read": true,
         "write": false,
+        "def": false,
         "desc": "Indicates Connection to modem"
       },
       "native": {}
