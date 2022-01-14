@@ -29,7 +29,7 @@ Some devices have to be set to the right mode for serial communication (see 'usb
 
 #### Path to Serial Port - required.
 
-e.g. `/dev/ttyUSB0` or `/dev/serial/by-id/xxxxxxxxxxx` (by-id is more stabel, ttyUSBx can change with a reboot)
+e.g. `/dev/ttyUSB0` or `/dev/serial/by-id/xxxxxxxxxxx` (by-id is more stable, ttyUSBx can change with a reboot)
 
 #### Your SIM PIN
 
@@ -53,13 +53,13 @@ The adapter is only used to send SMS. All incoming SMS are ignored (possibly sav
 
 ### GSM settings
 
-| Name                                          | Type    | Default                   | Description                                                                                                                                                                                                                      |
-| --------------------------------------------- | ------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Enable concatenation                          | boolean | true                      | Receive concatenated messages as one.                                                                                                                                                                                            |
-| Incoming call indication                      | boolean | false                     | Receive `'onNewIncomingCall'` event when receiving calls.                                                                                                                                                                        |
-| Incoming SMS indication                       | boolean | true                      | Enables the modem to notify that a new SMS message has been received.                                                                                                                                                            |
-| Custom Iinit command                          | string  |                           | If your device needs a custom initialization command it can be provided and will be used after PIN check. The command is expected to return `'OK'` (empty, means "no custom command for init"). pls refer your GSM-device specs. |
-| CNMI when modem open / CNMI when modem closed | string  | '2,1,0,2,0' / '2,0,2,2,1' | Defines if messages are saved on SIM or delivered instantly. Gives the opportunity to specify different CNMI-Settings. pls refer your GSM-device specs.                                                                          |
+| Name                     | Type    | Default                   | Description                                                                                                                                                                                                                      |
+| ------------------------ | ------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Enable concatenation     | boolean | true                      | Receive concatenated messages as one.                                                                                                                                                                                            |
+| Incoming call indication | boolean | false                     | Receive `'onNewIncomingCall'` event when receiving calls.                                                                                                                                                                        |
+| Incoming SMS indication  | boolean | true                      | Enables the modem to notify that a new SMS message has been received.                                                                                                                                                            |
+| Custom Iinit command     | string  |                           | If your device needs a custom initialization command it can be provided and will be used after PIN check. The command is expected to return `'OK'` (empty, means "no custom command for init"). pls refer your GSM-device specs. |
+| CNMI when modem closed   | string  | '2,1,0,2,0' / '2,0,2,2,1' | Defines if messages are saved on SIM or delivered instantly. `2,1,0,2,0` is set by opening a connection. Specify a different CNMI to use when modem is closed - if desired. pls refer your GSM-device specs.                     |
 
 ### SerialPort settings
 
@@ -109,7 +109,7 @@ To send a sms fill in `sendSMS.recipient, sendSMS.message` and optionally `sendS
 
 ### Execute AT+ commands
 
-! Ple be sure to know what you do when setting AT+ commands, it's your SIM-card / device.
+! Pls be sure to know what you do when setting AT+ commands, it's your SIM-card / device.
 
 AT+commands are sent be setting `admin.atCommandSLR` in the format `AT+XXXXy`.
 Send any command you like, but be aware that you will see only the last line of the response.
