@@ -14,7 +14,7 @@
 
 ## gsmsms adapter for ioBroker
 
-Send and recieve SMS with GSM-hardware
+Send and recieve SMS with GSM-hardware. Not to run out of SIM-Memory, all SMS are deleted from SIM after delivery/reading. Use e.g. the 'history' - adapter to store your messages or any other convenient solution.
 
 ## Hardware
 
@@ -55,7 +55,6 @@ The adapter is only used to send SMS. All incoming SMS are ignored (possibly sav
 
 | Name                                          | Type    | Default                   | Description                                                                                                                                                                                                                      |
 | --------------------------------------------- | ------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Auto delete on receive                        | boolean | true                      | Messages are deleted from SIM-card after receiving.                                                                                                                                                                              |
 | Enable concatenation                          | boolean | true                      | Receive concatenated messages as one.                                                                                                                                                                                            |
 | Incoming call indication                      | boolean | false                     | Receive `'onNewIncomingCall'` event when receiving calls.                                                                                                                                                                        |
 | Incoming SMS indication                       | boolean | true                      | Enables the modem to notify that a new SMS message has been received.                                                                                                                                                            |
@@ -91,10 +90,12 @@ All inputs have to be made with ack=false!
 
 By activating the History-adapter for the `inbox.messageRaw` - object and the `sendSMS.messageRaw` - object you get a complete In- and Outbox of your SMS traffic.
 
+<!--
 #### SMS - errors
 
 When errors are returned and the error originated from the device (so the exchange with the device was technically successful), then in the error message, an error code should be listed, e.g. "+CMS ERROR: 500". The error message is displayed in the log on 'warn' - level and stored in the `info.error` object.
 An (incomplete) list of possible error codes and their meanings can be found e.g. at <https://www.activexperts.com/sms-component/gsm-error-codes/>.
+-->
 
 ## Functionalities
 
@@ -110,9 +111,8 @@ To send a sms fill in `sendSMS.recipient, sendSMS.message` and optionally `sendS
 
 ! Ple be sure to know what you do when setting AT+ commands, it's your SIM-card / device.
 
-AT+commands are sent be setting either `admin.atCommandSLR` or `admin.atCommandMlR` in the format `AT+XXXXy`.
-`admin.atCommandSLR` is used for commands with single line responses expected.
-`admin.atCommandMlR` has to be used for commands with multiline responses expected.
+AT+commands are sent be setting `admin.atCommandSLR` in the format `AT+XXXXy`.
+Send any command you like, but be aware that you will see only the last line of the response.
 
 ## Serialport-gsm
 
@@ -153,6 +153,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
+<!--
 ## Developer manual
 
 This section is intended for the developer. It can be deleted later
