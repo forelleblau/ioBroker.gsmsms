@@ -8,13 +8,14 @@
 // you need to create an adapter
 const utils = require('@iobroker/adapter-core');
 const serialportgsm = require('serialport-gsm');
-// Load your modules here, e.g.:
-// const fs = require("fs");
-const gsmModem = serialportgsm.Modem();
+const pdu =
+  // Load your modules here, e.g.:
+  // const fs = require("fs");
+  const gsmModem = serialportgsm.Modem();
 //
 //
 var port;
-var connectionMode;
+//var connectionMode;
 //var pollinginterval;
 
 //let polling;
@@ -39,17 +40,13 @@ var xany = false;
 
 var options;
 
-var ownPhone {
+var ownPhone = {
   "name": '',
   "number": ''
 };
 
 var opMode = 'PDU';
-var atCommand;
 
-var recNumber;
-var messageOut;
-var messageAlert = false;
 var messageRawJson = {
   "recipient": '',
   "message": '',
@@ -57,11 +54,15 @@ var messageRawJson = {
 };
 
 var storedMessageParser;
+
+/*
 var reinitialize = {
   "indicator": false,
   "id": '',
   "state": ''
 };
+
+*/
 //var logger = console; Logger!!!! als Variabel fest setzen auf 'console' Prüfen ob nötig
 //var highWaterMark = 16384; Prüfen ob als 'option'nötig:  The size of the read and write buffers defaults to 16k. |
 
@@ -93,7 +94,7 @@ class Gsmsms extends utils.Adapter {
       // this.config:
 
       port = this.config.port;
-      connectionMode = this.config.connectionMode;
+      //connectionMode = this.config.connectionMode;
       //pollinginterval = this.config.pollinginterval * 60000;
 
       autoDeleteOnReceive = this.config.autoDeleteOnReceive;
@@ -102,7 +103,7 @@ class Gsmsms extends utils.Adapter {
       incomingSMSIndication = this.config.incomingSMSIndication;
       pin = this.config.pin;
       customInitCommand = this.config.customInitCommand;
-      cnmiModemOpen = 'AT+CNMI=' + this.config.cnmiModemOpen;
+      //cnmiModemOpen = 'AT+CNMI=' + this.config.cnmiModemOpen;
       cnmiModemClosed = 'AT+CNMI=' + this.config.cnmiModemClosed;
 
       baudRate = this.config.baudRate;
@@ -113,6 +114,8 @@ class Gsmsms extends utils.Adapter {
       xon = this.config.xon;
       xoff = this.config.xoff;
       xany = this.config.xany;
+
+
 
       this.log.debug('port' + port);
       //this.log.debug('connectionMode: ' + connectionMode);
@@ -178,20 +181,9 @@ class Gsmsms extends utils.Adapter {
         incomingSMSIndication: incomingSMSIndication,
         pin: pin,
         customInitCommand: customInitCommand,
-        logger: console
+        logger: 'console'
         //cnmiCommand: cnmiModemOpen
       };
-      /*
-            ownName = await this.getStateAsync('admin.ownName');
-            if (ownName !== null) {
-              ownName = ownName.val
-            }
-            ownNumber = await this.getStateAsync('admin.ownNumber');
-            if (ownNumber !== null) {
-              ownNumber = ownNumber.val
-
-
-      */
 
       this.modemInitialize();
       /*
@@ -244,6 +236,7 @@ class Gsmsms extends utils.Adapter {
 
       //Fehler: Wenn funktion erfolgreich aber rÃ¼ckmeldung ein 'ERROR' in 'result', dann auffangen und auf connection.error setzen.
       // this.setStateAsync('connection.error', err, true);
+
       gsmModem.open(port, options, (err, msg) => {
         if (err) {
           this.log.warn(`Error opening - ${JSON.stringify(err)} - pls check your settings (port, serial connection) and restart the instnace`);
@@ -253,7 +246,7 @@ class Gsmsms extends utils.Adapter {
           if (msg.status == 'success') {
             this.log.info('Modem opened successfully, Port: ' + JSON.stringify(msg.data.modem) + ' Status: ' + JSON.stringify(msg.data.status));
           } else {
-            this.log.warn(`Problems opening, please check: ${JSON.stringify(err)} `);
+            this.log.warn(`Problems opening, please check: ${JSON.stringify(msg)} `);
           }
         }
       });
@@ -264,8 +257,7 @@ class Gsmsms extends utils.Adapter {
 
     try {
       gsmModem.on('open', () => {
-        this.log.debug('GSM-Modem sucessfully opened for: ');
-
+        this.log.debug('GSM-Modem sucessfully opened');
 
         // now we initialize the GSM Modem
         gsmModem.initializeModem((msg, err) => {
@@ -273,12 +265,16 @@ class Gsmsms extends utils.Adapter {
             this.log.warn(`Error initializing GSM-modem - ${err}`);
 
           } else {
-            this.log.info(`Modem initialized: ${JSON.stringify(msg)}`);
-            this.setState('info.connection', true, true);
-            this.startup();
+            this.log.debug(`Modem initialized: ${JSON.stringify(msg)}`);
+            if (msg.status == 'success') {
+              this.log.info(JSON.stringify(msg.data));
+              this.setState('info.connection', true, true);
+              this.startup();
+            } else {
+              this.log.warn(`Error initializing GSM-modem - pls check: ${msg}`);
+            }
           }
         });
-
 
 
         gsmModem.on('onNewMessageIndicator', data => {
@@ -293,6 +289,15 @@ class Gsmsms extends utils.Adapter {
           this.setState('inbox.messageText', data.message, true);
           this.setState('inbox.messageDate', (data.dateTimeSent).toString(), true);
           this.setState('inbox.messageRaw', JSON.stringify(data), true);
+
+          if (autoDeleteOnReceive == true) {
+            this.deleteAll(1);
+          } else {
+            this.storeMessage(data)
+          }
+
+
+
         });
 
         gsmModem.on('onSendingMessage', data => {
@@ -321,10 +326,8 @@ class Gsmsms extends utils.Adapter {
         gsmModem.on('close', data => {
           //whole message data
           console.log(`Event Close: ` + JSON.stringify(data));
-          if (reinitialize.indicator == true) {
-            this.log.debug("reinitialize!");
-            this.modemInitalize();
-          }
+
+
         });
 
       });
@@ -338,10 +341,14 @@ class Gsmsms extends utils.Adapter {
 
 
 
+
   async startup() {
 
     try {
-      opMode = (await this.getStateAsync('admin.opMode')).val;
+      var opModeState = (await this.getStateAsync('admin.opMode'));
+      if (opModeState.val == 'PDU' || opModeState.val == 'PDU') {
+        opMode = opModeState.val;
+      }
       this.log.debug(`Configuring Modem for mode: ${opMode}`);
 
       // set mode to PDU mode to handle SMS
@@ -369,8 +376,14 @@ class Gsmsms extends utils.Adapter {
               this.log.warn(`Error retrieving GSM signal strength - ${err}`);
             } else {
               this.log.debug(`GSM signal strength: ${JSON.stringify(result)}`);
-              this.setState('info.signalQuality', parseInt(result.data.signalQuality), true);
-              this.setState('info.signalStrength', parseInt(result.data.signalStrength), true);
+              if (result.status == 'success') {
+                this.setState('info.signalQuality', parseInt(result.data.signalQuality), true);
+                this.setState('info.signalStrength', parseInt(result.data.signalStrength), true);
+              } else {
+                this.log.warn("Problem retrieving GSM signal strength: " + JSON.stringify(result));
+                this.setState('info.error', JSON.stringify(result), true);
+              }
+
             }
           });
 
@@ -400,68 +413,64 @@ class Gsmsms extends utils.Adapter {
         }
       }, opMode);
 
-      // get info about stored Messages on SIM card
-      gsmModem.checkSimMemory((result, err) => {
-        if (err) {
-          this.log.warn(`Failed to get SimMemory ${err}`);
-        } else {
-          this.log.debug(`Sim Memory Result: ${JSON.stringify(result)}`);
-
-          // read the whole SIM card inbox
-          gsmModem.getSimInbox((result, err) => {
-            if (err) {
-              this.log.warn(`Failed to get SimInbox ${err}`);
-            } else {
-              this.log.debug(`Sim Inbox Result: ${JSON.stringify(result)}`);
-              var messageNr = 0;
-              if (result["data"].length != 0) {
-                var thisI = this;
-                storedMessageParser = setInterval(function() {
-                  thisI.setState('inbox.messageSender', result["data"][messageNr]["sender"], true);
-                  thisI.setState('inbox.messageText', result["data"][messageNr]["message"], true);
-                  thisI.setState('inbox.messageDate', result["data"][messageNr]["dateTimeSent"].toString(), true);
-                  thisI.setState('inbox.messageRaw', JSON.stringify(result["data"][messageNr]), true);
-                  thisI.log.info("saved message Nr " + (messageNr + 1) + ": " + JSON.stringify(result["data"][messageNr]));
-                  messageNr++;
-
-                  if (messageNr == result["data"].length) {
-                    thisI.log.info("All saved messages processed");
-                    clearInterval(storedMessageParser);
-                  }
-
-                }, 1000);
-              } else {
-                this.log.debug("No saved messages to process");
-              }
-
-              // was passiert wenn sim voll??
-              if (autoDeleteOnReceive == true) {
-                gsmModem.deleteAllSimMessages((result, err) => {
-                  if (err) {
-                    this.log.warn(`Failed to delete MEssage ${err}`);
-                  } else {
-                    this.log.debug(`Delete Result: ${JSON.stringify(result)}`);
-                    if (connectionMode != 'alwaysopen') {
-                      this.log.debug("Connection mode is on retrieve or send only. Close connection");
-                      this.modemClose();
-                    }
-                  }
-                });
-              }
-            }
-          });
-        }
-      });
-
-      if (reinitialize.indicator == true) {
-        reinitialize.indicator = false;
-        this.controlSIM(reinitialize.id, reinitialize.state);
-      }
+      this.readSIM()
 
     } catch (e) {
       this.log.warn("Error startup " + e);
     }
   } //end startup()
+
+
+  async readSIM() {
+    // get info about stored Messages on SIM card
+    gsmModem.checkSimMemory((result, err) => {
+      if (err) {
+        this.log.warn(`Failed to get SimMemory ${err}`);
+      } else {
+        this.log.debug(`Sim Memory Result: ${JSON.stringify(result)}`);
+
+        // read the whole SIM card inbox
+        gsmModem.getSimInbox((result, err) => {
+          if (err) {
+            this.log.warn(`Failed to get SimInbox ${err}`);
+          } else {
+            this.log.debug(`Sim Inbox Result: ${JSON.stringify(result)}`);
+            var messageNr = 0;
+            if (result["data"].length != 0) {
+
+              storedMessageParser = setInterval(() => {
+                this.setState('inbox.messageSender', result["data"][messageNr]["sender"], true);
+                this.setState('inbox.messageText', result["data"][messageNr]["message"], true);
+                this.setState('inbox.messageDate', result["data"][messageNr]["dateTimeSent"].toString(), true);
+                this.setState('inbox.messageRaw', JSON.stringify(result["data"][messageNr]), true);
+                this.log.info("saved message Nr " + (messageNr + 1) + ": " + JSON.stringify(result["data"][messageNr]));
+
+                if (autoDeleteOnReceive == false) {
+                  this.storeMessage(result["data"][messageNr])
+                }
+                messageNr++;
+
+                if (messageNr == result["data"].length) {
+                  this.log.info("All saved messages processed");
+                  clearInterval(storedMessageParser);
+                }
+
+              }, 1000);
+            } else {
+              this.log.debug("No saved messages to process");
+            }
+
+            // was passiert wenn sim voll??
+            if (autoDeleteOnReceive == true) {
+              this.deleteAll(result["data"].length);
+            }
+          }
+        });
+      }
+    });
+
+
+  }
 
 
   async controlSIM(id, state) {
@@ -474,48 +483,66 @@ class Gsmsms extends utils.Adapter {
         case 'admin.ownName':
           if (conn == true) {
             ownPhone.number = (await this.getStateAsync('info.ownNumber')).val;
-            ownPhone.name = state
+            ownPhone.name = state.val
             this.phonebook(id, ownPhone);
           } else {
-            this.log.debug("Connection is closed, reinitialize");
-            reinitialize.indicator = true
-            this.modemInitialize(id, state);
+            this.log.debug("Connection is closed, please restart adapter & try again");
           }
           break;
 
         case 'admin.ownNumber':
           if (conn == true) {
-            this.log.debug("Connection open, set new number");
-            this.phoneNumber(id, state)
-
+            this.log.debug("set new own Number to: " + state);
+            gsmModem.setOwnNumber(state.val, (result, err) => {
+              if (err) {
+                this.log.warn(`Error setting own Number - ${err}`);
+              } else {
+                this.log.debug(`Own number set: ${JSON.stringify(result)}`);
+              }
+            });
           } else {
-            this.log.debug("Connection is closed, reinitialize");
-            reinitialize.indicator = true
-            this.modemInitialize(id, state);
+            this.log.warn("Connection is closed, please restart adapter & try again");
           }
           break;
 
         case 'admin.opMode':
-          opMode = state;
-          if (state != 'PDU' || 'SMS') {
-            this.log.warn("Operating mode has to be set to 'PDU' (default) or 'SMS', you entered " + state);
-            return
+          opMode = state.val;
+          if (state.val == 'PDU' || state.val == 'SMS') {
+            if (conn == true) {
+              this.log.debug("Connection open, set new operation mode");
+              this.setOpMode(id, state.val)
+            } else {
+              this.log.debug("Connection is closed, please restart adapter & try again");
+            }
           } else {
-            reinitialize.indicator = true;
-            reinitialize.id = '';
-            this.log.debug("restart connection");
-            gsmModem.close();
+            this.log.warn("Operating mode has to be set to 'PDU' (default) or 'SMS', you entered " + state.val);
+            return
           }
           break;
 
         case 'admin.atCommandSLR':
+          if (conn == true) {
+            this.log.debug("Connection open, send command");
+            this.execATSL(id, state.val)
 
+          } else {
+            this.log.debug("Connection is closed, please restart adapter & try again");
+
+          }
           break;
-
+          /*
         case 'admin.atCommandMLR':
+          if (conn == true) {
+            this.log.debug("Connection open, send command");
+            this.execATML(id, state.val)
+
+          } else {
+            this.log.debug("Connection is closed, please restart adapter & try again");
+
+          }
 
           break;
-
+            */
         case 'sendSMS.messageRaw':
           messageRawJson = JSON.parse(state);
           this.sending(messageRawJson, conn);
@@ -541,294 +568,296 @@ class Gsmsms extends utils.Adapter {
 
 
 
-
-
-  async phoneNumber(id, state) {
+  deleteAll() {
     try {
-      this.log.debug("set new own Number to: " + state);
-      gsmModem.setOwnNumber(state, (result, err) => {
-        if (err) {
-          this.log.warn(`Error setting own Number - ${err}`);
-        } else {
-          this.log.debug(`Own number set: ${JSON.stringify(result)}`);
-        }
-      });
-    } catch (e) {
-      this.log.warn("Error writing ownNumber" + e)
-    }
-
-  } // end phoneNumber
-
-  async phonebook(id, ownPhone) { //Check mit nachfolgender Abfrage einbauen
-    try {
-
-      if (ownPhone.name.length > 18) {
-        this.log.warn("ownName max length = 18 chars, please choose a shorter name");
-        return
-      }
-
-      gsmModem.writeToPhonebook(ownPhone.number, ownPhone.name, (result, err) => {
-        if (err) {
-          this.log.warn(`Error writing to phonebook - ${err}`);
-        } else {
-          this.log.debug(`wrote to Phonebook: ${JSON.stringify(result)}`);
-        }
-      });
-
-
-
-    } catch (e) {
-      this.log.warn("Error writing ownNumber & ownName" + e)
-    }
-  } //end phonebook
-
-
-  async sending(messageRawJson, conn) {
-    try {
-      this.log.debug("Connection: " + conn);
-
-      this.log.debug("Connection open, send directly");
-      // Finally send an SMS
-      gsmModem.sendSMS(messageRawJson.recipient, messageRawJson.message, messageRawJson.alert, (result) => {
-        this.log.info(`Callback Send: Message ID: ${result.data.messageId},` +
-          `${result.data.response} To: ${result.data.recipient} ${JSON.stringify(result)}`);
-      });
-
-    } catch (e) {
-      this.log.warn("Error sending message" + e)
-    }
-  } //end sending()
-
-
-  /*
-    async execAT(atCmd) {
-
-
-      // execute a custom command - one line response normally is handled automatically
-      gsmModem.executeCommand('AT+CNMI?', (result, err) => {
-        if (err) {
-          console.log(`Error - ${err}`);
-        } else {
-          console.log(`Result ${JSON.stringify(result)}`);
-        }
-      });
-
-      // execute a complex custom command - multi line responses needs own parsing logic
-      const commandParser = gsmModem.executeCommand('AT+CNMI=1,1,0,1,0', (result, err) => {
-        if (err) {
-          console.log(`Error - ${err}`);
-        } else {
-          console.log(`Result ${JSON.stringify(result)}`);
-        }
-      });
-      const portList = {};
-      commandParser.logic = (dataLine) => {
-        if (dataLine.startsWith('^SETPORT:')) {
-          const arr = dataLine.split(':');
-          portList[arr[1]] = arr[2].trim();
-        } else if (dataLine.includes('OK')) {
-          return {
-            resultData: {
-              status: 'success',
-              request: 'executeCommand',
-              data: {
-                'result': portList
-              }
-            },
-            returnResult: true
-          }
-        } else if (dataLine.includes('ERROR') || dataLine.includes('COMMAND NOT SUPPORT')) {
-          return {
-            resultData: {
-              status: 'ERROR',
-              request: 'executeCommand',
-              data: `Execute Command returned Error: ${dataLine}`
-            },
-            returnResult: true
-          }
-        }
-      };
-    } // end execAT
-
-  */
-
-
-  modemClose() {
-    try {
-      this.log.debug("Setze CNMI auf Speichern");
-
-      if (cnmiModemClosed.length == 17) {
-
-        gsmModem.executeCommand(cnmiModemClosed, (result, err) => {
+      gsmModem.deleteAllSimMessages((result, err) => {
           if (err) {
-            this.log.warn(`Error setting CNMI - ${err}`);
+            this.log.warn(`Failed to delete MEssage ${err}`);
           } else {
-            this.log.debug(`Result setting CNMI: ${JSON.stringify(result)}`);
-            gsmModem.executeCommand('AT+CNMI?', (result, err) => {
-              if (err) {
-                this.log.warn(`Error checking CNMI - ${err}`);
-              } else {
-                this.log.debug(`CNMI new:  ${JSON.stringify(result)}`);
-                this.log.debug("Closing connection");
-                gsmModem.close((err, msg) => {
-                  if (err) {
-                    this.log.warn(`Error closing - ${JSON.stringify(err)}`);
-                  } else {
-                    this.log.debug(`Closing:  ${JSON.stringify(msg)}`);
-                    this.log.debug("connection closed");
-
-                  }
-                });
-                this.setState('info.connection', false, true);
-              }
-            });
+            this.log.debug(`Delete Result: ${JSON.stringify(result)}`);
+            if (result.status == 'success') {
+              this.log.info('All messages on SIM deleted');
+            }
           }
-        });
-      } else {
-        this.log.debug("Closing connection (without changing CNMI)");
-        gsmModem.close();
-        this.setState('info.connection', false, true);
-      }
-
-      gsmModem.on('close', data => {
-        //whole message data
-        this.log.debug(`Event Close: ` + JSON.stringify(data));
-        if (reinitialize.indicator == true) {
-          this.log.debug("reinitialize!");
-          this.modemInitalize();
+        } else {
+          this.log.warn('Deleting Messages not successful, pls check: ' + JSON.stringify(result));
         }
-      });
+      }
+    });
+} catch (e) {
+  this.log.warn("Error deleting messages" + e)
+}
+} //end deleteAll
 
-    } catch (e) {
-      this.log.warn("Error closing connection" + e);
+/*
+  async storeMessage(data) {
+    await this.setObjectNotExistsAsync('inbox.SIM.' + data.index, {
+      type: 'state',
+      common: {
+        name: 'Message data',
+        type: 'string',
+        role: 'state',
+        read: true,
+        write: true,
+      },
+      native: {},
+    });
+
+    await this.setState('inbox.SIM.' + data.index, JSON.stringify(data), true);
+
+    this.log.debug('Message stored to: ' + data.index)
+  }//end storeMessage
+*/
+
+async phonebook(id, ownPhone) { //Check mit nachfolgender Abfrage einbauen
+  try {
+
+    if (ownPhone.name.length > 18) {
+      this.log.warn("ownName max length = 18 chars, please choose a shorter name");
+      return
     }
-  } //end modemClose()
+    gsmModem.writeToPhonebook(ownPhone.number, ownPhone.name, (result, err) => {
+      if (err) {
+        this.log.warn(`Error writing to phonebook - ${err}`);
+      } else {
+        this.log.debug(`wrote to Phonebook: ${JSON.stringify(result)}`);
+        if (result.status == 'success') {
+          this.log.info('Phonebook updated: ' + ownPhone.name + ', ' + ownPhone.number);
+        } else {
+          this.log.warn("Writing to phonebook not successful, pls check: " + JSON.stringify(result));
+        }
+      }
+    });
+  } catch (e) {
+    this.log.warn("Error writing ownNumber & ownName" + e)
+  }
+} //end phonebook
+
+
+async sending(messageRawJson, conn) {
+  try {
+    this.log.debug("Connection: " + conn);
+
+    this.log.debug("Connection open, send directly");
+    // Finally send an SMS
+    gsmModem.sendSMS(messageRawJson.recipient, messageRawJson.message, messageRawJson.alert, (result) => {
+      this.log.info(`Callback Send: Message ID: ${result.data.messageId},` +
+        `${result.data.response} To: ${result.data.recipient} ${JSON.stringify(result)}`);
+    });
+
+  } catch (e) {
+    this.log.warn("Error sending message" + e)
+  }
+} //end sending()
+
+async setOpMode(id, state) {
+
+  gsmModem.setModemMode((msg, err) => {
+    if (err) {
+      this.log.warn(`Error setting GSM-Modem mode - ${err}`);
+    } else {
+      this.log.debug(`Set operation mode: ${JSON.stringify(msg)}`);
+      if (msg.status == 'success') {
+        var returnedOpMode = msg.data.slice(0, 3);
+        if (returnedOpMode != opMode) {
+          this.log.info("Operating mode changed to: " + returnedOpMode);
+        }
+        opMode = returnedOpMode;
+        this.setState('info.opMode', opMode, true);
+        this.setState('admin.opMode', opMode, true);
+      } else {
+        this.log.warn("Setting operating mode not successful! Error: " + JSON.stringify(msg));
+        this.setState('info.error', JSON.stringify(msg), true);
+      }
+    }
+  }, state);
+} //end setOpMode
 
 
 
-  /**
-   * Is called when adapter shuts down - callback has to be called under any circumstances!
-   * @param {() => void} callback
-   */
-  onUnload(callback) {
-    try {
-      // Here you must clear all timeouts or intervals that may still be active
-      // clearTimeout(timeout1);
-      // clearTimeout(timeout2);
-      // ...
-      // clearInterval(interval1);
+async execATSL(id, atCmd) {
+  // execute a custom command - one line response normally is handled automatically
+  gsmModem.executeCommand(atCmd, (result, err) => {
+    if (err) {
+      this.log.debug(`Error - ${err}`);
+    } else {
+      this.log.debug(`Result ${JSON.stringify(result)}`);
+      this.setState(admin.atCommandResponse, JSON.stringify(result), true);
+    }
+  });
 
-      clearInterval(storedMessageParser);
-      clearInterval(polling);
+} //end execATSL
 
 
+modemClose() {
+  try {
+    this.log.debug("Setze CNMI auf Speichern");
 
+    if (cnmiModemClosed.length == 17) {
 
-
-      if (connectionMode == 'alwaysopen') {
-        if (cnmiModemClosed.length == 17) {
-          this.log.debug("Setze CNMI auf Speichern");
-
-          gsmModem.executeCommand(cnmiModemClosed, (result, err) => {
+      gsmModem.executeCommand(cnmiModemClosed, (result, err) => {
+        if (err) {
+          this.log.warn(`Error setting CNMI - ${err}`);
+        } else {
+          this.log.debug(`Result setting CNMI: ${JSON.stringify(result)}`);
+          gsmModem.executeCommand('AT+CNMI?', (result, err) => {
             if (err) {
-              this.log.warn(`Error setting CNMI - ${err}`);
+              this.log.warn(`Error checking CNMI - ${err}`);
             } else {
-              this.log.debug(`Result setting CNMI: ${JSON.stringify(result)}`);
-              gsmModem.executeCommand('AT+CNMI?', (result, err) => {
+              this.log.debug(`CNMI new:  ${JSON.stringify(result)}`);
+              this.log.debug("Closing connection");
+              gsmModem.close((err, msg) => {
                 if (err) {
-                  this.log.warn(`Error checking CNMI - ${err}`);
+                  this.log.warn(`Error closing - ${JSON.stringify(err)}`);
                 } else {
-                  this.log.debug(`CNMI new:  ${JSON.stringify(result)}`);
-                  this.log.debug("Closing connection ");
-                  gsmModem.close();
-                  this.setState('info.connection', false, true);
-                  this.log.info('stopping GSM-SMS - adapter');
+                  this.log.debug(`Closing:  ${JSON.stringify(msg)}`);
+                  this.log.debug("connection closed");
+
                 }
               });
+              this.setState('info.connection', false, true);
             }
           });
-
-        } else {
-          this.log.debug("Closing connection (without changing CNMI)");
-          gsmModem.close();
-          this.setState('info.connection', false, true);
-          this.log.info('stopping GSM-SMS - adapter');
-
         }
-      } else {
-        this.setState('info.connection', false, true);
-        this.log.info('stopping GSM-SMS - adapter');
-      }
-
-      callback();
-    } catch (e) {
-      this.log.warn('Error stopping (onUnload) GSM-SMS - adapter: ' + e);
-      callback();
-    }
-  } // end onUnload
-
-  // If you need to react to object changes, uncomment the following block and the corresponding line in the constructor.
-  // You also need to subscribe to the objects with `this.subscribeObjects`, similar to `this.subscribeStates`.
-  // /**
-  //  * Is called if a subscribed object changes
-  //  * @param {string} id
-  //  * @param {ioBroker.Object | null | undefined} obj
-  //  */
-  // onObjectChange(id, obj) {
-  // 	if (obj) {
-  // 		// The object was changed
-  // 		this.log.info(`object ${id} changed: ${JSON.stringify(obj)}`);
-  // 	} else {
-  // 		// The object was deleted
-  // 		this.log.info(`object ${id} deleted`);
-  // 	}
-  // }
-
-  /**
-   * Is called if a subscribed state changes
-   * @param {string} id
-   * @param {ioBroker.State | null | undefined} state
-   */
-  onStateChange(id, state) {
-    if (state) {
-      // The state was changed
-      this.log.debug(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-      if (!id || state.ack) return;
-      this.log.info(`state ${id} changed: ${state.val}`);
-      var instance = id.substring(0, this.namespace.length);
-      this.log.debug("Instanz: " + instance);
-      id = id.substring(this.namespace.length + 1); // remove instance name and id
-
-      this.log.debug("id=" + id);
-      if (state.ack == false) {
-        this.log.debug("ack=false, launch controlSIM");
-        state = state.val;
-        //this.controlSIM(id, state)
-        this.modemInitialize(id, state)
-      }
+      });
     } else {
-      // The state was deleted
-      this.log.info(`state ${id} deleted`);
+      this.log.debug("Closing connection (without changing CNMI)");
+      gsmModem.close();
+      this.setState('info.connection', false, true);
     }
+
+    gsmModem.on('close', data => {
+      //whole message data
+      this.log.debug(`Event Close onModemClose: ` + JSON.stringify(data));
+
+    });
+
+  } catch (e) {
+    this.log.warn("Error closing connection" + e);
+  }
+} //end modemClose()
+
+
+
+/**
+ * Is called when adapter shuts down - callback has to be called under any circumstances!
+ * @param {() => void} callback
+ */
+onUnload(callback) {
+  try {
+    // Here you must clear all timeouts or intervals that may still be active
+    // clearTimeout(timeout1);
+    // clearTimeout(timeout2);
+    // ...
+    // clearInterval(interval1);
+
+    clearInterval(storedMessageParser);
+    //clearInterval(polling);
+
+    if (cnmiModemClosed.length == 17) {
+      this.log.debug("Setze CNMI auf Speichern");
+
+      gsmModem.executeCommand(cnmiModemClosed, (result, err) => {
+        if (err) {
+          this.log.warn(`Error setting CNMI - ${err}`);
+        } else {
+          this.log.debug(`Result setting CNMI: ${JSON.stringify(result)}`);
+          gsmModem.executeCommand('AT+CNMI?', (result, err) => {
+            if (err) {
+              this.log.warn(`Error checking CNMI - ${err}`);
+            } else {
+              this.log.debug(`CNMI new:  ${JSON.stringify(result)}`);
+              this.log.debug("Closing connection ");
+              gsmModem.close();
+              this.setState('info.connection', false, true);
+              this.log.info('stopping GSM-SMS - adapter');
+            }
+          });
+        }
+      });
+
+    } else {
+      this.log.debug("Closing connection (without changing CNMI)");
+      gsmModem.close();
+      this.setState('info.connection', false, true);
+      this.log.info('stopping GSM-SMS - adapter');
+
+    }
+
+
+    callback();
+  } catch (e) {
+    this.log.warn('Error stopping (onUnload) GSM-SMS - adapter: ' + e);
+    callback();
   }
 
-  // If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.
-  // /**
-  //  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
-  //  * Using this method requires "common.messagebox" property to be set to true in io-package.json
-  //  * @param {ioBroker.Message} obj
-  //  */
-  // onMessage(obj) {
-  // 	if (typeof obj === 'object' && obj.message) {
-  // 		if (obj.command === 'send') {
-  // 			// e.g. send email or pushover or whatever
-  // 			this.log.info('send command');
+  gsmModem.on('close', data => {
+    //whole message data
+    console.log(`Event Close onUnload: ` + JSON.stringify(data));
 
-  // 			// Send response in callback if required
-  // 			if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
-  // 		}
-  // 	}
-  // }
+
+  });
+} // end onUnload
+
+// If you need to react to object changes, uncomment the following block and the corresponding line in the constructor.
+// You also need to subscribe to the objects with `this.subscribeObjects`, similar to `this.subscribeStates`.
+// /**
+//  * Is called if a subscribed object changes
+//  * @param {string} id
+//  * @param {ioBroker.Object | null | undefined} obj
+//  */
+// onObjectChange(id, obj) {
+// 	if (obj) {
+// 		// The object was changed
+// 		this.log.info(`object ${id} changed: ${JSON.stringify(obj)}`);
+// 	} else {
+// 		// The object was deleted
+// 		this.log.info(`object ${id} deleted`);
+// 	}
+// }
+
+/**
+ * Is called if a subscribed state changes
+ * @param {string} id
+ * @param {ioBroker.State | null | undefined} state
+ */
+onStateChange(id, state) {
+  if (state) {
+    // The state was changed
+    this.log.debug(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
+    if (!id || state.ack) return;
+    this.log.info(`state ${id} changed: ${state.val}`);
+    var instance = id.substring(0, this.namespace.length);
+    this.log.debug("Instanz: " + instance);
+    id = id.substring(this.namespace.length + 1); // remove instance name and id
+
+    this.log.debug("id=" + id);
+
+    this.controlSIM(id, state)
+
+  } else {
+    // The state was deleted
+    this.log.info(`state ${id} deleted`);
+  }
+}
+
+// If you need to accept messages in your adapter, uncomment the following block and the corresponding line in the constructor.
+// /**
+//  * Some message was sent to this instance over message box. Used by email, pushover, text2speech, ...
+//  * Using this method requires "common.messagebox" property to be set to true in io-package.json
+//  * @param {ioBroker.Message} obj
+//  */
+// onMessage(obj) {
+// 	if (typeof obj === 'object' && obj.message) {
+// 		if (obj.command === 'send') {
+// 			// e.g. send email or pushover or whatever
+// 			this.log.info('send command');
+
+// 			// Send response in callback if required
+// 			if (obj.callback) this.sendTo(obj.from, obj.command, 'Message received', obj.callback);
+// 		}
+// 	}
+// }
 
 } //end Class Gsmsms
 

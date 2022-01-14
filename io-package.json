@@ -165,15 +165,15 @@
       }
     },
     {
-      "_id": "admin.atCommandMLR",
+      "_id": "admin.atCommandResponse",
       "type": "state",
       "common": {
-        "name": "AT+command multi line response",
+        "name": "Response to AT+command(single line only)",
         "type": "string",
         "role": "state",
         "read": true,
-        "write": true,
-        "desc": "AT+ command to be executed with multi line response expected"
+        "write": false,
+        "desc": "Single line response to sent AT+ command"
       },
       "native": {
 
