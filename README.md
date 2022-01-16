@@ -62,6 +62,8 @@ Not to run out of SIM-Memory, all SMS are deleted from SIM after delivery/readin
 | Custom Iinit command        | string  |                           | If your device needs a custom initialization command it can be provided and will be used after PIN check. The command is expected to return `'OK'` (empty, means "no custom command for init"). pls refer your GSM-device specs. |
 | CNMI when modem open/closed | string  | '2,1,0,2,0' / '2,0,2,2,1' | Defines if messages are saved on SIM or delivered instantly. pls refer your GSM-device specs.                                                                                                                                    |
 
+<!--| Incoming call indication    | boolean | false                     | Receive `'onNewIncomingCall'` event when receiving calls.                                                                                                                 |-->                                                       
+
 ### SerialPort settings
 
 Please refer to your GMS-device specs
