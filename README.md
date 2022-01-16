@@ -130,6 +130,10 @@ This adapter is based on the [SerialPort-GSM plugin](https://github.com/zabsalah
 
 ### **WORK IN PROGRESS**
 
+-   (forelleblau)
+
+### v0.0.1
+
 -   (forelleblau) initial release
 
 ## License
