@@ -14,7 +14,7 @@
 
 ## gsmsms adapter for ioBroker
 
-Send and recieve SMS with GSM-hardware. Not to run out of SIM-Memory, all SMS are deleted from SIM after delivery/reading. Use e.g. the 'history' - adapter to store your messages or any other convenient solution.
+Send and recieve SMS with GSM-hardware.
 
 ## Hardware
 
@@ -53,10 +53,12 @@ The adapter is only used to send SMS. All incoming SMS are ignored (possibly sav
 
 ### GSM settings
 
+Not to run out of SIM-Memory, all SMS are deleted from SIM after delivery/reading. Use e.g. the 'history' - adapter to store your messages or any other convenient solution.
+
 | Name | Type | Default | Description |
 | ---- | ---- | ------- | ----------- |
 
-<!--| Incoming call indication    | boolean | false                     | Receive `'onNewIncomingCall'` event when receiving calls.     -->                                                                                                                                                                   |
+<!--| Incoming call indication    | boolean | false                     | Receive `'onNewIncomingCall'` event when receiving calls.                                                                                                                 |-->                                                       
 
 | Incoming SMS indication     | boolean | true                      | Enables the modem to notify that a new SMS message has been received.                                                                                                                                                            |
 | Enable concatenation        | boolean | true                      | Receive concatenated messages as one.                                                                                                                                                                                            |
