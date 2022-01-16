@@ -83,7 +83,7 @@ Please refer to your GMS-device specs
 
 #### To be specified as adapter - objects (`admin.x`)
 
--   your name (default is `ownNumber`).
+-   your name (default is `ownNumber`), maximum lenght is 16 chars.
 -   your phone Number.
 -   SMS operating Mode (`PDU` or `SMS`, `PDU` is default and recommended).
 

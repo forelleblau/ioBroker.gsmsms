@@ -398,7 +398,7 @@ class Gsmsms extends utils.Adapter {
             } else {
               this.log.debug(`GSM modem Serial: ${JSON.stringify(result)}`);
               this.setState('info.modemSerial', parseInt(result.data.modemSerial), true);
-              execATSL('AT+CNMI=' + cnmiModemOpen)
+              this.execATSL('CNMI', cnmiModemOpen)
             }
           });
 
@@ -449,19 +449,19 @@ class Gsmsms extends utils.Adapter {
 
                   if (messageNr == result["data"].length) {
                     this.log.info("All saved messages processed");
+                    if (autoDeleteOnReceive == true) {
+                      this.deleteAll(result["data"].length);
+                    }
                     clearInterval(storedMessageParser);
                   }
-
                 }, 1000);
+
               } else {
-                this.log.debug("No saved messages to process");
+                this.log.info("No saved messages to process");
               }
 
               // was passiert wenn sim voll??
-              if (autoDeleteOnReceive == true) {
-                this.deleteAll(result["data"].length);
-              }
-              execATSL('AT+CNMI=' + cnmiModemOpen)
+              this.execATSL('CNMI', cnmiModemOpen)
             }
           });
         }
@@ -516,8 +516,8 @@ class Gsmsms extends utils.Adapter {
 
   async phonebook(id, ownPhone) { //Check mit nachfolgender Abfrage einbauen
     try {
-      if (ownPhone.name.length > 18) {
-        this.log.warn("ownName max length = 18 chars, please choose a shorter name");
+      if (ownPhone.name.length > 16) {
+        this.log.warn("ownName max length = 16 chars, please choose a shorter name");
         return
       }
       gsmModem.writeToPhonebook(ownPhone.number, ownPhone.name, (result, err) => {
@@ -616,8 +616,9 @@ class Gsmsms extends utils.Adapter {
 
 
 
-  async execATSL(atCmd) {
+  async execATSL(id, atCmd) {
     try {
+      this.log.debug("Execute AT+Command: " + atCmd)
       // execute a custom command - one line response normally is handled automatically
       gsmModem.executeCommand(atCmd, (result, err) => {
         if (err) {
@@ -625,7 +626,10 @@ class Gsmsms extends utils.Adapter {
           this.setState('info.error', JSON.stringify(err), true);
         } else {
           this.log.debug(`Result ${JSON.stringify(result)}`);
-          this.setState('admin.atCommandResponse', JSON.stringify(result), true);
+          if (id != 'CNMI') {
+            this.setState('admin.atCommandResponse', JSON.stringify(result), true);
+            this.log.info('AT+Command response (single / last line): ' + JSON.stringify(result.data.result))
+          }
         }
       });
     } catch (e) {
