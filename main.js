@@ -103,7 +103,7 @@ class Gsmsms extends utils.Adapter {
       incomingSMSIndication = this.config.incomingSMSIndication;
       pin = this.config.pin;
       customInitCommand = this.config.customInitCommand;
-      //cnmiModemOpen = 'AT+CNMI=' + this.config.cnmiModemOpen;
+      cnmiModemOpen = 'AT+CNMI=' + this.config.cnmiModemOpen;
       cnmiModemClosed = 'AT+CNMI=' + this.config.cnmiModemClosed;
 
       baudRate = this.config.baudRate;
@@ -127,7 +127,7 @@ class Gsmsms extends utils.Adapter {
       this.log.debug('incomingSMSIndication: ' + incomingSMSIndication);
       this.log.debug('pin: ' + pin);
       this.log.debug('customInitCommand: ' + customInitCommand);
-      //this.log.debug('cnmiModemOpen: ' + cnmiModemOpen);
+      this.log.debug('cnmiModemOpen: ' + cnmiModemOpen);
       this.log.debug('cnmiModemClosed: ' + cnmiModemClosed);
 
       this.log.debug('baudRate: ' + baudRate);
@@ -398,7 +398,7 @@ class Gsmsms extends utils.Adapter {
             } else {
               this.log.debug(`GSM modem Serial: ${JSON.stringify(result)}`);
               this.setState('info.modemSerial', parseInt(result.data.modemSerial), true);
-
+              execATSL('AT+CNMI=' + cnmiModemOpen)
             }
           });
 
@@ -461,6 +461,7 @@ class Gsmsms extends utils.Adapter {
               if (autoDeleteOnReceive == true) {
                 this.deleteAll(result["data"].length);
               }
+              execATSL('AT+CNMI=' + cnmiModemOpen)
             }
           });
         }
@@ -615,7 +616,7 @@ class Gsmsms extends utils.Adapter {
 
 
 
-  async execATSL(id, atCmd) {
+  async execATSL(atCmd) {
     try {
       // execute a custom command - one line response normally is handled automatically
       gsmModem.executeCommand(atCmd, (result, err) => {
