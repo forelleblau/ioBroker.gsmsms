@@ -55,11 +55,8 @@ The adapter is only used to send SMS. All incoming SMS are ignored (possibly sav
 
 Not to run out of SIM-Memory, all SMS are deleted from SIM after delivery/reading. Use e.g. the 'history' - adapter to store your messages or any other convenient solution.
 
-| Name | Type | Default | Description |
-| ---- | ---- | ------- | ----------- |
-
-<!--| Incoming call indication    | boolean | false                     | Receive `'onNewIncomingCall'` event when receiving calls.                                                                                                                 |-->                                                       
-
+| Name                        | Type    | Default                   | Description                                                                                                                                                                                                                      |
+| --------------------------- | ------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Incoming SMS indication     | boolean | true                      | Enables the modem to notify that a new SMS message has been received.                                                                                                                                                            |
 | Enable concatenation        | boolean | true                      | Receive concatenated messages as one.                                                                                                                                                                                            |
 | Custom Iinit command        | string  |                           | If your device needs a custom initialization command it can be provided and will be used after PIN check. The command is expected to return `'OK'` (empty, means "no custom command for init"). pls refer your GSM-device specs. |
