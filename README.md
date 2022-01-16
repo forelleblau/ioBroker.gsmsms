@@ -53,11 +53,13 @@ The adapter is only used to send SMS. All incoming SMS are ignored (possibly sav
 
 ### GSM settings
 
-| Name                        | Type    | Default                   | Description                                                                                                                                                                                                                      |
-| --------------------------- | ------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Enable concatenation        | boolean | true                      | Receive concatenated messages as one.                                                                                                                                                                                            |
-| Incoming call indication    | boolean | false                     | Receive `'onNewIncomingCall'` event when receiving calls.                                                                                                                                                                        |
+| Name | Type | Default | Description |
+| ---- | ---- | ------- | ----------- |
+
+<!--| Incoming call indication    | boolean | false                     | Receive `'onNewIncomingCall'` event when receiving calls.     -->                                                                                                                                                                   |
+
 | Incoming SMS indication     | boolean | true                      | Enables the modem to notify that a new SMS message has been received.                                                                                                                                                            |
+| Enable concatenation        | boolean | true                      | Receive concatenated messages as one.                                                                                                                                                                                            |
 | Custom Iinit command        | string  |                           | If your device needs a custom initialization command it can be provided and will be used after PIN check. The command is expected to return `'OK'` (empty, means "no custom command for init"). pls refer your GSM-device specs. |
 | CNMI when modem open/closed | string  | '2,1,0,2,0' / '2,0,2,2,1' | Defines if messages are saved on SIM or delivered instantly. pls refer your GSM-device specs.                                                                                                                                    |
 
@@ -208,7 +210,8 @@ npm run release
 ```
 
 Additional command line options for the release script are explained in the
-[release-script documentation](https://github.com/AlCalzone/release-script#command-line).
+[release-script documentation](<https://github.com/AlCalzone/release-script#command-line>
+).
 
 To get your adapter released in ioBroker, please refer to the documentation
 of [ioBroker.repositories](https://github.com/ioBroker/ioBroker.repositories#requirements-for-adapter-to-get-added-to-the-latest-repository).
