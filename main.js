@@ -347,7 +347,7 @@ class Gsmsms extends utils.Adapter {
 
     try {
       var opModeState = (await this.getStateAsync('admin.opMode'));
-      if (opModeState.val == 'PDU' || opModeState.val == 'PDU') {
+      if (opModeState.val == 'PDU' || opModeState.val == 'SMS') {
         opMode = opModeState.val;
       }
       this.log.debug(`Configuring Modem for mode: ${opMode}`);
