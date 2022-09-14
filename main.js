@@ -20,7 +20,7 @@ var port;
 
 //let polling;
 
-var autoDeleteOnReceive = true;
+var autoDeleteOnReceive = false;
 var enableConcatenation = true;
 var incomingCallIndication = false;
 var incomingSMSIndication = true;
@@ -443,7 +443,7 @@ class Gsmsms extends utils.Adapter {
                   this.log.info("saved message Nr " + (messageNr + 1) + ": " + JSON.stringify(result["data"][messageNr]));
 
                   if (autoDeleteOnReceive == false) {
-                    this.storeMessage(result["data"][messageNr])
+                    //this.storeMessage(result["data"][messageNr])
                   }
                   messageNr++;
 
