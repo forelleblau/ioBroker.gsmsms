@@ -64,6 +64,7 @@
     "connectionType": "local",
     "dataSource": "push",
     "materialize": true,
+    "messagebox": true,
     "blockly": true,
     "dependencies": [{
       "js-controller": ">=2.0.0"

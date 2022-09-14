@@ -317,6 +317,7 @@ Blockly.JavaScript['gsmsms'] = function(block) {
       logText = '';
     }
   */
+
   return 'sendTo("gsmsms' + dropdown_instance + '", "send", {\n    text: ' +
     value_message + (value_number ? ', \n    number: ' + value_number : '') +
     /*
