@@ -87,8 +87,35 @@ class Gsmsms extends utils.Adapter {
    * Is called when databases are connected and adapter received configuration.
    */
 
-  async onMessage(data) {
-    adapter.log.debug("Recieved Message, data: " + data);
+  async onMessage(obj) {
+    try {
+      this.log.debug("Recieved Message, data: " + JSON.stringify(obj));
+      var messageToSend = {
+        "recipient": "Number",
+        "message": "Yourtext",
+        "alert": "false"
+      };
+      messageToSend.recipient = obj.message.recipient;
+      messageToSend.message = obj.message.text;
+
+      var feedback = await sending(messageToSend);
+
+      if (feedback == 'Message Successfully Sent') {
+        this.log.info('Message from ' + obj.from + 'successfully sent');
+      } else if (feedback == 'Successfully Sent to Message Queue') {
+        this.log.warn('Message from ' + obj.from + ' prcessing, see log above')
+      } else {
+        this.log.warn('Error sending message from: ' + obj.from + 'see log above');
+      }
+    } catch (e) {
+      this.log.warn("Error onMessage" + e);
+    }
+
+
+
+    //Recieved Message, data: {"command":"send","message":{"text":"Testsms","number":"0798233954"},"from":"system.adapter.javascript.0","_id":70000864}
+
+
   } //end onMessage
 
 
@@ -584,6 +611,7 @@ class Gsmsms extends utils.Adapter {
         } else {
           this.log.warn('Error sending message: ' + JSON.stringify(result));
         }
+        return result.data.response;
       });
 
     } catch (e) {
