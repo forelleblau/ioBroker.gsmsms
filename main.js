@@ -98,15 +98,8 @@ class Gsmsms extends utils.Adapter {
       messageToSend.recipient = obj.message.recipient;
       messageToSend.message = obj.message.text;
 
-      var feedback = await sending(messageToSend);
+      await this.sending(messageToSend);
 
-      if (feedback == 'Message Successfully Sent') {
-        this.log.info('Message from ' + obj.from + 'successfully sent');
-      } else if (feedback == 'Successfully Sent to Message Queue') {
-        this.log.warn('Message from ' + obj.from + ' prcessing, see log above')
-      } else {
-        this.log.warn('Error sending message from: ' + obj.from + 'see log above');
-      }
     } catch (e) {
       this.log.warn("Error onMessage" + e);
     }
@@ -611,7 +604,7 @@ class Gsmsms extends utils.Adapter {
         } else {
           this.log.warn('Error sending message: ' + JSON.stringify(result));
         }
-        return result.data.response;
+
       });
 
     } catch (e) {
