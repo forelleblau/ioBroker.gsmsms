@@ -110,6 +110,8 @@ Incoming SMS are written to the `inbox.*` - objects. `inbox.messageRaw` can be u
 
 To send a sms fill in `sendSMS.recipient, sendSMS.message` and optionally `sendSMS.alert` and push the `sendSMS.send` - button. Or set the `sendSMS.messageRaw` - Object with a string in the following form and ack=false: `{"recipient": "Number", "message":"Yourtext", "alert":"false"}`.
 
+This adapter also provides a comm-block for blockly and sendTo functionalities for other scripts (sendTo("gsmsms._InstanceNo_", "send", {text: '_yourText_',recipient: '_phonenumber_'});).
+
 ### Execute AT+ commands
 
 ! Pls be sure to know what you do when setting AT+ commands, it's your SIM-card / device.
