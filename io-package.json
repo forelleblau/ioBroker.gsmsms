@@ -18,15 +18,16 @@
       },
       "0.0.1": {
         "en": "initial release",
-        "de": "Erstveröffentlichung",
-        "ru": "Начальная версия",
+        "de": "Erster Versuch",
+        "ru": "начальный выпуск",
         "pt": "lançamento inicial",
-        "nl": "Eerste uitgave",
-        "fr": "Première version",
-        "it": "Versione iniziale",
-        "es": "Versión inicial",
-        "pl": "Pierwsze wydanie",
-        "zh-cn": "首次出版"
+        "nl": "niet",
+        "fr": "initial release",
+        "it": "rilascio iniziale",
+        "es": "liberación inicial",
+        "pl": "pierwsze wydanie",
+        "uk": "початковий реліз",
+        "zh-cn": "初步释放"
       }
     },
     "title": "GSM-SMS",
