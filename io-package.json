@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "gsmsms",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "news": {
+      "0.0.2": {
+        "en": "first published version",
+        "de": "erste veröffentlichte Version",
+        "ru": "первая опубликованная версия",
+        "pt": "primeira versão publicada",
+        "nl": "eerste gepubliceerde versie",
+        "fr": "première version publiée",
+        "it": "prima versione pubblicata",
+        "es": "primera versión publicada",
+        "pl": "pierwsze wydanie",
+        "uk": "перший опублікований варіант",
+        "zh-cn": "第一次出版"
+      },
       "0.0.1": {
         "en": "initial release",
         "de": "Erstveröffentlichung",
