@@ -76,6 +76,7 @@
     "compact": true,
     "connectionType": "local",
     "dataSource": "push",
+    "tier": 3,
     "materialize": true,
     "messagebox": true,
     "blockly": true,
