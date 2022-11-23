@@ -80,9 +80,18 @@
     "messagebox": true,
     "blockly": true,
     "dependencies": [{
-      "js-controller": ">=2.0.0"
+      "js-controller": ">=3.0.0"
+    }],
+    "globalDependencies": [{
+      "admin": ">=4.0.9"
     }]
   },
+  "protectedNative": [
+    "pin"
+  ],
+  "encryptedNative": [
+    "pin"
+  ],
   "native": {
     "port": "",
     "autoDeleteOnReceive": true,
