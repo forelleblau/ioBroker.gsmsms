@@ -211,7 +211,7 @@ class Gsmsms extends utils.Adapter {
         //cnmiCommand: cnmiModemOpen
       };
 
-      this.modemInitialize();
+      await this.modemInitialize();
       /*
             if (connectionMode == 'polling') {
               polling = setInterval(() => { // poll states every [10] minute
@@ -353,7 +353,9 @@ class Gsmsms extends utils.Adapter {
         gsmModem.on('close', data => {
           //whole message data
           console.log(`Event Close: ` + JSON.stringify(data));
+          this.setState('info.connection', false, true);
 
+          //ev. hier neu initialisieren.
 
         });
 
