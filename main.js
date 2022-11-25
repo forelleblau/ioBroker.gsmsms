@@ -38,7 +38,7 @@ var xon = false;
 var xoff = false;
 var xany = false;
 
-var options;
+let options;
 
 var ownPhone = {
   "name": '',
@@ -192,7 +192,7 @@ class Gsmsms extends utils.Adapter {
       // Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
       // this.subscribeStates('*');
 
-      let options = {
+      options = {
         baudRate: baudRate,
         dataBits: dataBits,
         parity: parity,
@@ -207,9 +207,10 @@ class Gsmsms extends utils.Adapter {
         incomingSMSIndication: incomingSMSIndication,
         pin: pin,
         customInitCommand: customInitCommand,
-        logger: 'console'
-        //cnmiCommand: cnmiModemOpen
+        logger: this.log,
+        cnmiCommand: cnmiModemOpen
       };
+
 
       await this.modemInitialize();
       /*
@@ -306,18 +307,20 @@ class Gsmsms extends utils.Adapter {
         });
 
 
-        gsmModem.on('onNewMessageIndicator', data => {
+        gsmModem.on('onNewMessageIndicator', datanmi => {
           //indicator for new message only (sender, timeSent)
-          this.log.debug(`Event New Message Indication: ` + JSON.stringify(data));
+          this.log.debug(`Event New Message Indication: ` + JSON.stringify(datanmi));
         });
 
-        gsmModem.on('onNewMessage', data => {
+        gsmModem.on('onNewMessage', datanm => {
           //whole message data
-          this.log.info(`Event New Message: ` + JSON.stringify(data));
-          this.setState('inbox.messageSender', data.sender, true);
-          this.setState('inbox.messageText', data.message, true);
-          this.setState('inbox.messageDate', (data.dateTimeSent).toString(), true);
-          this.setState('inbox.messageRaw', JSON.stringify(data), true);
+          this.log.info(`Event New Message: ` + JSON.stringify(datanm));
+          this.log.debug("sender: " + datanm[0]['sender']);
+          this.log.debug("text: " + datanm[0]['message']);
+          this.setState('inbox.messageSender', '+' + datanm[0]['sender'], true);
+          this.setState('inbox.messageText', datanm[0]['message'], true);
+          this.setState('inbox.messageDate', (datanm[0]['dateTimeSent']).toString(), true);
+          this.setState('inbox.messageRaw', JSON.stringify(datanm), true);
 
           if (autoDeleteOnReceive == true) {
             this.deleteAll();
@@ -338,7 +341,7 @@ class Gsmsms extends utils.Adapter {
         /*
                   gsmModem.on('onNewIncomingCall', data => {
                     //whole message data
-                    console.log(`Event Incoming Call: ` + JSON.stringify(data));
+                    c.log(`Event Incoming Call: ` + JSON.stringify(data));
                   });
 
                   */
@@ -352,7 +355,7 @@ class Gsmsms extends utils.Adapter {
 
         gsmModem.on('close', data => {
           //whole message data
-          console.log(`Event Close: ` + JSON.stringify(data));
+          this.log.info(`Event Close: ` + JSON.stringify(data));
           this.setState('info.connection', false, true);
 
           //ev. hier neu initialisieren.
@@ -426,7 +429,7 @@ class Gsmsms extends utils.Adapter {
             } else {
               this.log.debug(`GSM modem Serial: ${JSON.stringify(result)}`);
               this.setState('info.modemSerial', parseInt(result.data.modemSerial), true);
-              this.execATSL('CNMI', cnmiModemOpen)
+              //this.execATSL('CNMI', cnmiModemOpen)
             }
           });
 
@@ -489,7 +492,7 @@ class Gsmsms extends utils.Adapter {
               }
 
               // was passiert wenn sim voll??
-              this.execATSL('CNMI', cnmiModemOpen)
+              //this.execATSL('CNMI', cnmiModemOpen)
             }
           });
         }
@@ -677,7 +680,8 @@ class Gsmsms extends utils.Adapter {
         case 'admin.ownName':
           if (conn == true) {
             ownPhone.number = (await this.getStateAsync('info.ownNumber')).val;
-            ownPhone.name = state.val
+            ownPhone.name = state.val;
+            this.log.debug('Phonebook new: ' + JSON.stringify(ownPhone));
             this.phonebook(id, ownPhone);
           } else {
             this.log.debug("Connection is closed, please restart adapter & try again");
@@ -866,7 +870,7 @@ class Gsmsms extends utils.Adapter {
 
     gsmModem.on('close', data => {
       //whole message data
-      console.log(`Event Close onUnload: ` + JSON.stringify(data));
+      this.log.info(`Event Close onUnload: ` + JSON.stringify(data));
 
 
     });
