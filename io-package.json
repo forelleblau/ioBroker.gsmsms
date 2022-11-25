@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "gsmsms",
-    "version": "0.0.2",
+    "version": "0.0.3",
     "news": {
+      "0.0.3": {
+        "en": "dependencies updated, bugs fixed",
+        "de": "abhängigkeiten aktualisiert, fehler behoben",
+        "ru": "обновляемые зависимости, исправлены ошибки",
+        "pt": "dependências atualizadas, bugs corrigidos",
+        "nl": "afhankelijkheid geüpload",
+        "fr": "dépendances mises à jour, bugs corrigés",
+        "it": "dipendenze aggiornate, bug fissi",
+        "es": "dependencias actualizadas, errores fijos",
+        "pl": "aktualizacja",
+        "uk": "залежностей оновлено, виправлено помилки",
+        "zh-cn": "b. 更新的依赖、固定的刺激"
+      },
       "0.0.2": {
         "en": "first published version",
         "de": "erste veröffentlichte Version",

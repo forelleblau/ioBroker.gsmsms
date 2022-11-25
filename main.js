@@ -63,7 +63,7 @@ var reinitialize = {
 };
 
 */
-//var logger = console; Logger!!!! als Variabel fest setzen auf 'console' Prüfen ob nötig
+
 //var highWaterMark = 16384; Prüfen ob als 'option'nötig:  The size of the read and write buffers defaults to 16k. |
 
 class Gsmsms extends utils.Adapter {
