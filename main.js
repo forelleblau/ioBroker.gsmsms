@@ -97,6 +97,7 @@ class Gsmsms extends utils.Adapter {
       };
       messageToSend.recipient = obj.message.recipient;
       messageToSend.message = obj.message.text;
+      messageToSend.alert = obj.message.alert;
 
       await this.sending(messageToSend);
 
@@ -324,6 +325,7 @@ class Gsmsms extends utils.Adapter {
 
           if (autoDeleteOnReceive == true) {
             this.deleteAll();
+
           } //else { this.storeMessage(data)}          }
 
 
@@ -505,6 +507,27 @@ class Gsmsms extends utils.Adapter {
 
 
   deleteAll() {
+    try {
+      gsmModem.deleteAllSimMessages((result, err) => {
+        if (err) {
+          this.log.warn(`Failed to delete MEssage ${err}`);
+          this.setState('info.error', JSON.stringify(err), true);
+        } else {
+          this.log.debug(`Delete Result: ${JSON.stringify(result)}`);
+          if (result.status == 'success') {
+            this.log.info('All messages on SIM deleted');
+          } else {
+            this.log.warn('Deleting Messages not successful, pls check: ' + JSON.stringify(result));
+            this.setState('info.error', JSON.stringify(result), true);
+          }
+        }
+      });
+    } catch (e) {
+      this.log.warn("Error deleting messages" + e)
+    }
+  } //end deleteAll
+
+  deleteMessage() {
     try {
       gsmModem.deleteAllSimMessages((result, err) => {
         if (err) {
@@ -730,18 +753,18 @@ class Gsmsms extends utils.Adapter {
           }
           break;
           /*
-        case 'admin.atCommandMLR':
-          if (conn == true) {
-            this.log.debug("Connection open, send command");
-            this.execATML(id, state.val)
+          case 'admin.atCommandMLR':
+            if (conn == true) {
+              this.log.debug("Connection open, send command");
+              this.execATML(id, state.val)
 
-          } else {
-            this.log.debug("Connection is closed, please restart adapter & try again");
+            } else {
+              this.log.debug("Connection is closed, please restart adapter & try again");
 
-          }
+            }
 
-          break;
-            */
+            break;
+              */
         case 'sendSMS.messageRaw':
           messageRawJson = JSON.parse(state);
           this.sending(messageRawJson);

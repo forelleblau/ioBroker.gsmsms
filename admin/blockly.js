@@ -51,6 +51,18 @@ Blockly.Words['gsmsms_recipient'] = {
   "pl": "Recipient (liczba)",
   "zh-cn": "核准(编号)"
 };
+Blockly.Words['gsmsms_alert'] = {
+  "en": "alert",
+  "de": "Alarm",
+  "ru": "оповещение",
+  "pt": "alerta",
+  "nl": "alarm",
+  "fr": "alerte",
+  "it": "avviso",
+  "es": "alerta",
+  "pl": "alarm",
+  "zh-cn": "警觉"
+};
 Blockly.Words['gsmsms_anyInstance'] = {
   'en': 'all instances',
   'pt': 'todas as instâncias',
@@ -97,6 +109,8 @@ Blockly.Sendto.blocks['gsmsms'] =
   '             <field name="TEXT">text</field>' +
   '         </shadow>' +
   '     </value>' +
+  '     <value name="ALERT">' +
+  '     </value>' +
   '</block>';
 
 Blockly.Blocks['gsmsms'] = {
@@ -134,6 +148,10 @@ Blockly.Blocks['gsmsms'] = {
       .setCheck('String')
       .appendField(Blockly.Translate('gsmsms_recipient'));
 
+    this.appendDummyInput("ALERT")
+      .appendField(Blockly.Translate('alert'))
+      .appendField(new Blockly.FieldCheckbox('FALSE'), 'ALERT');
+
     if (input.connection) {
       input.connection._optional = true;
     }
@@ -152,8 +170,9 @@ Blockly.JavaScript['gsmsms'] = function(block) {
   var dropdown_instance = block.getFieldValue('INSTANCE');
   var value_message = Blockly.JavaScript.valueToCode(block, 'MESSAGE', Blockly.JavaScript.ORDER_ATOMIC);
   var value_number = Blockly.JavaScript.valueToCode(block, 'RECIPIENT', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_alert = Blockly.JavaScript.valueToCode(block, 'ALERT', Blockly.JavaScript.ORDER_ATOMIC);
 
   return 'sendTo("gsmsms' + dropdown_instance + '", "send", {\n    text: ' +
-    value_message + (value_number ? ', \n    recipient: ' + value_number : '') +
+    value_message + (value_number ? ', \n    recipient: ' + value_number : '' + ', \n   alert: ' + value_alert) +
     '\n});\n';
 };
