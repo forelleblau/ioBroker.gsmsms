@@ -172,8 +172,8 @@ Blockly.JavaScript['gsmsms'] = function(block) {
   var value_number = Blockly.JavaScript.valueToCode(block, 'RECIPIENT', Blockly.JavaScript.ORDER_ATOMIC);
   //var value_alert = Blockly.JavaScript.valueToCode(block, 'ALERT', Blockly.JavaScript.ORDER_ATOMIC);
   var value_alert = block.getFieldValue('ALERT');
-  //return
-  this.log.debug('sendTo("gsmsms' + dropdown_instance + '", "send", {text:' +
+
+  return ('sendTo("gsmsms' + dropdown_instance + '", "send", {text:' +
     value_message + ',recipient:' + value_number + ', alert:' + value_alert +
     '});\n');
 };
