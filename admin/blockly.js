@@ -149,7 +149,7 @@ Blockly.Blocks['gsmsms'] = {
       .appendField(Blockly.Translate('gsmsms_recipient'));
 
     this.appendDummyInput("ALERT")
-      .appendField(Blockly.Translate('alert'))
+      .appendField(Blockly.Translate('gsmsms_alert'))
       .appendField(new Blockly.FieldCheckbox('FALSE'), 'ALERT');
 
     if (input.connection) {
@@ -170,7 +170,7 @@ Blockly.JavaScript['gsmsms'] = function(block) {
   var dropdown_instance = block.getFieldValue('INSTANCE');
   var value_message = Blockly.JavaScript.valueToCode(block, 'MESSAGE', Blockly.JavaScript.ORDER_ATOMIC);
   var value_number = Blockly.JavaScript.valueToCode(block, 'RECIPIENT', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_alert = Blockly.JavaScript.valueToCode(block, 'ALERT', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_alert = block.getFieldValue('ALERT');
 
   return 'sendTo("gsmsms' + dropdown_instance + '", "send", {\n    text: ' +
     value_message + (value_number ? ', \n    recipient: ' + value_number : '' + ', \n   alert: ' + value_alert) +
