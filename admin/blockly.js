@@ -167,12 +167,12 @@ Blockly.Blocks['gsmsms'] = {
 };
 
 Blockly.JavaScript['gsmsms'] = function(block) {
-    var dropdown_instance = block.getFieldValue('INSTANCE');
-    var value_message = Blockly.JavaScript.valueToCode(block, 'MESSAGE', Blockly.JavaScript.ORDER_ATOMIC);
-    var value_number = Blockly.JavaScript.valueToCode(block, 'RECIPIENT', Blockly.JavaScript.ORDER_ATOMIC);
-    var value_alert = block.getFieldValue('ALERT');
+  var dropdown_instance = block.getFieldValue('INSTANCE');
+  var value_message = Blockly.JavaScript.valueToCode(block, 'MESSAGE', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_number = Blockly.JavaScript.valueToCode(block, 'RECIPIENT', Blockly.JavaScript.ORDER_ATOMIC);
+  var value_alert = block.getFieldValue('ALERT');
 
-    return 'sendTo("gsmsms' + dropdown_instance + '", "send", {text:' +
-      value_message + ',recipient: ' + value_number + ', alert: ' + value_alert) +
-  '});\n';
+  return 'sendTo("gsmsms.' + dropdown_instance + '", "send", {text:"' +
+    value_message + '",recipient:"' + value_number + '", alert:' + value_alert +
+    '});\n';
 };
