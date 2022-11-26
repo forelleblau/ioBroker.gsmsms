@@ -171,7 +171,10 @@ Blockly.JavaScript['gsmsms'] = function(block) {
   var value_message = Blockly.JavaScript.valueToCode(block, 'MESSAGE', Blockly.JavaScript.ORDER_ATOMIC);
   var value_number = Blockly.JavaScript.valueToCode(block, 'RECIPIENT', Blockly.JavaScript.ORDER_ATOMIC);
   //var value_alert = Blockly.JavaScript.valueToCode(block, 'ALERT', Blockly.JavaScript.ORDER_ATOMIC);
-  var value_alert = block.getFieldValue('ALERT');
+  var value_alert = false;
+  if (block.getFieldValue('ALERT') == 'TRUE') {
+    var value_alert = true
+  };
 
   return ('sendTo("gsmsms' + dropdown_instance + '", "send", {text:' +
     value_message + ',recipient:' + value_number + ', alert:' + value_alert +
