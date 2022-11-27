@@ -241,10 +241,12 @@ class Gsmsms extends utils.Adapter {
 
       await this.modemInitialize();
 
-      gettingSignals = setInterval(() => {
-        this.getSignals()
-      }, pollinginterval);
+      if (getSignalQuality == true) {
 
+        gettingSignals = setInterval(() => {
+          this.getSignals()
+        }, pollinginterval);
+      }
 
       /*
             if (connectionMode == 'polling') {
@@ -373,12 +375,12 @@ class Gsmsms extends utils.Adapter {
         ///incomingCall auf false als standard!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
         /*
-                  gsmModem.on('onNewIncomingCall', data => {
-                    //whole message data
-                    c.log(`Event Incoming Call: ` + JSON.stringify(data));
-                  });
+                gsmModem.on('onNewIncomingCall', data => {
+                  //whole message data
+                  this.log.debug(`Event Incoming Call: ` + JSON.stringify(data));
+                });
 
-                  */
+        */
 
         //löschen bei Empfang auf standard  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
