@@ -135,16 +135,29 @@ systemDictionary = {
     "zh-cn": "只发送"
   },
   "pollinginterval": {
-    "en": "Retrieval interval (min)",
-    "de": "Abrufintervall (min)",
-    "ru": "Интервал поиска (мин)",
-    "pt": "Intervalo de recuperação (min)",
-    "nl": "Ophaalinterval (min)",
-    "fr": "Intervalle de récupération (min)",
-    "it": "Intervallo di recupero (min)",
-    "es": "Intervalo de recuperación (min)",
-    "pl": "Interwał wyszukiwania (min)",
-    "zh-cn": "检索间隔（分钟）"
+    "en": "Retrieval interval (s)",
+    "de": "Abrufintervall (s)",
+    "ru": "Интервал поиска (s)",
+    "pt": "Intervalo de recuperação (s)",
+    "nl": "Ophaalinterval (s)",
+    "fr": "Intervalle de récupération (s)",
+    "it": "Intervallo di recupero (s)",
+    "es": "Intervalo de recuperación (s)",
+    "pl": "Interwał wyszukiwania (s)",
+    "zh-cn": "检索间隔（s）"
+  },
+  "getSignalQuality": {
+    "en": "retrieve signal quality",
+    "de": "Signalqualität abrufen",
+    "ru": "получить качество сигнала",
+    "pt": "recuperar a qualidade do sinal",
+    "nl": "_",
+    "fr": "récupérer la qualité du signal",
+    "it": "recuperare la qualità del segnale",
+    "es": "recuperar la calidad de la señal",
+    "pl": "wyszukiwanie jakości sygnałów",
+    "uk": "отримувати якість сигналу",
+    "zh-cn": "b. 恢复信号质量"
   },
   "gsmsettings": {
     "en": "GSM settings",

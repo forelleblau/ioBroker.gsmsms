@@ -28,6 +28,8 @@ var pin = '';
 var customInitCommand = '';
 var cnmiModemOpen = '';
 var cnmiModemClosed = '';
+var getSignalQuality = false;
+var pollinginterval = 30;
 
 var baudRate = 19200;
 var dataBits = 8;
@@ -148,6 +150,9 @@ class Gsmsms extends utils.Adapter {
       customInitCommand = this.config.customInitCommand;
       cnmiModemOpen = 'AT+CNMI=' + this.config.cnmiModemOpen;
       cnmiModemClosed = 'AT+CNMI=' + this.config.cnmiModemClosed;
+      getSignalQuality = this.config.getSignalQuality;
+      pollinginterval = this.config.pollinginterval * 1000;
+
 
       baudRate = this.config.baudRate;
       dataBits = this.config.dataBits;
@@ -172,6 +177,9 @@ class Gsmsms extends utils.Adapter {
       this.log.debug('customInitCommand: ' + customInitCommand);
       this.log.debug('cnmiModemOpen: ' + cnmiModemOpen);
       this.log.debug('cnmiModemClosed: ' + cnmiModemClosed);
+      this.log.debug('getSignalQuality: ' + getSignalQuality);
+      this.log.debug('pollinginterval: ' + pollinginterval);
+
 
       this.log.debug('baudRate: ' + baudRate);
       this.log.debug('dataBits: ' + dataBits);
@@ -235,7 +243,7 @@ class Gsmsms extends utils.Adapter {
 
       gettingSignals = setInterval(() => {
         this.getSignals()
-      }, 15000);
+      }, pollinginterval);
 
 
       /*

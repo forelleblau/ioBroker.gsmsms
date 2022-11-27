@@ -113,6 +113,7 @@
     "enableConcatenation": true,
     "incomingCallIndication": false,
     "incomingSMSIndication": true,
+    "getSignalQuality": false,
     "pin": "",
     "customInitCommand": "",
     "cnmiModemOpen": "2,1,0,2,0",
@@ -126,7 +127,7 @@
     "xoff": false,
     "xany": false,
     "connectionMode": "alwaysopen",
-    "pollinginterval": 10
+    "pollinginterval": 30
   },
   "objects": [],
   "instanceObjects": [{
