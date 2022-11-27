@@ -93,6 +93,7 @@
     "materialize": true,
     "messagebox": true,
     "blockly": true,
+    "logTransporter": false,
     "dependencies": [{
       "js-controller": ">=3.0.0"
     }],

@@ -148,7 +148,7 @@ Blockly.Blocks['gsmsms'] = {
       .setCheck('String')
       .appendField(Blockly.Translate('gsmsms_recipient'));
 
-    this.appendValueInput("ALERT")
+    this.appendDummyInput("ALERT")
       .appendField(Blockly.Translate('gsmsms_alert'))
       .appendField(new Blockly.FieldCheckbox('FALSE'), 'ALERT');
 

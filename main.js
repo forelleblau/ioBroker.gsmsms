@@ -81,6 +81,7 @@ class Gsmsms extends utils.Adapter {
     // this.on('objectChange', this.onObjectChange.bind(this));
     this.on('message', this.onMessage.bind(this));
     this.on('unload', this.onUnload.bind(this));
+    //this.on('log', this.onLog.bind(this));
   }
 
   /**
@@ -112,7 +113,21 @@ class Gsmsms extends utils.Adapter {
 
   } //end onMessage
 
+  /*async onLog(logObject) {
+    // Here we have the log in "logObject" and can handle it accordingly.
+    // LogObject: {from:'testlog.0', message: 'testlog.0 (12504) adapter disabled', severity: 'error', ts:1585413238439}
 
+    if (logObject.severity == 'debug' && logObject.from == 'gsmsms.' + this.instance && logObject.message.includes('RSSI') == true) {
+      //this.log.info("RSSI - Message:" + logObject.message);
+      var sigQual = logObject.message.slice(-2);
+      this.log.info("RSSI - NEW:" + sigQual);
+      this.setState('info.signalQuality', parseInt(sigQual), true);
+
+    }
+    //const severity = logObject.severity; // the log level (severity): info, warn, error, etc.
+    // ....
+  } // end onLog
+*/
   async onReady() {
     try {
       // Initialize your adapter here
@@ -188,6 +203,8 @@ class Gsmsms extends utils.Adapter {
       this.subscribeStates('sendSMS.send');
       this.subscribeStates('sendSMS.messageRaw');
 
+      this.requireLog(true);
+
       // You can also add a subscription for multiple states. The following line watches all states starting with "lights."
       // this.subscribeStates('lights.*');
       // Or, if you really must, you can also watch all states. Don't do this if you don't need to. Otherwise this will cause a lot of unnecessary load on the system:
@@ -214,6 +231,12 @@ class Gsmsms extends utils.Adapter {
 
 
       await this.modemInitialize();
+
+      var gettingSignals = setInterval(() => {
+        this.getSignals()
+      }, 15000);
+
+
       /*
             if (connectionMode == 'polling') {
               polling = setInterval(() => { // poll states every [10] minute
@@ -406,22 +429,7 @@ class Gsmsms extends utils.Adapter {
           }
 
           // get the Network signal strength & quality
-          gsmModem.getNetworkSignal((result, err) => {
-            if (err) {
-              this.log.warn(`Error retrieving GSM signal strength - ${err}`);
-              this.setState('info.error', JSON.stringify(err), true);
-            } else {
-              this.log.debug(`GSM signal strength: ${JSON.stringify(result)}`);
-              if (result.status == 'success') {
-                this.setState('info.signalQuality', parseInt(result.data.signalQuality), true);
-                this.setState('info.signalStrength', parseInt(result.data.signalStrength), true);
-              } else {
-                this.log.warn("Problem retrieving GSM signal strength: " + JSON.stringify(result));
-                this.setState('info.error', JSON.stringify(result), true);
-              }
-
-            }
-          });
+          this.getSignals();
 
           // get Modem Serial Number
           gsmModem.getModemSerial((result, err) => {
@@ -446,6 +454,24 @@ class Gsmsms extends utils.Adapter {
       this.log.warn("Error startup " + e);
     }
   } //end startup()
+
+  async getSignals() {
+    gsmModem.getNetworkSignal((result, err) => {
+      if (err) {
+        this.log.warn(`Error retrieving GSM signal strength - ${err}`);
+        this.setState('info.error', JSON.stringify(err), true);
+      } else {
+        this.log.debug(`GSM signal strength: ${JSON.stringify(result)}`);
+        if (result.status == 'success') {
+          this.setState('info.signalQuality', parseInt(result.data.signalQuality), true);
+          this.setState('info.signalStrength', parseInt(result.data.signalStrength), true);
+        } else {
+          this.log.warn("Problem retrieving GSM signal strength: " + JSON.stringify(result));
+          this.setState('info.error', JSON.stringify(result), true);
+        }
+      }
+    });
+  } //end getSignals
 
 
   async readSIM() {
@@ -850,7 +876,7 @@ class Gsmsms extends utils.Adapter {
       // clearTimeout(timeout2);
       // ...
       // clearInterval(interval1);
-
+      clearInterval(gettingSignals);
       clearInterval(storedMessageParser);
       //clearInterval(polling);
 
