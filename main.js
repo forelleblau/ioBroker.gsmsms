@@ -204,7 +204,7 @@ class Gsmsms extends utils.Adapter {
       this.subscribeStates('sendSMS.send');
       this.subscribeStates('sendSMS.messageRaw');
 
-      this.requireLog(true);
+      //this.requireLog(true);
 
       // You can also add a subscription for multiple states. The following line watches all states starting with "lights."
       // this.subscribeStates('lights.*');
