@@ -54,6 +54,7 @@ var messageRawJson = {
 };
 
 var storedMessageParser;
+var gettingSignals;
 
 /*
 var reinitialize = {
@@ -232,7 +233,7 @@ class Gsmsms extends utils.Adapter {
 
       await this.modemInitialize();
 
-      var gettingSignals = setInterval(() => {
+      gettingSignals = setInterval(() => {
         this.getSignals()
       }, 15000);
 
