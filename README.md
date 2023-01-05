@@ -146,7 +146,7 @@ This adapter is based on the [SerialPort-GSM plugin](https://github.com/zabsalah
 
 MIT License
 
-Copyright (c) 2022 forelleblau <mailto:marceladam@gmx.ch>
+Copyright (c) 2022-2023 forelleblau <mailto:marceladam@gmx.ch>
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
