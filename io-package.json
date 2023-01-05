@@ -1,529 +1,478 @@
 {
-  "common": {
-    "name": "gsmsms",
-    "version": "0.0.3",
-    "news": {
-      "0.0.3": {
-        "en": "dependencies updated, bugs fixed",
-        "de": "abhängigkeiten aktualisiert, fehler behoben",
-        "ru": "обновляемые зависимости, исправлены ошибки",
-        "pt": "dependências atualizadas, bugs corrigidos",
-        "nl": "afhankelijkheid geüpload",
-        "fr": "dépendances mises à jour, bugs corrigés",
-        "it": "dipendenze aggiornate, bug fissi",
-        "es": "dependencias actualizadas, errores fijos",
-        "pl": "aktualizacja",
-        "uk": "залежностей оновлено, виправлено помилки",
-        "zh-cn": "b. 更新的依赖、固定的刺激"
-      },
-      "0.0.2": {
-        "en": "first published version",
-        "de": "erste veröffentlichte Version",
-        "ru": "первая опубликованная версия",
-        "pt": "primeira versão publicada",
-        "nl": "eerste gepubliceerde versie",
-        "fr": "première version publiée",
-        "it": "prima versione pubblicata",
-        "es": "primera versión publicada",
-        "pl": "pierwsze wydanie",
-        "uk": "перший опублікований варіант",
-        "zh-cn": "第一次出版"
-      },
-      "0.0.1": {
-        "en": "initial release",
-        "de": "Erster Versuch",
-        "ru": "начальный выпуск",
-        "pt": "lançamento inicial",
-        "nl": "niet",
-        "fr": "initial release",
-        "it": "rilascio iniziale",
-        "es": "liberación inicial",
-        "pl": "pierwsze wydanie",
-        "uk": "початковий реліз",
-        "zh-cn": "初步释放"
-      }
-    },
-    "titleLang": {
-      "en": "GSM-SMS",
-      "de": "GSM-SMS",
-      "ru": "GSM-SMS",
-      "pt": "GSM-SMS",
-      "nl": "GSM-SMS",
-      "fr": "GSM-SMS",
-      "it": "GSM-SMS",
-      "es": "GSM-SMS",
-      "pl": "GSM-SMS",
-      "zh-cn": "GSM-短信"
-    },
-    "desc": {
-      "en": "Send and recieve SMS with GSM-hardware",
-      "de": "SMS senden und empfangen mit GSM-Hardware",
-      "ru": "Отправка и получение SMS с помощью GSM-оборудования",
-      "pt": "Envie e receba SMS com hardware GSM",
-      "nl": "SMS versturen en ontvangen met GSM-hardware",
-      "fr": "Envoyer et recevoir des SMS avec le matériel GSM",
-      "it": "Invia e ricevi SMS con hardware GSM",
-      "es": "Envíe y reciba SMS con hardware GSM",
-      "pl": "Wysyłaj i odbieraj SMS-y za pomocą sprzętu GSM",
-      "zh-cn": "使用 GSM 硬件发送和接收短信"
-    },
-    "authors": [
-      "forelleblau <marceladam@gmx.ch>"
-    ],
-    "keywords": [
-      "SMS",
-      "GSM",
-      "Communication",
-      "Message"
-    ],
-    "license": "MIT",
-    "platform": "Javascript/Node.js",
-    "main": "main.js",
-    "icon": "gsmsms.png",
-    "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/forelleblau/ioBroker.gsmsms/main/admin/gsmsms.png",
-    "readme": "https://github.com/forelleblau/ioBroker.gsmsms/blob/main/README.md",
-    "loglevel": "info",
-    "mode": "daemon",
-    "type": "messaging",
-    "compact": true,
-    "connectionType": "local",
-    "dataSource": "push",
-    "tier": 3,
-    "materialize": true,
-    "messagebox": true,
-    "blockly": true,
-    "logTransporter": false,
-    "dependencies": [{
-      "js-controller": ">=3.0.0"
-    }],
-    "globalDependencies": [{
-      "admin": ">=4.0.9"
-    }]
-  },
-  "protectedNative": [
-    "pin"
-  ],
-  "encryptedNative": [
-    "pin"
-  ],
-  "native": {
-    "port": "",
-    "autoDeleteOnReceive": true,
-    "enableConcatenation": true,
-    "incomingCallIndication": false,
-    "incomingSMSIndication": true,
-    "getSignalQuality": false,
-    "pin": "",
-    "customInitCommand": "",
-    "cnmiModemOpen": "2,1,0,2,0",
-    "cnmiModemClosed": "2,0,2,2,1",
-    "baudRate": 19200,
-    "dataBits": 8,
-    "stopBits": 1,
-    "parity": "none",
-    "rtscts": false,
-    "xon": false,
-    "xoff": false,
-    "xany": false,
-    "connectionMode": "alwaysopen",
-    "pollinginterval": 30
-  },
-  "objects": [],
-  "instanceObjects": [{
-      "_id": "admin",
-      "type": "channel",
-      "common": {
-        "name": "Settings & AT+Command"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "admin.ownName",
-      "type": "state",
-      "common": {
-        "name": "Own Name",
-        "type": "string",
-        "options": {
-          "maxLength": 17
+    "common": {
+        "name": "gsmsms",
+        "version": "0.0.3",
+        "news": {
+            "0.0.3": {
+                "en": "dependencies updated, bugs fixed",
+                "de": "abhängigkeiten aktualisiert, fehler behoben",
+                "ru": "обновляемые зависимости, исправлены ошибки",
+                "pt": "dependências atualizadas, bugs corrigidos",
+                "nl": "afhankelijkheid geüpload",
+                "fr": "dépendances mises à jour, bugs corrigés",
+                "it": "dipendenze aggiornate, bug fissi",
+                "es": "dependencias actualizadas, errores fijos",
+                "pl": "aktualizacja",
+                "uk": "залежностей оновлено, виправлено помилки",
+                "zh-cn": "b. 更新的依赖、固定的刺激"
+            },
+            "0.0.2": {
+                "en": "first published version",
+                "de": "erste veröffentlichte Version",
+                "ru": "первая опубликованная версия",
+                "pt": "primeira versão publicada",
+                "nl": "eerste gepubliceerde versie",
+                "fr": "première version publiée",
+                "it": "prima versione pubblicata",
+                "es": "primera versión publicada",
+                "pl": "pierwsze wydanie",
+                "uk": "перший опублікований варіант",
+                "zh-cn": "第一次出版"
+            },
+            "0.0.1": {
+                "en": "initial release",
+                "de": "Erster Versuch",
+                "ru": "начальный выпуск",
+                "pt": "lançamento inicial",
+                "nl": "niet",
+                "fr": "initial release",
+                "it": "rilascio iniziale",
+                "es": "liberación inicial",
+                "pl": "pierwsze wydanie",
+                "uk": "початковий реліз",
+                "zh-cn": "初步释放"
+            }
         },
-        "role": "text",
-        "read": true,
-        "write": true,
-        "desc": "Name to SIM-card number (sender)"
-      },
-      "native": {
-
-      }
+        "titleLang": {
+            "en": "GSM-SMS",
+            "de": "GSM-SMS",
+            "ru": "GSM-SMS",
+            "pt": "GSM-SMS",
+            "nl": "GSM-SMS",
+            "fr": "GSM-SMS",
+            "it": "GSM-SMS",
+            "es": "GSM-SMS",
+            "pl": "GSM-SMS",
+            "zh-cn": "GSM-短信",
+            "uk": "GSM-SMS"
+        },
+        "desc": {
+            "en": "Send and recieve SMS with GSM-hardware",
+            "de": "SMS senden und empfangen mit GSM-Hardware",
+            "ru": "Отправка и получение SMS с помощью GSM-оборудования",
+            "pt": "Envie e receba SMS com hardware GSM",
+            "nl": "SMS versturen en ontvangen met GSM-hardware",
+            "fr": "Envoyer et recevoir des SMS avec le matériel GSM",
+            "it": "Invia e ricevi SMS con hardware GSM",
+            "es": "Envíe y reciba SMS con hardware GSM",
+            "pl": "Wysyłaj i odbieraj SMS-y za pomocą sprzętu GSM",
+            "zh-cn": "使用 GSM 硬件发送和接收短信",
+            "uk": "Надсилайте та отримуйте SMS за допомогою GSM-апаратного забезпечення"
+        },
+        "authors": [
+            "forelleblau <marceladam@gmx.ch>"
+        ],
+        "keywords": [
+            "SMS",
+            "GSM",
+            "Communication",
+            "Message"
+        ],
+        "license": "MIT",
+        "platform": "Javascript/Node.js",
+        "main": "main.js",
+        "icon": "gsmsms.png",
+        "enabled": true,
+        "extIcon": "https://raw.githubusercontent.com/forelleblau/ioBroker.gsmsms/main/admin/gsmsms.png",
+        "readme": "https://github.com/forelleblau/ioBroker.gsmsms/blob/main/README.md",
+        "loglevel": "info",
+        "mode": "daemon",
+        "type": "messaging",
+        "compact": true,
+        "connectionType": "local",
+        "dataSource": "push",
+        "tier": 3,
+        "materialize": true,
+        "messagebox": true,
+        "blockly": true,
+        "logTransporter": false,
+        "dependencies": [
+            {
+                "js-controller": ">=3.0.0"
+            }
+        ],
+        "globalDependencies": [
+            {
+                "admin": ">=4.0.9"
+            }
+        ]
     },
-    {
-      "_id": "admin.ownNumber",
-      "type": "state",
-      "common": {
-        "name": "Own Number",
-        "type": "string",
-        "role": "text.phone",
-        "read": true,
-        "write": true,
-        "desc": "SIM-card phone number (sender)"
-      },
-      "native": {
-
-      }
+    "protectedNative": [
+        "pin"
+    ],
+    "encryptedNative": [
+        "pin"
+    ],
+    "native": {
+        "port": "",
+        "autoDeleteOnReceive": true,
+        "enableConcatenation": true,
+        "incomingCallIndication": false,
+        "incomingSMSIndication": true,
+        "getSignalQuality": false,
+        "pin": "",
+        "customInitCommand": "",
+        "cnmiModemOpen": "2,1,0,2,0",
+        "cnmiModemClosed": "2,0,2,2,1",
+        "baudRate": 19200,
+        "dataBits": 8,
+        "stopBits": 1,
+        "parity": "none",
+        "rtscts": false,
+        "xon": false,
+        "xoff": false,
+        "xany": false,
+        "connectionMode": "alwaysopen",
+        "pollinginterval": 30
     },
-    {
-      "_id": "admin.opMode",
-      "type": "state",
-      "common": {
-        "name": "Operating mode",
-        "type": "string",
-        "role": "state",
-        "read": true,
-        "write": true,
-        "def": "PDU",
-        "desc": "SMS operating Mode set only 'PDU'(default) or 'SMS'"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "admin.atCommandSLR",
-      "type": "state",
-      "common": {
-        "name": "AT+command single line response",
-        "type": "string",
-        "role": "state",
-        "read": true,
-        "write": true,
-        "desc": "AT+ command to be executed with single line response expected"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "admin.atCommandResponse",
-      "type": "state",
-      "common": {
-        "name": "Response to AT+command(single line only)",
-        "type": "string",
-        "role": "state",
-        "read": true,
-        "write": false,
-        "desc": "Single line response to sent AT+ command"
-      },
-      "native": {
-
-      }
-    },
-
-    {
-      "_id": "info",
-      "type": "channel",
-      "common": {
-        "name": "Connection Info"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "info.connection",
-      "type": "state",
-      "common": {
-        "name": "Modem connected",
-        "type": "boolean",
-        "role": "info.status",
-        "read": true,
-        "write": false,
-        "def": false,
-        "desc": "Indicates Connection to modem"
-      },
-      "native": {}
-    },
-    {
-      "_id": "info.ownName",
-      "type": "state",
-      "common": {
-        "name": "Own Name",
-        "type": "string",
-        "role": "text",
-        "read": true,
-        "write": false,
-        "desc": "Name to SIM-card number (sender)"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "info.ownNumber",
-      "type": "state",
-      "common": {
-        "name": "Own Number",
-        "type": "string",
-        "role": "text.phone",
-        "read": true,
-        "write": false,
-        "desc": "SIM-card phone number (sender)"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "info.opMode",
-      "type": "state",
-      "common": {
-        "name": "Operating modules",
-        "type": "string",
-        "role": "state",
-        "read": true,
-        "write": false,
-        "desc": "SMS operating Mode, can be 'PDU' (default) or 'SMS'"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "info.modemSerial",
-      "type": "state",
-      "common": {
-        "name": "Modem serial number",
-        "type": "number",
-        "role": "info.address",
-        "read": true,
-        "write": false,
-        "desc": "Modem serial number"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "info.signalQuality",
-      "type": "state",
-      "common": {
-        "name": "signal quality",
-        "type": "number",
-        "role": "value",
-        "read": true,
-        "write": false,
-        "desc": "Network signal quality"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "info.signalStrength",
-      "type": "state",
-      "common": {
-        "name": "signal strength",
-        "type": "number",
-        "role": "value",
-        "read": true,
-        "write": false,
-        "desc": "Network signal strength"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "info.error",
-      "type": "state",
-      "common": {
-        "name": "SMS device error",
-        "type": "string",
-        "role": "text",
-        "read": true,
-        "write": false,
-        "desc": "Error returned from the modem device"
-      },
-      "native": {
-
-      }
-    },
-
-
-    {
-      "_id": "sendSMS",
-      "type": "channel",
-      "common": {
-        "name": "Send SMS"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "sendSMS.recipient",
-      "type": "state",
-      "common": {
-        "name": "recipient number",
-        "type": "string",
-        "role": "text.phone",
-        "read": true,
-        "write": true,
-        "desc": "recipients number (+41xxx or 41xxx)"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "sendSMS.message",
-      "type": "state",
-      "common": {
-        "name": "message text",
-        "type": "string",
-        "role": "text",
-        "read": true,
-        "write": true,
-        "desc": "message text"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "sendSMS.alert",
-      "type": "state",
-      "common": {
-        "name": "message class",
-        "type": "boolean",
-        "role": "state",
-        "read": true,
-        "write": true,
-        "desc": "Enable to send as class 0 / flash message or disable to send as nomral SMS",
-        "def": false
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "sendSMS.messageRaw",
-      "type": "state",
-      "common": {
-        "name": "complete message to send",
-        "type": "string",
-        "role": "text",
-        "read": true,
-        "write": true,
-        "desc": "complete message to send, with recipient, message text and alert state as json-formatted string"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "sendSMS.send",
-      "type": "state",
-      "common": {
-        "name": "Send SMS",
-        "type": "boolean",
-        "role": "button",
-        "read": true,
-        "write": true,
-        "desc": "SMS is sent to recipent specified"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "sendSMS.messageRawSent",
-      "type": "state",
-      "common": {
-        "name": "complete message sent",
-        "type": "string",
-        "role": "text",
-        "read": true,
-        "write": false,
-        "desc": "complete message sent, with recipient, message text and alert state (Outbox)"
-      },
-      "native": {
-
-      }
-    },
-
-    {
-      "_id": "inbox",
-      "type": "channel",
-      "common": {
-        "name": "Recieved SMS"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "inbox.messageText",
-      "type": "state",
-      "common": {
-        "name": "message text",
-        "type": "string",
-        "role": "text",
-        "read": true,
-        "write": false,
-        "desc": "message text"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "inbox.messageSender",
-      "type": "state",
-      "common": {
-        "name": "sender number",
-        "type": "string",
-        "role": "text.phone",
-        "read": true,
-        "write": false,
-        "desc": "senders phone number"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "inbox.messageDate",
-      "type": "state",
-      "common": {
-        "name": "message dateTime",
-        "type": "string",
-        "role": "date",
-        "read": true,
-        "write": false,
-        "desc": "Date / tima message was sent"
-      },
-      "native": {
-
-      }
-    },
-    {
-      "_id": "inbox.messageRaw",
-      "type": "state",
-      "common": {
-        "name": "compelete message info",
-        "type": "string",
-        "role": "json",
-        "read": true,
-        "write": false,
-        "desc": "compelete message info - stringified json"
-      },
-      "native": {
-
-      }
-    }
-
-
-  ]
+    "objects": [],
+    "instanceObjects": [
+        {
+            "_id": "admin",
+            "type": "channel",
+            "common": {
+                "name": "Settings & AT+Command"
+            },
+            "native": {}
+        },
+        {
+            "_id": "admin.ownName",
+            "type": "state",
+            "common": {
+                "name": "Own Name",
+                "type": "string",
+                "options": {
+                    "maxLength": 17
+                },
+                "role": "text",
+                "read": true,
+                "write": true,
+                "desc": "Name to SIM-card number (sender)"
+            },
+            "native": {}
+        },
+        {
+            "_id": "admin.ownNumber",
+            "type": "state",
+            "common": {
+                "name": "Own Number",
+                "type": "string",
+                "role": "text.phone",
+                "read": true,
+                "write": true,
+                "desc": "SIM-card phone number (sender)"
+            },
+            "native": {}
+        },
+        {
+            "_id": "admin.opMode",
+            "type": "state",
+            "common": {
+                "name": "Operating mode",
+                "type": "string",
+                "role": "state",
+                "read": true,
+                "write": true,
+                "def": "PDU",
+                "desc": "SMS operating Mode set only 'PDU'(default) or 'SMS'"
+            },
+            "native": {}
+        },
+        {
+            "_id": "admin.atCommandSLR",
+            "type": "state",
+            "common": {
+                "name": "AT+command single line response",
+                "type": "string",
+                "role": "state",
+                "read": true,
+                "write": true,
+                "desc": "AT+ command to be executed with single line response expected"
+            },
+            "native": {}
+        },
+        {
+            "_id": "admin.atCommandResponse",
+            "type": "state",
+            "common": {
+                "name": "Response to AT+command(single line only)",
+                "type": "string",
+                "role": "state",
+                "read": true,
+                "write": false,
+                "desc": "Single line response to sent AT+ command"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info",
+            "type": "channel",
+            "common": {
+                "name": "Connection Info"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.connection",
+            "type": "state",
+            "common": {
+                "name": "Modem connected",
+                "type": "boolean",
+                "role": "info.status",
+                "read": true,
+                "write": false,
+                "def": false,
+                "desc": "Indicates Connection to modem"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.ownName",
+            "type": "state",
+            "common": {
+                "name": "Own Name",
+                "type": "string",
+                "role": "text",
+                "read": true,
+                "write": false,
+                "desc": "Name to SIM-card number (sender)"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.ownNumber",
+            "type": "state",
+            "common": {
+                "name": "Own Number",
+                "type": "string",
+                "role": "text.phone",
+                "read": true,
+                "write": false,
+                "desc": "SIM-card phone number (sender)"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.opMode",
+            "type": "state",
+            "common": {
+                "name": "Operating modules",
+                "type": "string",
+                "role": "state",
+                "read": true,
+                "write": false,
+                "desc": "SMS operating Mode, can be 'PDU' (default) or 'SMS'"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.modemSerial",
+            "type": "state",
+            "common": {
+                "name": "Modem serial number",
+                "type": "number",
+                "role": "info.address",
+                "read": true,
+                "write": false,
+                "desc": "Modem serial number"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.signalQuality",
+            "type": "state",
+            "common": {
+                "name": "signal quality",
+                "type": "number",
+                "role": "value",
+                "read": true,
+                "write": false,
+                "desc": "Network signal quality"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.signalStrength",
+            "type": "state",
+            "common": {
+                "name": "signal strength",
+                "type": "number",
+                "role": "value",
+                "read": true,
+                "write": false,
+                "desc": "Network signal strength"
+            },
+            "native": {}
+        },
+        {
+            "_id": "info.error",
+            "type": "state",
+            "common": {
+                "name": "SMS device error",
+                "type": "string",
+                "role": "text",
+                "read": true,
+                "write": false,
+                "desc": "Error returned from the modem device"
+            },
+            "native": {}
+        },
+        {
+            "_id": "sendSMS",
+            "type": "channel",
+            "common": {
+                "name": "Send SMS"
+            },
+            "native": {}
+        },
+        {
+            "_id": "sendSMS.recipient",
+            "type": "state",
+            "common": {
+                "name": "recipient number",
+                "type": "string",
+                "role": "text.phone",
+                "read": true,
+                "write": true,
+                "desc": "recipients number (+41xxx or 41xxx)"
+            },
+            "native": {}
+        },
+        {
+            "_id": "sendSMS.message",
+            "type": "state",
+            "common": {
+                "name": "message text",
+                "type": "string",
+                "role": "text",
+                "read": true,
+                "write": true,
+                "desc": "message text"
+            },
+            "native": {}
+        },
+        {
+            "_id": "sendSMS.alert",
+            "type": "state",
+            "common": {
+                "name": "message class",
+                "type": "boolean",
+                "role": "state",
+                "read": true,
+                "write": true,
+                "desc": "Enable to send as class 0 / flash message or disable to send as nomral SMS",
+                "def": false
+            },
+            "native": {}
+        },
+        {
+            "_id": "sendSMS.messageRaw",
+            "type": "state",
+            "common": {
+                "name": "complete message to send",
+                "type": "string",
+                "role": "text",
+                "read": true,
+                "write": true,
+                "desc": "complete message to send, with recipient, message text and alert state as json-formatted string"
+            },
+            "native": {}
+        },
+        {
+            "_id": "sendSMS.send",
+            "type": "state",
+            "common": {
+                "name": "Send SMS",
+                "type": "boolean",
+                "role": "button",
+                "read": true,
+                "write": true,
+                "desc": "SMS is sent to recipent specified"
+            },
+            "native": {}
+        },
+        {
+            "_id": "sendSMS.messageRawSent",
+            "type": "state",
+            "common": {
+                "name": "complete message sent",
+                "type": "string",
+                "role": "text",
+                "read": true,
+                "write": false,
+                "desc": "complete message sent, with recipient, message text and alert state (Outbox)"
+            },
+            "native": {}
+        },
+        {
+            "_id": "inbox",
+            "type": "channel",
+            "common": {
+                "name": "Recieved SMS"
+            },
+            "native": {}
+        },
+        {
+            "_id": "inbox.messageText",
+            "type": "state",
+            "common": {
+                "name": "message text",
+                "type": "string",
+                "role": "text",
+                "read": true,
+                "write": false,
+                "desc": "message text"
+            },
+            "native": {}
+        },
+        {
+            "_id": "inbox.messageSender",
+            "type": "state",
+            "common": {
+                "name": "sender number",
+                "type": "string",
+                "role": "text.phone",
+                "read": true,
+                "write": false,
+                "desc": "senders phone number"
+            },
+            "native": {}
+        },
+        {
+            "_id": "inbox.messageDate",
+            "type": "state",
+            "common": {
+                "name": "message dateTime",
+                "type": "string",
+                "role": "date",
+                "read": true,
+                "write": false,
+                "desc": "Date / tima message was sent"
+            },
+            "native": {}
+        },
+        {
+            "_id": "inbox.messageRaw",
+            "type": "state",
+            "common": {
+                "name": "compelete message info",
+                "type": "string",
+                "role": "json",
+                "read": true,
+                "write": false,
+                "desc": "compelete message info - stringified json"
+            },
+            "native": {}
+        }
+    ]
 }
