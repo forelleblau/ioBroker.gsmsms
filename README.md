@@ -2,15 +2,13 @@
 
 # ioBroker.gsmsms
 
-[![NPM version](https://img.shields.io/npm/v/iobroker.gsmsms.svg)](https://www.npmjs.com/package/iobroker.gsmsms)
-[![Downloads](https://img.shields.io/npm/dm/iobroker.gsmsms.svg)](https://www.npmjs.com/package/iobroker.gsmsms)
 ![Number of Installations](https://iobroker.live/badges/gsmsms-installed.svg)
 ![Current version in stable repository](https://iobroker.live/badges/gsmsms-stable.svg)
-[![Dependency Status](https://img.shields.io/david/forelleblau/iobroker.gsmsms.svg)](https://david-dm.org/forelleblau/iobroker.gsmsms)
+[![NPM version](https://img.shields.io/npm/v/iobroker.gsmsms.svg)](https://www.npmjs.com/package/iobroker.gsmsms)
 
-[![NPM](https://nodei.co/npm/iobroker.gsmsms.png?downloads=true)](https://nodei.co/npm/iobroker.gsmsms/)
+![Test and Release](https://github.com/forelleblau/ioBroker.gsmsms/workflows/Test%20and%20Release/badge.svg)
+[![Downloads](https://img.shields.io/npm/dm/iobroker.gsmsms.svg)](https://www.npmjs.com/package/iobroker.gsmsms)
 
-**Tests:** ![Test and Release](https://github.com/forelleblau/ioBroker.gsmsms/workflows/Test%20and%20Release/badge.svg)
 
 ## gsmsms adapter for ioBroker
 
@@ -30,6 +28,8 @@ Some devices have to be set to the right mode for serial communication (see 'usb
 #### Path to Serial Port - required.
 
 e.g. `/dev/ttyUSB0` or `/dev/serial/by-id/xxxxxxxxxxx` (by-id is more stable, ttyUSBx can change with a reboot)
+
+Some devices expose multiple USB port, so it can be that you need to try it out. Most likely the "first" on will work, but will maybe not deliver "incoming message notifications", then you can try the other and send in a sms and see if some seconds later it is received (on a Huawai this is the third port as example).
 
 #### Your SIM PIN
 
@@ -66,7 +66,7 @@ Not to run out of SIM-Memory, all SMS are deleted from SIM after delivery/readin
 
 ### SerialPort settings
 
-Please refer to your GMS-device specs
+Please refer to your GMS-device specs (Google will help in most cases)
 
 | Name     | Type    | Default | Description                                             |
 | -------- | ------- | ------- | ------------------------------------------------------- |
@@ -83,7 +83,7 @@ Please refer to your GMS-device specs
 
 #### To be specified as adapter - objects (`admin.x`)
 
--   your name (default is `ownNumber`), maximum lenght is 16 chars.
+-   your name (default is `ownNumber`), maximum length is 16 chars.
 -   your phone Number.
 -   SMS operating Mode (`PDU` or `SMS`, `PDU` is default and recommended).
 
@@ -131,17 +131,15 @@ This adapter is based on the [SerialPort-GSM plugin](https://github.com/zabsalah
 -->
 
 ### **WORK IN PROGRESS**
+-   (Apollon77) Optimizations
 
 ### 0.0.3
-
 -   (forelleblau) dependencies updated, bugs fixed
 
 ### 0.0.2
-
 -   (forelleblau) first published version
 
 ### 0.0.1
-
 -   (forelleblau) initial release
 
 ## License
