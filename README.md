@@ -59,7 +59,7 @@ Not to run out of SIM-Memory, all SMS are deleted from SIM after delivery/readin
 | --------------------------- | ------- | ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | Incoming SMS indication     | boolean | true                      | Enables the modem to notify that a new SMS message has been received.                                                                                                                                                            |
 | Enable concatenation        | boolean | true                      | Receive concatenated messages as one.                                                                                                                                                                                            |
-| Custom Iinit command        | string  |                           | If your device needs a custom initialization command it can be provided and will be used after PIN check. The command is expected to return `'OK'` (empty, means "no custom command for init"). pls refer your GSM-device specs. |
+| Custom Iinit command        | string  |                           | If your device needs a custom initialization command it can be provided and will be used after PIN check. i.e. some devices need 'AT+CPMS="SM","SM","SM"' to get the right storage set. The command is expected to return `'OK'` (empty, means "no custom command for init"). pls refer your GSM-device specs. |
 | CNMI when modem open/closed | string  | '2,1,0,2,0' / '2,0,2,2,1' | Defines if messages are saved on SIM or delivered instantly. pls refer your GSM-device specs.                                                                                                                                    |
 
 <!--| Incoming call indication    | boolean | false                     | Receive `'onNewIncomingCall'` event when receiving calls.                                                                                                                 |-->                                                       
@@ -131,7 +131,8 @@ This adapter is based on the [SerialPort-GSM plugin](https://github.com/zabsalah
 -->
 
 ### **WORK IN PROGRESS**
--   (Apollon77) Optimizations
+### 0.0.4
+-   (Apollon77) Optimizations, brush up to comply with ioBroker.repositories requirements
 
 ### 0.0.3
 -   (forelleblau) dependencies updated, bugs fixed
