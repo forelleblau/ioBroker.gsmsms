@@ -527,10 +527,12 @@ class Gsmsms extends utils.Adapter {
       const result = await gsmModem.getOwnNumber();
       this.log.debug(`Own number: ${JSON.stringify(result)}`);
       this.log.info('Your number: ' + result.data.number + ', your name: ' + result.data.name);
-      this.setState('info.ownNumber', result.data.number, true);
-      this.setState('info.ownName', result.data.name, true);
-      this.setState('admin.ownNumber', result.data.number, true);
-      this.setState('admin.ownName', result.data.name, true);
+      if (result.data.number && result.data.name) {
+        this.setState('info.ownNumber', result.data.number, true);
+        this.setState('info.ownName', result.data.name, true);
+        this.setState('admin.ownNumber', result.data.number, true);
+        this.setState('admin.ownName', result.data.name, true);
+      }
     } catch (err) {
       this.log.warn(`Error retrieving own Number - ${err}`);
       this.setState('info.error', JSON.stringify(err), true);
