@@ -22,8 +22,11 @@
     "type": "git",
     "url": "https://github.com/forelleblau/ioBroker.gsmsms"
   },
+  "engines": {
+    "node": ">=16.0.0"
+  },
   "dependencies": {
-    "@iobroker/adapter-core": "^2.6.7",
+    "@iobroker/adapter-core": "^3.0.3",
     "serialport-gsm": "^4.0.1"
   },
   "devDependencies": {
@@ -59,7 +62,7 @@
     "main.js"
   ],
   "scripts": {
-    "test:js": "mocha --config test/mocharc.custom.json \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
+    "test:js": "mocha \"{!(node_modules|test)/**/*.test.js,*.test.js,test/**/test!(PackageFiles|Startup).js}\"",
     "test:package": "mocha test/package --exit",
     "test:unit": "mocha test/unit --exit",
     "test:integration": "mocha test/integration --exit",
@@ -69,9 +72,7 @@
     "release": "release-script",
     "translate": "translate-adapter"
   },
-  "engines": {
-    "node": ">=16.0.0"
-  },
+
   "bugs": {
     "url": "https://github.com/forelleblau/ioBroker.gsmsms/issues"
   },
