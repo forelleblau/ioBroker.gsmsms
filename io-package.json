@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "gsmsms",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "news": {
+      "0.0.5": {
+        "en": "(forelleblau) bug fixed (adapter set \"undefined\" into state values)",
+        "de": "(forelleblau) fehler behoben (adapter set \"undefined\" into state values)",
+        "ru": "(forelleblau) исправлена ошибка (adapter set \"undefined\" into state values)",
+        "pt": "(forelleblau) bug corrigido (adapter set \"undefined\" into state values)",
+        "nl": "(forelleblau) quality over quantity (qoq) releases vertaling:(adapter set \"undefined\" into state values)",
+        "fr": "(forelleblau) bug corrigé (adapter set \"undefined\" into state values)",
+        "it": "(forelleblau) bug fisso (adapter set \"undefined\" into state values)",
+        "es": "(forelleblau) bug fijo (adapter set \"undefined\" into state values)",
+        "pl": "(forelleblau) ułożono błędy (adapter set \"undefined\" into state values)",
+        "uk": "(forelleblau) виправлено помилку (adapter set \"undefined\" into state values)",
+        "zh-cn": "(forelleblau) augix (adapter set \"undefined\" into state values)"
+      },
       "0.0.4": {
         "en": "Optimizations, brush up to comply with ioBroker.repositories requirements",
         "de": "Optimierungen, Bürsten bis ioBroker. Repository-Anforderungen",
