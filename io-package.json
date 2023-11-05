@@ -120,8 +120,16 @@
     "tier": 1,
     "materialize": true,
     "messagebox": true,
+    "supportedMessages": {
+      "custom": true,
+      "notifications": true
+    },
+    "subscribe": "messagebox",
     "blockly": true,
     "logTransporter": false,
+    "adminUI": {
+      "config": "json"
+    }
     "dependencies": [{
       "js-controller": ">=3.0.0"
     }],

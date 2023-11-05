@@ -1,0 +1,180 @@
+{
+  "type": "tabs",
+  "i18n": true,
+  "items": {
+    "portconnection": {
+      "type": "panel",
+      "label": "portConnection",
+      "items": {
+        "_image": {
+          "type": "staticImage",
+          "tooltip": "GSMSMS",
+          "src": "gsmsms.png",
+          "style": {
+            "width": 50,
+            "height": 50
+          }
+        }
+        "port": {
+          "type": "text",
+          "label": "port",
+          "sm": 12,
+          "md": 6,
+          "lg": 6
+        },
+        "pin": {
+          "type": "text",
+          "label": "pin",
+          "sm": 12,
+          "md": 6,
+          "lg": 6
+        }
+      }
+    },
+    "gsm": {
+      "type": "panel",
+      "label": "gsm",
+      "items": {
+        "incomingSMSIndication": {
+          "newLine": true,
+          "type": "checkbox",
+          "label": "incomingSMSIndication"
+        },
+        "autoDeleteOnReceive": {
+          "type": "checkbox",
+          "label": "autoDeleteOnReceive"
+        },
+        "enableConcatenation": {
+          "newLine": true,
+          "type": "checkbox",
+          "label": "enableConcatenation"
+        },
+        "getSignalQuality": {
+          "newLine": true,
+          "type": "checkbox",
+          "label": "getSignalQuality",
+          "sm": 12,
+          "md": 6,
+          "lg": 6
+        },
+        "pollinginterval": {
+          "type": "number",
+          "min": 5,
+          "max": 86400,
+          "label": "pollinginterval",
+          "sm": 12,
+          "md": 6,
+          "lg": 3
+        },
+        "customInitCommand": {
+          "newLine": true,
+          "type": "text",
+          "label": "customInitCommand",
+          "sm": 12,
+          "md": 6,
+          "lg": 6
+        },
+        "cnmiModemOpen": {
+          "newLine": true,
+          "type": "text",
+          "label": "cnmiModemOpen",
+          "sm": 12,
+          "md": 6,
+          "lg": 6
+        },
+        "cnmiModemClosed": {
+          "type": "text",
+          "label": "cnmiModemClosed",
+          "sm": 12,
+          "md": 6,
+          "lg": 6
+        }
+      }
+    },
+    "serialport": {
+      "type": "panel",
+      "label": "serialport",
+      "items": {
+        "baudRate": {
+          "type": "number",
+          "sm": 12,
+          "md": 8,
+          "lg": 4,
+          "label": "baudRate"
+        },
+        "dataBits": {
+          "newLine": true,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "type": "number",
+          "label": "dataBits"
+        },
+        "stopBits": {
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "type": "number",
+          "label": "stopBits"
+        },
+        "parity": {
+          "type": "select",
+          "label": "parity",
+          "options": [{
+              "label": "none",
+              "value": "none"
+            },
+            {
+              "label": "odd",
+              "value": "odd"
+            },
+            {
+              "label": "even",
+              "value": "even"
+            },
+            {
+              "label": "mark",
+              "value": "mark"
+            },
+            {
+              "label": "space",
+              "value": "space"
+            }
+          ],
+          "sm": 12,
+          "md": 6,
+          "lg": 4
+        },
+        "rtscts": {
+          "newLine": true,
+          "type": "checkbox",
+          "label": "rtscts",
+          "sm": 6,
+          "md": 3,
+          "lg": 3
+        },
+        "xon": {
+          "type": "checkbox",
+          "label": "xon",
+          "sm": 6,
+          "md": 3,
+          "lg": 3
+        },
+        "xoff": {
+          "type": "checkbox",
+          "label": "xoff",
+          "sm": 6,
+          "md": 3,
+          "lg": 3
+        },
+        "xany": {
+          "type": "checkbox",
+          "label": "xany",
+          "sm": 6,
+          "md": 3,
+          "lg": 3
+        }
+      }
+    }
+  }
+}
