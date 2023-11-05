@@ -127,14 +127,15 @@
     "subscribe": "messagebox",
     "blockly": true,
     "logTransporter": false,
+    "jsonConfig": true,
     "adminUI": {
       "config": "json"
-    }
+    },
     "dependencies": [{
       "js-controller": ">=3.0.0"
     }],
     "globalDependencies": [{
-      "admin": ">=4.0.9"
+      "admin": ">=5.0.0"
     }]
   },
   "protectedNative": [
