@@ -14,7 +14,7 @@
             "width": 50,
             "height": 50
           }
-        }
+        },
         "port": {
           "type": "text",
           "label": "port",
