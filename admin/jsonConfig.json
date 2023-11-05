@@ -6,15 +6,6 @@
       "type": "panel",
       "label": "portConnection",
       "items": {
-        "_image": {
-          "type": "staticImage",
-          "tooltip": "GSMSMS",
-          "src": "gsmsms.png",
-          "style": {
-            "width": 50,
-            "height": 50
-          }
-        },
         "port": {
           "type": "text",
           "label": "port",
