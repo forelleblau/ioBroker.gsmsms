@@ -93,7 +93,7 @@ class Gsmsms extends utils.Adapter {
   async onMessage(obj) {
     try {
       if (obj.command === 'sendNotification') {
-        processNotification(adapter, obj);
+        await this.processNotification(obj);
       } else {
         this.log.debug('Recieved Message, data: ' + JSON.stringify(obj));
         const messageToSend = {
@@ -700,8 +700,8 @@ class Gsmsms extends utils.Adapter {
 
 
 
-  async processNotification(adapter, obj) {
-    adapter.log.info(`New notification received from ${obj}`);
+  async processNotification(obj) {
+    this.log.info(`New notification received from:  ${JSON.stringify(obj)}`);
 
     /*const mail = buildMessageFromNotification(obj.message)
     sendEmail(adapter, null, null, mail, error => {
