@@ -475,5 +475,18 @@ systemDictionary = {
     "pl": "Podstawy podstawowe",
     "uk": "Основні налаштування",
     "zh-cn": "基本规定"
+  },
+  "defaultrecipientnotifications": {
+    "en": "Default recipient for notifications",
+    "de": "Standardempfänger für Benachrichtigungen",
+    "ru": "По умолчанию получатель для уведомлений",
+    "pt": "Receptor padrão para notificações",
+    "nl": "Defecte ontvangst voor inlichtingen",
+    "fr": "Récipiendaire par défaut pour les notifications",
+    "it": "Ricevitore predefinito per le notifiche",
+    "es": "Recibido por defecto para notificaciones",
+    "pl": "Default odbiorca za powiadomienie",
+    "uk": "За замовчуванням одержувача для повідомлень",
+    "zh-cn": "被告通知"
   }
 };

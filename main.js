@@ -92,18 +92,21 @@ class Gsmsms extends utils.Adapter {
 
   async onMessage(obj) {
     try {
-      this.log.debug('Recieved Message, data: ' + JSON.stringify(obj));
-      const messageToSend = {
-        recipient: 'Number',
-        message: 'Yourtext',
-        alert: 'false'
-      };
-      messageToSend.recipient = obj.message.recipient;
-      messageToSend.message = obj.message.text;
-      messageToSend.alert = obj.message.alert;
+      if (obj.command === 'sendNotification') {
+        processNotification(adapter, obj);
+      } else {
+        this.log.debug('Recieved Message, data: ' + JSON.stringify(obj));
+        const messageToSend = {
+          recipient: 'Number',
+          message: 'Yourtext',
+          alert: 'false'
+        };
+        messageToSend.recipient = obj.message.recipient;
+        messageToSend.message = obj.message.text;
+        messageToSend.alert = obj.message.alert;
 
-      await this.sending(messageToSend);
-
+        await this.sending(messageToSend);
+      }
     } catch (e) {
       this.log.warn('Error onMessage' + e);
     }
@@ -694,6 +697,40 @@ class Gsmsms extends utils.Adapter {
     }
 
   } //end controlSIM
+
+
+
+  async processNotification(adapter, obj) {
+    adapter.log.info(`New notification received from ${obj}`);
+
+    /*const mail = buildMessageFromNotification(obj.message)
+    sendEmail(adapter, null, null, mail, error => {
+      obj.callback && adapter.sendTo(obj.from, 'sendNotification', {
+        sent: !error
+      }, obj.callback);
+    });*/
+  }
+
+
+  async buildMessageFromNotification(message) {
+    const subject = message.category.name;
+    const {
+      instances
+    } = message.category;
+
+    const readableInstances = Object.entries(instances).map(([instance, entry]) => `${instance.substring('system.adapter.'.length)}: ${getNewestDate(entry.messages)}`);
+
+    const text = `${message.category.description}
+
+${message.host}:
+${readableInstances.join('\n')}
+    `;
+
+    return {
+      subject,
+      text
+    };
+  }
 
   /*
   modemClose() {
