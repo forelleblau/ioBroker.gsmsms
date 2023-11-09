@@ -555,15 +555,30 @@ class Gsmsms extends utils.Adapter {
           'sentTo': result.data.recipient
         };
         this.setState('sendSMS.messageRawSent', JSON.stringify(messageSent), true);
+
+        if (messageRawJson.message.includes('ioB_notification')) {
+          return true;
+        };
+
       } else if (result.data.response === 'Successfully Sent to Message Queue') {
         this.log.debug('Message processing: ' + JSON.stringify(result));
+        if (messageRawJson.message.includes('ioB_notification')) {
+          return false;
+        };
       } else {
         this.log.warn('Error sending message: ' + JSON.stringify(result));
+        if (messageRawJson.message.includes('ioB_notification')) {
+          return false;
+        };
       }
     } catch (e) {
       this.log.warn('Error sending message' + e);
+      if (messageRawJson.message.includes('ioB_notification')) {
+        return false;
+      };
     }
   } //end sending()
+
 
 
   async setOpMode(id, state) {
@@ -701,36 +716,33 @@ class Gsmsms extends utils.Adapter {
 
 
   async processNotification(obj) {
-    this.log.info(`New notification received from:  ${JSON.stringify(obj)}`);
+    this.log.debug(`New notification received from:  ${JSON.stringify(obj)}`);
 
-    /*const mail = buildMessageFromNotification(obj.message)
-    sendEmail(adapter, null, null, mail, error => {
-      obj.callback && adapter.sendTo(obj.from, 'sendNotification', {
-        sent: !error
-      }, obj.callback);
-    });*/
-  }
-
-
-  async buildMessageFromNotification(message) {
-    const subject = message.category.name;
-    const {
-      instances
-    } = message.category;
-
-    const readableInstances = Object.entries(instances).map(([instance, entry]) => `${instance.substring('system.adapter.'.length)}: ${getNewestDate(entry.messages)}`);
-
-    const text = `${message.category.description}
-
-${message.host}:
-${readableInstances.join('\n')}
-    `;
-
-    return {
-      subject,
-      text
+    const messageToSend = {
+      recipient: 'Number',
+      message: 'Yourtext',
+      alert: 'false'
     };
+    messageToSend.recipient = this.config.defaultrecipientnotifications;
+    messageToSend.message = 'ioB_notification from ' + obj.message.host + ': ' + obj.message.category.name;
+    messageToSend.alert = false;
+    this.log.debug(`Notification SMS: ${JSON.stringify(messageToSend)}`);
+
+    let notirep = await this.sending(messageToSend);
+
+    if (notirep = true) {
+      this.sendTo(obj.from, 'sendNotification', {
+        sent: true
+      }, obj.callback);
+
+    } else {
+      this.sendTo(obj.from, 'sendNotification', {
+        sent: false
+      }, obj.callback);
+    }
+
   }
+
 
   /*
   modemClose() {
