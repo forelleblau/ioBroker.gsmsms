@@ -1,8 +1,21 @@
 {
   "common": {
     "name": "gsmsms",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "news": {
+      "0.0.6": {
+        "en": "(forelleblau) jsonConfig.json, notifications-manager",
+        "de": "(forelleblau) jsonConfig.json, notifications-manager",
+        "ru": "(forelleblau) jsonConfig.json, уведомления-менеджер",
+        "pt": "(forelleblau) jsonConfig.json, notificações-manager",
+        "nl": "(forelleblau) jsonConfig.json, notifications-manager",
+        "fr": "(forelleblau) jsonConfig.json, notifications-manager",
+        "it": "(forelleblau) jsonConfig.json, notifiche-manager",
+        "es": "(forelleblau) jsonConfig.json, notifications-manager",
+        "pl": "(Forelleblau) jsonConfig.json, notifications-manager",
+        "uk": "(forelleblau) jsonConfig.json, сповіщення-менеджер",
+        "zh-cn": "(forelleblau) jsonConfig.json, notifications-manager
+      },
       "0.0.5": {
         "en": "(forelleblau) bug fixed (adapter set \"undefined\" into state values)",
         "de": "(forelleblau) fehler behoben (adapter set \"undefined\" into state values)",
@@ -165,7 +178,7 @@
     "xany": false,
     "connectionMode": "alwaysopen",
     "pollinginterval": 30,
-    "defaultrecipientnotifications":""
+    "defaultrecipientnotifications": ""
   },
   "objects": [],
   "instanceObjects": [{
