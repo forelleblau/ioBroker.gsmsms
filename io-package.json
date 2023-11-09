@@ -14,7 +14,7 @@
         "es": "(forelleblau) jsonConfig.json, notifications-manager",
         "pl": "(Forelleblau) jsonConfig.json, notifications-manager",
         "uk": "(forelleblau) jsonConfig.json, сповіщення-менеджер",
-        "zh-cn": "(forelleblau) jsonConfig.json, notifications-manager
+        "zh-cn": "(forelleblau) jsonConfig.json, notifications-manager"
       },
       "0.0.5": {
         "en": "(forelleblau) bug fixed (adapter set \"undefined\" into state values)",
