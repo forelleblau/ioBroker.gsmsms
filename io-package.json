@@ -120,7 +120,6 @@
     "connectionType": "local",
     "dataSource": "push",
     "tier": 1,
-    "materialize": true,
     "messagebox": true,
     "supportedMessages": {
       "custom": true,

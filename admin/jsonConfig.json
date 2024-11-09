@@ -37,56 +37,81 @@
         "incomingSMSIndication": {
           "newLine": true,
           "type": "checkbox",
-          "label": "incomingSMSIndication"
+          "label": "incomingSMSIndication",
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "xl": 4
         },
         "autoDeleteOnReceive": {
           "type": "checkbox",
-          "label": "autoDeleteOnReceive"
+          "label": "autoDeleteOnReceive",
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "xl": 4
         },
         "enableConcatenation": {
           "newLine": true,
           "type": "checkbox",
-          "label": "enableConcatenation"
+          "label": "enableConcatenation",
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "xl": 4
         },
         "getSignalQuality": {
           "newLine": true,
           "type": "checkbox",
           "label": "getSignalQuality",
+          "xs": 12,
           "sm": 12,
           "md": 6,
-          "lg": 6
+          "lg": 4,
+          "xl": 4
         },
         "pollinginterval": {
           "type": "number",
           "min": 5,
           "max": 86400,
           "label": "pollinginterval",
+          "xs": 12,
           "sm": 12,
           "md": 6,
-          "lg": 3
+          "lg": 4,
+          "xl": 4
         },
         "customInitCommand": {
           "newLine": true,
           "type": "text",
           "label": "customInitCommand",
+          "xs": 12,
           "sm": 12,
           "md": 6,
-          "lg": 6
+          "lg": 4,
+          "xl": 4
         },
         "cnmiModemOpen": {
           "newLine": true,
           "type": "text",
           "label": "cnmiModemOpen",
+          "xs": 12,
           "sm": 12,
           "md": 6,
-          "lg": 6
+          "lg": 4,
+          "xl": 4
         },
         "cnmiModemClosed": {
           "type": "text",
           "label": "cnmiModemClosed",
+          "xs": 12,
           "sm": 12,
           "md": 6,
-          "lg": 6
+          "lg": 4,
+          "xl": 4
         }
       }
     },
@@ -96,23 +121,30 @@
       "items": {
         "baudRate": {
           "type": "number",
+          "xs": 12,
           "sm": 12,
-          "md": 8,
+          "md": 6,
           "lg": 4,
+          "xl": 4,
           "label": "baudRate"
         },
         "dataBits": {
           "newLine": true,
+          "xs": 12,
           "sm": 12,
           "md": 6,
           "lg": 4,
+          "xl": 4,
           "type": "number",
           "label": "dataBits"
         },
         "stopBits": {
+
+          "xs": 12,
           "sm": 12,
           "md": 6,
           "lg": 4,
+          "xl": 4,
           "type": "number",
           "label": "stopBits"
         },
@@ -140,38 +172,48 @@
               "value": "space"
             }
           ],
+          "xs": 12,
           "sm": 12,
           "md": 6,
-          "lg": 4
+          "lg": 4,
+          "xl": 4
         },
         "rtscts": {
           "newLine": true,
           "type": "checkbox",
           "label": "rtscts",
-          "sm": 6,
-          "md": 3,
-          "lg": 3
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "xl": 4
         },
         "xon": {
           "type": "checkbox",
           "label": "xon",
-          "sm": 6,
-          "md": 3,
-          "lg": 3
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "xl": 4
         },
         "xoff": {
           "type": "checkbox",
           "label": "xoff",
-          "sm": 6,
-          "md": 3,
-          "lg": 3
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "xl": 4
         },
         "xany": {
           "type": "checkbox",
           "label": "xany",
-          "sm": 6,
-          "md": 3,
-          "lg": 3
+          "xs": 12,
+          "sm": 12,
+          "md": 6,
+          "lg": 4,
+          "xl": 4
         }
       }
     }
