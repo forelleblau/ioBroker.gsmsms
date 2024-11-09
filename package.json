@@ -16,17 +16,18 @@
     "SMS",
     "GSM",
     "Communication",
-    "Message"
+    "Message",
+    "ioBroker"
   ],
   "repository": {
     "type": "git",
     "url": "https://github.com/forelleblau/ioBroker.gsmsms"
   },
   "engines": {
-    "node": ">=16.0.0"
+    "node": ">=18.0.0"
   },
   "dependencies": {
-    "@iobroker/adapter-core": "^3.0.3",
+    "@iobroker/adapter-core": "^3.2.2",
     "serialport-gsm": "^4.0.1"
   },
   "devDependencies": {
@@ -34,7 +35,7 @@
     "@alcalzone/release-script-plugin-iobroker": "^3.5.9",
     "@alcalzone/release-script-plugin-license": "^3.5.9",
     "@iobroker/adapter-dev": "^1.2.0",
-    "@iobroker/testing": "^4.1.0",
+    "@iobroker/testing": "^4.1.3",
     "@types/chai": "^4.3.4",
     "@types/chai-as-promised": "^7.1.5",
     "@types/mocha": "^10.0.1",
