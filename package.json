@@ -11,10 +11,7 @@
     "email": "iobroker@fischer-ka.de"
   }],
   "homepage": "https://github.com/forelleblau/ioBroker.gsmsms",
-  "licenseInformation": {
-    "type": "free",
-    "license": "MIT"
-  },
+  "license": "MIT",
   "keywords": [
     "SMS",
     "GSM",
