@@ -67,19 +67,6 @@
         "pl": "pierwsze wydanie",
         "uk": "перший опублікований варіант",
         "zh-cn": "第一次出版"
-      },
-      "0.0.1": {
-        "en": "initial release",
-        "de": "Erster Versuch",
-        "ru": "начальный выпуск",
-        "pt": "lançamento inicial",
-        "nl": "niet",
-        "fr": "initial release",
-        "it": "rilascio iniziale",
-        "es": "liberación inicial",
-        "pl": "pierwsze wydanie",
-        "uk": "початковий реліз",
-        "zh-cn": "初步释放"
       }
     },
     "titleLang": {
@@ -117,9 +104,8 @@
       "Communication",
       "Message"
     ],
-    "license": "MIT",
+    "licenseInformation": "MIT",
     "platform": "Javascript/Node.js",
-    "main": "main.js",
     "icon": "gsmsms.png",
     "enabled": true,
     "extIcon": "https://raw.githubusercontent.com/forelleblau/ioBroker.gsmsms/main/admin/gsmsms.png",
@@ -137,7 +123,6 @@
       "custom": true,
       "notifications": true
     },
-    "subscribe": "messagebox",
     "blockly": true,
     "logTransporter": false,
     "jsonConfig": true,
@@ -145,7 +130,7 @@
       "config": "json"
     },
     "dependencies": [{
-      "js-controller": ">=3.0.0"
+      "js-controller": ">=5.0.19"
     }],
     "globalDependencies": [{
       "admin": ">=5.0.0"
