@@ -104,7 +104,10 @@
       "Communication",
       "Message"
     ],
-    "licenseInformation": "MIT",
+    "licenseInformation": {
+      "type": "free",
+      "license": "MIT"
+    },
     "platform": "Javascript/Node.js",
     "icon": "gsmsms.png",
     "enabled": true,
