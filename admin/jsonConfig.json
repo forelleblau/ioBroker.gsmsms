@@ -12,24 +12,30 @@
         "port": {
           "type": "text",
           "label": "port",
+          "xs": 12,
           "sm": 12,
           "md": 6,
-          "lg": 6
+          "lg": 4,
+          "xl": 4
         },
         "pin": {
           "type": "text",
           "label": "pin",
+          "xs": 12,
           "sm": 12,
           "md": 6,
-          "lg": 6
+          "lg": 4,
+          "xl": 4
         },
         "defaultrecipientnotifications": {
           "newLine": true,
           "type": "text",
           "label": "defaultrecipientnotifications",
+          "xs": 12,
           "sm": 12,
           "md": 6,
-          "lg": 6
+          "lg": 4,
+          "xl": 4
         }
       }
     },
