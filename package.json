@@ -6,22 +6,28 @@
     "name": "forelleblau",
     "email": "marceladam@gmx.ch"
   },
-  "contributors": [{
-    "name": "Apollon77",
-    "email": "iobroker@fischer-ka.de"
-  }],
-  "homepage": "https://github.com/forelleblau/ioBroker.gsmsms",
+  "contributors": [
+    {
+      "name": "Apollon77",
+      "email": "iobroker@fischer-ka.de"
+    },
+    {
+      "name": "iobroker-community-adapters",
+      "email": "iobroker-community-adapters@gmx.de"
+    }
+  ],
+  "homepage": "https://github.com/iobroker-community-adapters/ioBroker.gsmsms",
   "license": "MIT",
   "keywords": [
+    "ioBroker",
     "SMS",
     "GSM",
     "Communication",
-    "Message",
-    "ioBroker"
+    "Message"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/forelleblau/ioBroker.gsmsms"
+    "url": "https://github.com/iobroker-community-adapters/ioBroker.gsmsms"
   },
   "engines": {
     "node": ">=18.0.0"
@@ -75,7 +81,7 @@
   },
 
   "bugs": {
-    "url": "https://github.com/forelleblau/ioBroker.gsmsms/issues"
+    "url": "https://github.com/iobroker-community-adapters/ioBroker.gsmsms/issues"
   },
   "readmeFilename": "README.md"
 }

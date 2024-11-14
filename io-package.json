@@ -96,7 +96,8 @@
       "uk": "Надсилайте та отримуйте SMS за допомогою GSM-апаратного забезпечення"
     },
     "authors": [
-      "forelleblau <marceladam@gmx.ch>"
+      "forelleblau <marceladam@gmx.ch>",
+      "Iobroker Community<iobroker-community-adapters@gmx.de>"
     ],
     "keywords": [
       "SMS",
@@ -111,8 +112,8 @@
     "platform": "Javascript/Node.js",
     "icon": "gsmsms.png",
     "enabled": true,
-    "extIcon": "https://raw.githubusercontent.com/forelleblau/ioBroker.gsmsms/main/admin/gsmsms.png",
-    "readme": "https://github.com/forelleblau/ioBroker.gsmsms/blob/main/README.md",
+    "extIcon": "https://raw.githubusercontent.com/iobroker-community-adapters/ioBroker.gsmsms/main/admin/gsmsms.png",
+    "readme": "https://github.com/iobroker-community-adapters/ioBroker.gsmsms/blob/main/README.md",
     "loglevel": "info",
     "mode": "daemon",
     "type": "messaging",
@@ -135,7 +136,7 @@
       "js-controller": ">=5.0.19"
     }],
     "globalDependencies": [{
-      "admin": ">=5.0.0"
+      "admin": ">=6.17.14"
     }]
   },
   "protectedNative": [
